@@ -1,0 +1,30 @@
+.profile-text {
+  font-family: Helvetica;
+  font-size: 1.5vw; }
+
+.location-text {
+  font-style: center;
+  font-size: 1vw;
+  margin-left: 5vw; }
+
+.button-style {
+  height: 3vw;
+  width: 15vw;
+  border-style: ridge;
+  background-color: aqua; }
+
+.profile {
+  width: 10vw;
+  height: 15vw;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black; }
+
+.map {
+  width: 40vw;
+  height: 15vw; }
+
+.blue {
+  background: blue; }
+
+/*# sourceMappingURL=stylesheet.css.map */
