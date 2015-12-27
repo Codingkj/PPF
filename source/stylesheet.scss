@@ -1,26 +1,41 @@
 @import "./sass/Colors";
-@import "./sass/Textformats";
+@import "./sass/textformats";
 @import "./sass/Buttons";
 @import "./sass/settings";
 
 
-.button-style{
-  height: 3vw;
-  width: 15vw;
-  border-style: ridge;
-  background-color: aqua;
-}
 .profile{
 	width:10vw;
-	height:15vw;
+	height:10vw;
 	border-width:2px;
 	border-style: solid;
 	border-color: black;
 }
 .map{
-	width:40vw;
-	height:15vw;
+	width:100%;
 }
 .blue{
 	background: blue;
+}
+.panel{
+	width:100%;
+}
+.separator .row {
+	margin-top: 5vw;
+	padding-top: 5vw;
+	color:white;
+}
+.separator {
+	max-width: 100%;
+	min-height:50%;
+	background-color: white;
+}
+.table-div{
+	width: 100%;
+}
+.hidden{
+	display:none;
+}
+#dashboard-appointments{
+	width:50%;
 }
