@@ -21,21 +21,59 @@
 	width:100%;
 }
 .separator .row {
-	margin-top: 5vw;
-	padding-top: 5vw;
+	margin-top: 3vw;
+	padding-top: 3vw;
 	color:white;
 }
 .separator {
 	max-width: 100%;
-	min-height:50%;
+	min-height:30%;
 	background-color: white;
 }
-.table-div{
+.table-week{
 	width: 100%;
+	font-size: 1vw;
 }
 .hidden{
 	display:none;
 }
 #dashboard-appointments{
 	width:50%;
+}
+.location-div{
+	border:solid;
+	border-width: 1px;
+	border-radius: 1px;
+	border-color: black;
+}
+.date-panel{
+	border-radius: 1px;
+	background-color: white;
+	padding:1px;
+	border-style: solid;
+	border-color: black;
+	border-width: 1px;
+}
+.text-message-notice{
+	padding:1px;
+	border-style: solid;
+	border-radius: 1px;
+	border-color: black;
+	border-width: 1px;
+	background-color: $softgray;
+}
+.empty-square{
+	background-color: $softgray;
+}
+.std-panel-size{
+	width:80%;
+	margin-left: 10%;
+}
+.sml-panel-size{
+	width:40%;
+	margin-left: 30%;
+}
+.contact-form-style{
+	padding:2vw;
+	background-color: $softpink;
 }

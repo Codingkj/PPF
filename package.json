@@ -1,0 +1,29 @@
+{
+  "name": "Something",
+  "version": "1.0.0",
+  "description": "Something",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^9.0.3",
+    "gulp": "^3.8.11",
+    "gulp-html-minifier": "^0.1.6",
+    "reactify": "^1.0.0",
+    "vinyl-source-stream": "^1.0.0"
+  },
+  "dependencies": {
+    "flux": "^2.1.1",
+    "gulp-uglify": "^1.1.0",
+    "node-uuid": "^1.4.2",
+    "rc-calendar": "^5.2.0",
+    "react": "^0.14",
+    "react-dom": "^0.14.3",
+    "vinyl-buffer": "^1.0.0"
+  }
+}
