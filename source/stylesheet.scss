@@ -4,6 +4,20 @@
 @import "./sass/settings";
 
 
+
+.sticky{
+	width:100%;
+	background-color: black;
+	color:white;
+}
+.backdrop{
+	background-image: url(../img/waikato.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	width:100%;
+	height:60vw;
+
+}
 .profile{
 	width:10vw;
 	height:10vw;
@@ -23,7 +37,8 @@
 .separator .row {
 	margin-top: 3vw;
 	padding-top: 3vw;
-	color:white;
+	color: $verylightyellow;
+	background-color: $verylightyellow;
 }
 .separator {
 	max-width: 100%;
@@ -70,10 +85,33 @@
 	margin-left: 10%;
 }
 .sml-panel-size{
-	width:40%;
-	margin-left: 30%;
+	width:33%;
+	margin-left: 33%;
 }
 .contact-form-style{
 	padding:2vw;
 	background-color: $softpink;
+	border-radius: 4px;
+}
+.panel-box{
+	border-width: 1px;
+	border-style: solid;
+	border-radius:2px;
+	background-color: white;
+
+}
+.panel-text{
+	margin-left: 2vw;
+	color: black;
+	margin-bottom: none;
+	padding:0.5vw;
+}
+.date-highlight{
+	background-color: $pinkyred;
+	font-size: 2vw;
+	font-weight: 500;
+}
+.full-width{
+	width:100%;
+	margin:none;
 }
