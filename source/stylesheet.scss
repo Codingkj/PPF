@@ -31,6 +31,9 @@
 .blue{
 	background: blue;
 }
+.softpink{
+	background: $softpink;
+}
 .panel{
 	width:100%;
 }
@@ -48,6 +51,11 @@
 .table-week{
 	width: 100%;
 	font-size: 1vw;
+	height:60%;
+}
+.table-cell{
+	border-left:1px solid black;
+
 }
 .hidden{
 	display:none;
@@ -68,11 +76,21 @@
 	border-style: solid;
 	border-color: black;
 	border-width: 1px;
+	font-size: 1vw;
+}
+.large-date-panel{
+	border-radius: 3px;
+	background-color: $pinkyred;
+	padding:1px;
+	border-style: solid;
+	border-color: black;
+	border-width: 1px;
+	font-size: 1.5vw;
 }
 .text-message-notice{
 	padding:1px;
 	border-style: solid;
-	border-radius: 1px;
+	border-radius: 3px;
 	border-color: black;
 	border-width: 1px;
 	background-color: $softgray;

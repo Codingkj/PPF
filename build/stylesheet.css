@@ -1,5 +1,5 @@
-.week-view {
-  background-color: #e5ffff; }
+.week-view-background {
+  background-color: #ccffcc; }
 
 .appt-details {
   background-color: #ffcce6; }
@@ -9,6 +9,9 @@
 
 .page1-style {
   background-color: #ffffe5; }
+
+.gray {
+  background-color: #cccccc; }
 
 .profile-text {
   font-family: Helvetica;
@@ -38,12 +41,22 @@
   font-size: 0.8vw; }
 
 .second-weekly-header {
-  margin-top: none;
-  font-style: italic; }
+  margin-top: none; }
 
 .tagline {
   color: black;
   font-size: 1.5vw; }
+
+.align-right {
+  float: right; }
+
+.date-dayview {
+  margin-left: 2vw;
+  font-size: 1.5vw; }
+
+.weekly-header {
+  background-color: #ffcce6;
+  border-left: 1px solid black; }
 
 .x-large-button {
   height: 10vw;
@@ -80,7 +93,8 @@
   background-color: #66ffcc;
   font-size: 0.8vw;
   border-radius: 1vw;
-  margin-top: 1vw; }
+  margin-top: 1vw;
+  font-style: center; }
 
 #lockMonday {
   height: 2vw;
@@ -132,6 +146,9 @@
 .blue {
   background: blue; }
 
+.softpink {
+  background: #ffcce6; }
+
 .panel {
   width: 100%; }
 
@@ -148,7 +165,11 @@
 
 .table-week {
   width: 100%;
-  font-size: 1vw; }
+  font-size: 1vw;
+  height: 60%; }
+
+.table-cell {
+  border-left: 1px solid black; }
 
 .hidden {
   display: none; }
@@ -168,12 +189,22 @@
   padding: 1px;
   border-style: solid;
   border-color: black;
-  border-width: 1px; }
+  border-width: 1px;
+  font-size: 1vw; }
+
+.large-date-panel {
+  border-radius: 3px;
+  background-color: #ff80b2;
+  padding: 1px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  font-size: 1.5vw; }
 
 .text-message-notice {
   padding: 1px;
   border-style: solid;
-  border-radius: 1px;
+  border-radius: 3px;
   border-color: black;
   border-width: 1px;
   background-color: #cccccc; }
