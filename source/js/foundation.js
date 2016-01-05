@@ -4244,7 +4244,7 @@ OffCanvas.defaults = {
    */
   isRevealed: false,
   /**
-   * Breakpoint at which to reveal. JS will use a RegExp to target standard classes, if changing classnames, pass your class @`revealClass`.
+   * Breakpoint at which to reveal. JS will use a RegExp to target standard classes, if changing classNames, pass your class @`revealClass`.
    * @option
    * @example reveal-for-large
    */

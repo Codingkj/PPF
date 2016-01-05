@@ -8,10 +8,9 @@ var Dashboard =require('./components/AADashboard.jsx');
 var PractDashboard =require('./components/AADashboardPractitioners.jsx');
 var DateTime = require('./components/AADateTime.jsx');
 var LoginScreen =require('./components/AAlogin.jsx');
-var LandingPage = require('./components/AALandingPage.jsx');
+
 var Profiles = require('./components/AAProfiles.jsx');
-var Treatments1 = require('./components/AATreatments_Prac1.jsx');
-var Treatments2 = require('./components/AATreatments_Prac2.jsx');
+var Treatments = require('./components/AATreatments.jsx');
 var DailyView =require('./components/AAViewDay.jsx');
 var WeekView = require('./components/AAViewWeek.jsx');
 var Panel = require('./components/Panel.jsx');
@@ -19,19 +18,27 @@ var ConfirmCancel = require('./components/ConfirmCancel.jsx');
 var ConfirmLogout = require('./components/ConfirmLogout.jsx');
 var AppDetails = require('./components/AppDetails.jsx');
 var Policy = require('./components/Policy.jsx');
+var ClientStore = require('../stores/ClientStore.js');
+var AppointmentStore = require('../stores/AppointmentStore.js');
 
-var myDataRef = new Firebase('https://fnrl2oszzsa.firebaseio-demo.com/');
-myDataRef.set('User ' + 'name' + ' says ' + 'text');
 
-var StartApplication = React.createClass({
-  render: function(){
-    return (<div>
-	    	  <ApplicationStart />
-	    	  
-      </div>
-      );
-    }
-  });
 
-var StartPage = React.createElement(StartApplication);
-ReactDOM.render(StartPage, document.querySelector('[data-react-application]'));
+function findMatchingClient(email){
+	var allClients = ClientStore.getAllClients;
+	$.each(allClients, function(index){
+		if allClients[index].email == email){
+		   return allClients[index];
+	}
+}
+
+
+
+function highlightDate(date){
+      var checkdates = $('.active');
+      $.each(checkdates,function(index) {
+            if (checkdates[index].innerHTML == date.toString()){
+              var selectedDate = checkdates[index];
+             $(selectedDate).addClass('shaded').removeClass('unshaded');
+          }
+      });
+    } 

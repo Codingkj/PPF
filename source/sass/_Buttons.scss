@@ -1,0 +1,65 @@
+.x-large-button{
+	height: 10vw;
+  	width: 30vw;
+  	border-style: solid;
+  	border-radius: 2vw;
+  	margin:2vw;
+  	background-color: yellow;
+  	font-size: 2vw;
+  	padding: 1vw;	
+}
+
+.large-button{
+  	height: 7vw;
+  	width: 20vw;
+ 	border-style: solid;
+ 	background-color: $softblue;
+ 	font-size: 1.5vw;
+ 	border-radius: 2vw;
+ 	padding: 1vw;
+}
+.med-button{
+	height:3vw;
+	width:12vw;
+	border-style: solid;
+	background-color: $pinkyred;
+	font-size: 1vw;
+	border-radius: 1vw;
+}
+.small-button{
+	height:2vw;
+	width:7vw;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	background-color: $mintgreen;
+	font-size: 0.8vw;
+	border-radius: 1vw;
+	margin-top: 1vw;
+	font-style: center;
+}
+#lockMonday{
+	height:2vw;
+	width:10vw;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	background-color: $mintgreen;
+	font-size: 0.8vw;
+	border-radius: 1vw;
+	margin-top: 1vw;
+}
+.tiny-button{
+	height:2vw;
+	width: 7vw;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	background-color: $mintgreen;
+	font-size: 0.8vw;
+	border-radius: 1vw;
+}
+.name-as-button{
+	height:2vw;
+	width:100%;
+}

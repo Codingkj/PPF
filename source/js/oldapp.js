@@ -28,6 +28,35 @@ var StartApplication = React.createClass({
     return (<div>
 	    	  <ApplicationStart />
 	    	  
+		      
+		      
+		      // <DailyView />
+		      
+		      // <Dashboard />
+
+		      // <DateTime />
+		      
+		      // <PractDashboard />
+		     
+		      // <LoginScreen/>
+		      
+		      // <Profiles />
+		     
+		      // <Treatments1 />
+		      // <Treatments2 />
+		      
+		      // <WeekView />
+
+		      // <Panel />
+
+		      // <ConfirmCancel />
+
+		      // <ConfirmLogout />
+
+		      // <AppDetails />
+
+		      // <Policy />
+      
       </div>
       );
     }
