@@ -9,9 +9,44 @@ var DisplayTimes = require('./DisplayTimes.jsx');
 var MyCheckbox = require('./Checkbox.jsx');
 var MyCalendar = require('./Calendar.jsx');
 var ClientStore = require('../stores/ClientStore.js');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 var DateTime= React.createClass({
 
+  getInitialState: function () {
+    return {
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonth(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus()
+    };
+  },
+
+
+  handleChange: function () {
+      console.log("CHANGING");
+    this.setState({
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonth(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus(),
+    });
+    console.log('CHANGED TO ',day,month,year);
+  },
+
+  componentDidMount: function () {
+      ClientStore.addChangeListener(this.handleChange);
+      AppointmentStore.addChangeListener(this.handleChange);
+  },
+
+  componentWillUnmount: function () {
+      ClientStore.removeChangeListener(this.handleChange);
+      AppointmentStore.removeChangeListener(this.handleChange);
+  },
+
+  bookIt:function(){
+
+  },
 
   render: function(){
     return (<div className="section">
@@ -63,7 +98,7 @@ var DateTime= React.createClass({
               <div className="row">
                   <div className="columns medium-4 medium-offset-8">
                       <br />
-                      <MyButton className="med-button" type="button" value="BOOK IT!" />
+                      <MyButton clicked={this.bookIt} className="med-button" type="button" value="BOOK IT!" />
                   </div>
               </div>
               <br /><br />

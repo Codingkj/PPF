@@ -5,8 +5,18 @@ var Paragraph = require('./Paragraph.jsx');
 var TextInput = require('./TextInput.jsx');
 var MyButton = require('./Buttons.jsx');
 var MenuBar = require('./MenuBar.jsx');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 var Login = React.createClass({
+  loginClient:function(){
+    event.preventDefault();
+     AppointmentActionCreators.login();
+  },
+  createClient:function(){
+    event.preventDefault();
+     AppointmentActionCreators.createAccount();
+  },
+
   render: function(){
     return (<div>
 		   		<MenuBar /> 
@@ -29,7 +39,7 @@ var Login = React.createClass({
 				</div>
 				 <div className="row">
 				 	<div className="columns medium-7 medium-offset-5">
-				      <MyButton className="med-button" value="LOGIN" />
+				      <MyButton clicked={this.loginClient} className="med-button" value="LOGIN" />
 				      <br /><br />
 				     </div>
 		     	</div>
@@ -43,7 +53,7 @@ var Login = React.createClass({
 			      </div>
 			      <div className="row">
 			      	<div className="columns medium-6 medium-offset-6">
-			      		<MyButton className="med-button" value="Click here to create an account" type="button" />
+			      		<MyButton clicked={this.createClient} className="med-button" value="Click here to create an account" type="button" />
 			      	</div>
 			     </div>
 			     

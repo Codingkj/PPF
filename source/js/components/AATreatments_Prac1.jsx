@@ -6,12 +6,19 @@ var MyButton = require('./Buttons.jsx');
 var MyBreadcrumbs = require('./Breadcrumbs.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var ClientStore = require('../stores/ClientStore.js');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 var Treatments1 = React.createClass({
+  
+  bookTreatment: function(event){
+    event.preventDefault();
+     AppointmentActionCreators.bookPractitioner();
+  },
+
   render: function(){
 
-    var types = ClientStore;
-    var practitioners = ClientStore;
+    var types = ClientStore.getTreatments;
+    var practitioners = ClientStore.getPractice;
   
     var standardText = "What kind of treatment do you require from ";
     var firstText = standardText + practitioners.practitioner1 + ' ?';
@@ -35,16 +42,16 @@ var Treatments1 = React.createClass({
               <div className="row">
                 <div className="column medium-7 medium-offset-5"> 
                     <div className="treatment-button">  
-                    <MyButton className="med-button" type="button" value={types[0]}/>
+                    <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[0]}/>
                     </div>
                     <div className="treatment-button">
-                    <MyButton className="med-button" type="button" value={types[1]}/>
+                    <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[1]}/>
                     </div>
                     <div className="treatment-button">
-                    <MyButton className="med-button" type="button" value={types[2]}/>
+                    <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[2]}/>
                     </div>
                     <div className="treatment-button">
-                    <MyButton className="med-button" type="button" value={types[3]}/>
+                    <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[3]}/>
                     </div>
                   </div>
               </div>

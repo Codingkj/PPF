@@ -6,9 +6,15 @@ var MyButton = require('./Buttons.jsx');
 
 var MenuBar = require('./MenuBar.jsx');
 var ProfileImage = require('./ProfileImage.jsx');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 
 var Practitioners = React.createClass({
+  bookPractitioner: function(event){
+    event.preventDefault();
+     AppointmentActionCreators.bookPractitioner();
+  },
+
   render: function(){
     return (<div>
             <MenuBar />
@@ -23,7 +29,7 @@ var Practitioners = React.createClass({
                   <Paragraph value="Some text goes here about how the practitioner came to join the practice" />
                 </div>
                 <div className="columns medium-3"> 
-                  <MyButton className="med-button" type="button" value="BOOK NOW!" />
+                  <MyButton clicked={this.bookPractitioner} className="med-button" type="button" value="BOOK NOW!" />
                 </div>
               </div>
               <div className="row">
@@ -34,7 +40,7 @@ var Practitioners = React.createClass({
                   <Paragraph value="Some text goes here about how the practitioner came to join the practice" />
                 </div>
                 <div className="columns medium-3"> 
-                  <MyButton className="med-button" type="button" value="BOOK NOW!" />
+                  <MyButton clicked={this.bookPractitioner} className="med-button" type="button" value="BOOK NOW!" />
                 </div>
               </div>
              <br /><br /> 

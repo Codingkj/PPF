@@ -6,6 +6,37 @@ var ClientStore = require('../stores/ClientStore.js');
 
 var TableDay = React.createClass({
  
+  getInitialState: function () {
+    return {
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonth(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus()
+      };
+  },
+
+
+  handleChange: function () {
+      console.log("CHANGING");
+    this.setState({
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonth(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus(),
+    });
+    console.log('CHANGED TO ',day,month,year);
+  },
+
+  componentDidMount: function () {
+      ClientStore.addChangeListener(this.handleChange);
+      AppointmentStore.addChangeListener(this.handleChange);
+  },
+
+  componentWillUnmount: function () {
+      ClientStore.removeChangeListener(this.handleChange);
+      AppointmentStore.removeChangeListener(this.handleChange);
+  },
+
   render: function() {
   var todayNames = [];
   var todayTreatments = [];

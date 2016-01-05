@@ -6,8 +6,15 @@ var MyButton = require('./Buttons.jsx');
 var MyBreadcrumbs = require('./Breadcrumbs.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var ClientStore = require('../stores/ClientStore.js');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 var Treatments2 = React.createClass({
+  
+  bookTreatment: function(event){
+    event.preventDefault();
+     AppointmentActionCreators.bookPractitioner();
+  },
+
   render: function(){
     var types = ClientStore.getTreatments;
     var practitioners = ClientStore.getPractice;
@@ -35,13 +42,13 @@ var Treatments2 = React.createClass({
               <div className="row">
                 <div className="column medium-7 medium-offset-5">  
                     <div className="treatment-button">     
-                    <MyButton className="med-button" type="button" value={types[4]}/>
+                    <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[4]}/>
                     </div>
                     <div className="treatment-button">
-                    <MyButton className="med-button" type="button" value={types[5]}/>
+                    <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[5]}/>
                     </div>
                     <div className="treatment-button">
-                    <MyButton className="med-button" type="button" value={types[6]}/>
+                    <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[6]}/>
                     </div>
                 </div>
               </div>

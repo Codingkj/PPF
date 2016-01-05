@@ -14,7 +14,7 @@ var Table = require('./Table.jsx');
 var ContactForm = require('./ContactForm.jsx');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
-
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 
 var LandingPage = React.createClass({
@@ -42,6 +42,11 @@ var LandingPage = React.createClass({
       AppointmentStore.removeChangeListener(this.handleChange);
   },
 
+  titleClicked:function(){
+    event.preventDefault();
+     AppointmentActionCreators.login();
+  },
+
   render: function(){
     return (<div className="page-background1">
               <MenuBar />
@@ -49,7 +54,7 @@ var LandingPage = React.createClass({
               <div className="backdrop">
                   <div className="row">
                       <div className="columns medium-12">
-                          <PpButton value="Book An Appointment" className="x-large-button center" />
+                          <PpButton clicked={this.titleClicked} value="Book An Appointment" className="x-large-button center" />
                       </div>
                   </div>  
               </div>

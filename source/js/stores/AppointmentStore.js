@@ -31,7 +31,7 @@ var currentState = {
 		month: currentDate.getMonth(),
 		monthName: currentMonthName,
 		year:'2016',
-		componentPage:'Login',
+		componentPage:'WeekView',
 		lock:'NO'
 		}
 
@@ -55,7 +55,6 @@ function getCurrentDate(){
 }
 
 function changeDateToPreviousDay(action){ 
-	
 	
  	currentDate = new Date(currentDate.getTime() - 24 * 60 * 60 * 1000);
  	console.log('newCurrentDate',currentDate);
@@ -110,9 +109,8 @@ function addReminder(Appointment) {
 }
 
 function removeReminder(AppointmentId) {
-	  delete diary[AppointmentId];
-
-  AppointmentStore.emit('change');
+	 delete diary[AppointmentId];
+  	AppointmentStore.emit('change');
 }
 function bookAnAppointment(action){
 	currentState.componentPage = 'Login';
@@ -124,6 +122,39 @@ function changeToDailyView(action){
 }
 function changeToWeekView(action){
     currentState.componentPage = 'WeekView';
+    AppointmentStore.emit('change');
+}
+function changeToPreviousWeek(action){
+    currentDate = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+	day = currentDate.getDate();
+	month = currentDate.getMonth();
+	year = currentDate.getFullYear();
+
+	currentState = {
+		day: day.toString(),
+		monthName: MONTH[month],
+		month: month.toString(),
+		year:year.toString(),
+		componentPage:'WeekView',
+		lock:'NO'
+		};
+	AppointmentStore.emit('change');
+}
+
+function changeToNextWeek(action){
+    currentDate = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+	day = currentDate.getDate();
+	month = currentDate.getMonth();
+	year = currentDate.getFullYear();
+
+	currentState = {
+		day: day.toString(),
+		monthName: MONTH[month],
+		month: month.toString(),
+		year:year.toString(),
+		componentPage:'WeekView',
+		lock:'NO'
+		};
     AppointmentStore.emit('change');
 }
 function createAccount(action){
@@ -156,6 +187,10 @@ function landingPage(action){
 }
 function showApptDetails(action){
 	currentState.componentPage = 'App-details';
+    AppointmentStore.emit('change');
+}
+function profiles(action){
+	currentState.componentPage = 'Profiles';
     AppointmentStore.emit('change');
 }
 
@@ -227,10 +262,29 @@ function handleAction(action) {
   	treatment1(action);
   }	else if (action.type === 'treatment-2'){
   	treatment2(action);
-  }	else if (action.type === 'Logout'){
+  }	else if (action.type === 'logout'){
   	LandingPage(action);
-  }	else if (action.type === 'App-details'){
+  }	else if (action.type === 'app-details'){
   	showApptDetails(action);
+  } else if (action.type === 'changeToNextWeek'){
+  	changeToNextWeek(action);
+  } else if (action.type === 'changetoPreviousWeek'){
+  	changetoPreviousWeek(action);
+  } else if (action.type === 'profiles'){
+  	profiles(action);
+  } else if (action.type === 'lock_day'){
+  	lockDay(action);
+  } else if (action.type === 'unlock_day'){
+  	unlockDay(action);
+  } else if (action.type === 'lock_week'){
+  	lock_weekkWeek(action);
+  } else if (action.type === 'unlock_week'){
+  	unlockWeek(action);
+  } else if (action.type === 'lock_appointment'){
+  	lockAppointment(action);
+  } else if (action.type === 'unlock_appointment'){
+  	unlockAppointment(action);
+	}
 }
 
 AppointmentStore.dispatchToken = Dispatcher.register(handleAction);

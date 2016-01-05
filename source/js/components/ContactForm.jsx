@@ -5,6 +5,7 @@ var InputText = require('./TextInput.jsx');
 var InputTextArea = require('./TextArea.jsx');
 var Header = require('./Header.jsx');
 var Panel = require('./Panel.jsx');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 var ContactForm = React.createClass({
   render: function () {

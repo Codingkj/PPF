@@ -6,6 +6,7 @@ var AppointmentStore = require('../stores/AppointmentStore.js');
 var ClientStore = require('../stores/ClientStore.js');
 var PanelBox = require('./PanelBox.jsx');
 var Panel = require('./Panel.jsx');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 var AppDetails = React.createClass({
 

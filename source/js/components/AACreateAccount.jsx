@@ -6,8 +6,16 @@ var TextInput = require('./TextInput.jsx');
 var MyButton = require('./Buttons.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var MyCheckbox = require('./Checkbox.jsx');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 var CreateAccount = React.createClass({
+
+  createAccountClicked: function(event){
+    event.preventDefault();
+    console.log('INSIDE createaccountCLICKED');
+    AppointmentActionCreators.createAccount();
+  },
+
   render: function(){
     return (<div>
 		    	
@@ -67,7 +75,7 @@ var CreateAccount = React.createClass({
 				</div>
 				<div className="row">
 					<div className="column medium-4 medium-offset-8">
-						      <MyButton className="med-button" type="button" value="Create Account" />
+						      <MyButton clicked={this.createAccountClicked} className="med-button" type="button" value="Create Account" />
 					</div>
 				</div>
 			    <br /><br />

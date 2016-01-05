@@ -9,18 +9,33 @@ var MenuBar = require('./MenuBar.jsx');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 var PanelBox = require('./PanelBox.jsx');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 
 var Dashboard = React.createClass({
 
+  bookPractitioner: function(event){
+    event.preventDefault();
+     AppointmentActionCreators.bookPractitioner();
+  },
+
+  cancelApptClicked: function(event){
+    event.preventDefault();
+     AppointmentActionCreators.cancelAppointment();
+  },
+
+  changeReminder: function(event){
+    event.preventDefault();
+     AppointmentActionCreators.changeReminder();
+  },
 
   render: function(){
 
     var targetClient = ClientStore.getAllClients;
-    var items = AppointmentStore.getAllAppointments;
+    var allAppointments = AppointmentStore.getAllAppointments;
 
     var reminderMessage;
-    var reminderStatus = items.reminder;
+    var reminderStatus = allAppointments.reminder;
 
     if (reminderStatus == 'ON'){
       reminderMessage = "A text message will be sent to your phone 48 hours prior to this time";
@@ -52,13 +67,13 @@ var Dashboard = React.createClass({
           
         </div>
         <div className="columns medium-2">
-              <MyButton className="tiny-button" type="button" value="Cancel Appointment"/>
+              <MyButton clicked={this.cancelApptClicked} className="tiny-button" type="button" value="Cancel Appointment"/>
         </div>
         <div className="columns medium-2 text-message-notice">
                   <Paragraph value={reminderMessage} shade={reminderColor} className="tiny-font"/>
         </div>
         <div className="columns medium-2">
-                  <MyButton className="tiny-button" type="button" value="Remove reminder"/>
+                  <MyButton clicked={this.changeReminder} className="tiny-button" type="button" value="Remove reminder"/>
         </div>
         <div className="columns medium-2">  
         </div>       
@@ -78,13 +93,13 @@ var Dashboard = React.createClass({
        
             </div>
             <div className="columns medium-2">
-                  <MyButton className="tiny-button" type="button" value="Cancel Appointment"/>
+                  <MyButton clicked={this.cancelApptClicked} className="tiny-button" type="button" value="Cancel Appointment"/>
             </div>
             <div className="columns medium-2 text-message-notice">
                   <Paragraph value={reminderMessage} shade={reminderColor} className="tiny-font" />
             </div>
             <div className="columns medium-4">
-                  <MyButton className="tiny-button" type="button" value="Remove reminder"/>
+                  <MyButton clicked={this.changeReminder} className="tiny-button" type="button" value="Remove reminder"/>
             </div>
         </div>
         <br />
@@ -94,13 +109,13 @@ var Dashboard = React.createClass({
                   <DatePanel width="30" text={items.dateNumber + ' ' + items.dateMonth + ' '+ items.dateYear + '    ' + items.time}/>
             </div>
             <div className="columns medium-2">
-                  <MyButton className="tiny-button" type="button" value="Cancel Appointment"/>
+                  <MyButton clicked={this.cancelApptClicked} className="tiny-button" type="button" value="Cancel Appointment"/>
             </div>
             <div className="columns medium-2 text-message-notice">
                   <Paragraph value={reminderMessage} shade={reminderColor} className="tiny-font"/>
             </div>
             <div className="columns medium-4">
-                  <MyButton className="tiny-button" type="button" value="Add reminder"/>
+                  <MyButton clicked={this.changeReminder} className="tiny-button" type="button" value="Add reminder"/>
             </div>
  
          </div>
@@ -113,11 +128,11 @@ var Dashboard = React.createClass({
       <div className="row">
 
         <div className="columns medium-5 medium-offset-1">
-              <MyButton className="large-button" type="button" value="Book an Appointment with Dr Micheals" id="mich-Button"/>
+              <MyButton clicked={this.bookPractitioner} className="large-button" type="button" value="Book an Appointment with Dr Micheals" id="mich-Button"/>
         </div>
 
         <div className="columns medium-6">  
-              <MyButton className="large-button" type="button" value="Book an Appointment with Angelo" id="angelo-button"/>
+              <MyButton clicked={this.bookPractitioner} className="large-button" type="button" value="Book an Appointment with Angelo" id="angelo-button"/>
         </div>
       </div>
       <div className="separator">

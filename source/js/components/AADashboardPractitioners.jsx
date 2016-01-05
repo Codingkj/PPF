@@ -9,8 +9,51 @@ var TableDay = require('./TableDay.jsx');
 var TextInput = require('./TextInput.jsx');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 var DashboardPractitioners = React.createClass({
+
+  clientSearch:function(){
+
+  },
+
+  getInitialState: function () {
+    return {
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonth(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus()
+    };
+  },
+
+  handleChange: function () {
+      console.log("CHANGING dashboard");
+    this.setState({
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonth(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus(),
+    });
+    console.log('CHANGED TO ',day,month,year);
+  },
+
+  componentDidMount: function () {
+      ClientStore.addChangeListener(this.handleChange);
+      AppointmentStore.addChangeListener(this.handleChange);
+  },
+
+  componentWillUnmount: function () {
+      ClientStore.removeChangeListener(this.handleChange);
+      AppointmentStore.removeChangeListener(this.handleChange);
+  },
+  weeklyView: function(){
+    event.preventDefault();
+     AppointmentActionCreators.weekView();
+  },
+  dailyView: function(){
+    event.preventDefault();
+     AppointmentActionCreators.dailyView();
+  },
   render: function(){
     return (<div className="section">
 
@@ -32,11 +75,11 @@ var DashboardPractitioners = React.createClass({
                       <br />
                       <div className="row">
                         <div className="columns medium-2">
-                          <MyButton className="med-button" type="button" value="Go to WEEKLY View" /> 
+                          <MyButton clicked={this.weeklyView} className="med-button" type="button" value="Go to WEEKLY View" /> 
                           <br />
                         </div>
                         <div className="columns medium-8 medium-offset-2">
-                          <MyButton className="med-button" type="button" value="Go to DAILY View" />    
+                          <MyButton clicked={this.dailyView} className="med-button" type="button" value="Go to DAILY View" />    
                           <br />
                         </div>
                       </div>
@@ -56,7 +99,7 @@ var DashboardPractitioners = React.createClass({
                       </div>
                       <div className="row">
                         <div className="columns medium-4 medium-offset-8">
-                          <MyButton className="small-button" type="button" value="Go" />
+                          <MyButton clicked={this.clientSearch} className="small-button" type="button" value="Go" />
                         </div>
                       </div>
                   </div>

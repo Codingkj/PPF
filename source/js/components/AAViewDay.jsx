@@ -64,6 +64,11 @@ var DailyView = React.createClass({
       AppointmentStore.removeChangeListener(this.handleChange);
   },
 
+  weeklyView: function(){
+    event.preventDefault();
+     AppointmentActionCreators.weekView();
+  },
+  
   render: function() {
   
   
@@ -100,7 +105,7 @@ var DailyView = React.createClass({
 				    </div>
 				    <div className="columns medium-4 medium-offset-1">
 				    	<h5>Manage Appointments</h5>
-				    	<MyButton className="med-button" type="button" value="Go to Weekly View" /> 
+				    	<MyButton clicked={this.weeklyView} className="med-button" type="button" value="Go to Weekly View" /> 
 				    		
 					</div>
 				</div>

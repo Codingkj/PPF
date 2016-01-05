@@ -83,8 +83,11 @@ var ApplicationStart = React.createClass({
       {
         ComponentToBeRendered = <WeekView />
       }
-
-    console.log('At end of  getcomponent function',ComponentToBeRendered);
+      else if (ComponentSetting === 'Profiles')
+      {
+        ComponentToBeRendered = <Profiles />
+      }
+      console.log('At end of  getcomponent function',ComponentToBeRendered);
       return ComponentToBeRendered;
    },
    
