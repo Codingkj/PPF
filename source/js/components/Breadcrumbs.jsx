@@ -15,7 +15,7 @@ var MyBreadcrumbs= React.createClass({
 
 
   handleChange: function () {
-      console.log("CHANGING");
+      console.log("CHANGING Breadcrumbs");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
       month: AppointmentStore.getCurrentMonth(),
@@ -34,7 +34,7 @@ var MyBreadcrumbs= React.createClass({
       ClientStore.removeChangeListener(this.handleChange);
       AppointmentStore.removeChangeListener(this.handleChange);
   },
-  
+
   render: function(){
     return (<div>
 				<nav aria-label="You are here:" role="navigation">

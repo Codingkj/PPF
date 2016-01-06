@@ -4,48 +4,80 @@ var MyButton = require('./Buttons.jsx');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 var ClientStore = require('../stores/ClientStore.js');
 
+var startDate;
+
 var TableComponent = React.createClass({
 
-getInitialState: function () {
-    return {
-      day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus()
-      };
-  },
+// getInitialState: function () {
+//     return {
+//       date:AppointmentStore.getCurrentWholeDate,
+//       day: AppointmentStore.getCurrentDay(),
+//       month: AppointmentStore.getCurrentMonth(),
+//       year:AppointmentStore.getCurrentYear(),
+//       lock:AppointmentStore.getLockDayStatus()
+//       };
+//   },
 
 
-  handleChange: function () {
-      console.log("CHANGING");
-    this.setState({
-      day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus(),
-    });
-    console.log('CHANGED TO ',day,month,year);
-  },
+//   handleChange: function () {
+//       console.log("CHANGING");
+//     this.setState({
+//       date:AppointmentStore.getCurrentWholeDate,
+//       day: AppointmentStore.getCurrentDay(),
+//       month: AppointmentStore.getCurrentMonth(),
+//       year:AppointmentStore.getCurrentYear(),
+//       lock:AppointmentStore.getLockDayStatus(),
+//     });
+//     console.log('CHANGED TO ',day,month,year);
+//   },
 
-  componentDidMount: function () {
-      ClientStore.addChangeListener(this.handleChange);
-      AppointmentStore.addChangeListener(this.handleChange);
-  },
+//   componentDidMount: function () {
+//       ClientStore.addChangeListener(this.handleChange);
+//       AppointmentStore.addChangeListener(this.handleChange);
+//   },
 
-  componentWillUnmount: function () {
-      ClientStore.removeChangeListener(this.handleChange);
-      AppointmentStore.removeChangeListener(this.handleChange);
-  },
-  
+//   componentWillUnmount: function () {
+//       ClientStore.removeChangeListener(this.handleChange);
+//       AppointmentStore.removeChangeListener(this.handleChange);
+//   },
+
   render: function() {
-      var dateString = new Date();
-      var date1 = dateString.getDate();
-      var date2 = date1 + 1;
-      var date3 = date1 + 2;
-      var date4 = date1 + 3;
-      var date5 = date1 + 4;
-      var date6 = date1 + 5;
-      var date7 = date1 + 6;
+      // var dateNum = AppointmentStore.getCurrentDateNum();  //
+      var monthNow = AppointmentStore.getCurrentMonth();  //{this.props.startDate}
+      var wholeDate = AppointmentStore.getCurrentWholeDate();  
+      console.log ('wholeDate is...B4', wholeDate);
+      console.log('this.props.startDate is..',this.props.startDate);
+      var dayOfTheWeek = wholeDate.getDay();
+      console.log ('Day of week is..B4',dayOfTheWeek);
+
+      var dayOfMonth = wholeDate.getDate();
+      console.log ('day of month is B4',dayOfMonth);
+
+      while (dayOfTheWeek !== 0){
+             dayOfTheWeek = dayOfTheWeek -1;
+             dayOfMonth = new Date(wholeDate.setDate(wholeDate.getDate()-1)).getDate();
+      }
+      dayOfMonth = new Date(wholeDate.setDate(wholeDate.getDate()+1)).getDate();
+      //dateObj.setDate(dayValue) //
+      // myDate.setDate(myDate.getDate() + 21)
+      console.log('wholeDate after',wholeDate);
+      console.log('dayOfTheWeek after',dayOfTheWeek);
+      console.log('dayOfTheMonth after',dayOfMonth);
+
+      var date1num = wholeDate.getDate();
+      var date2num = new Date(wholeDate.setDate(wholeDate.getDate() + 1)).getDate();
+      console.log('date2num is now.',date2num);
+      var date3num = new Date(wholeDate.setDate(wholeDate.getDate() + 1)).getDate();
+     
+      var date4num = new Date(wholeDate.setDate(wholeDate.getDate() + 1)).getDate();
+      
+      var date5num = new Date(wholeDate.setDate(wholeDate.getDate() + 1)).getDate();
+      
+      var date6num = new Date(wholeDate.setDate(wholeDate.getDate() + 1)).getDate();
+      
+      var date7num = new Date(wholeDate.setDate(wholeDate.getDate() + 1)).getDate();
+      console.log('date7num is now.',date7num);
+      
 
       var targetName;
       var LockedButtonText;
@@ -53,15 +85,10 @@ getInitialState: function () {
       var todayTreatments = [];
       var todayLock = [];
       var todayManual = [];
-      var chosenDay = '1';
-      var chosenMonth = 'January';
-      var chosenYear = '2016';
-
-      var monthNow = dateString.getMonth();
+    
       var MONTH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
       var displayMonth = MONTH[monthNow];
      
-
 
      return (<div className="table-week">
       <table>
@@ -78,13 +105,13 @@ getInitialState: function () {
       		</tr>
                   <tr className="second-weekly-header">
                         <th className="table-cell center" width="60">Time</th>
-                        <th className="table-cell center" width="140">{date1.toString()} {displayMonth}</th>
-                        <th className="table-cell center" width="140">{date2.toString()} {displayMonth}</th>
-                        <th className="table-cell center" width="140">{date3.toString()} {displayMonth}</th>
-                        <th className="table-cell center" width="140">{date4.toString()} {displayMonth}</th>
-                        <th className="table-cell center" width="140">{date5.toString()} {displayMonth}</th>
-                        <th className="table-cell center" width="100">{date6.toString()} {displayMonth}</th>
-                        <th className="table-cell center" width="100">{date7.toString()} {displayMonth}</th>
+                        <th className="table-cell center" width="140">{date1num} {displayMonth}</th>
+                        <th className="table-cell center" width="140">{date2num} {displayMonth}</th>
+                        <th className="table-cell center" width="140">{date3num} {displayMonth}</th>
+                        <th className="table-cell center" width="140">{date4num} {displayMonth}</th>
+                        <th className="table-cell center" width="140">{date5num} {displayMonth}</th>
+                        <th className="table-cell center" width="100">{date6num} {displayMonth}</th>
+                        <th className="table-cell center" width="100">{date7num} {displayMonth}</th>
                   </tr>
       	</thead>
       	<tbody>

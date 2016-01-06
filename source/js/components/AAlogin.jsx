@@ -8,6 +8,38 @@ var MenuBar = require('./MenuBar.jsx');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 var Login = React.createClass({
+
+  getInitialState: function () {
+    return {
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonth(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus()
+  	};
+  },
+
+
+  handleChange: function () {
+      console.log(" IN AALOGIN CHANGING");
+    this.setState({
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonth(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus(),
+    });
+    console.log(' IN AALOGIN CHANGED TO ',this.state.day);
+  },
+
+  componentDidMount: function () {
+      ClientStore.addChangeListener(this.handleChange);
+      AppointmentStore.addChangeListener(this.handleChange);
+  },
+
+  componentWillUnmount: function () {
+      ClientStore.removeChangeListener(this.handleChange);
+      AppointmentStore.removeChangeListener(this.handleChange);
+  },
+
   loginClient:function(){
     event.preventDefault();
      AppointmentActionCreators.login();

@@ -7,7 +7,7 @@
 .header-background {
   background-color: #6699ff; }
 
-.page1-style {
+.page-background1 {
   background-color: #ffffe5; }
 
 .gray {
@@ -63,6 +63,7 @@
   width: 30vw;
   border-style: solid;
   border-radius: 2vw;
+  margin: 2vw;
   background-color: yellow;
   font-size: 2vw;
   padding: 1vw; }

@@ -35,6 +35,7 @@ var DailyView = React.createClass({
 
   getInitialState: function () {
     return {
+    	date:AppointmentStore.getCurrentWholeDate(),
       day: AppointmentStore.getCurrentDay(),
       month: AppointmentStore.getCurrentMonth(),
       year:AppointmentStore.getCurrentYear(),
@@ -44,14 +45,15 @@ var DailyView = React.createClass({
 
 
   handleChange: function () {
-      console.log("CHANGING");
+      console.log(" IN VIEW DAY CHANGING",this.state.date);
     this.setState({
+    	date:AppointmentStore.getCurrentWholeDate(),
       day: AppointmentStore.getCurrentDay(),
       month: AppointmentStore.getCurrentMonth(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
     });
-    console.log('CHANGED TO ',day,month,year);
+    console.log(' IN VIEW DAY CHANGED TO ',this.state.date);
   },
 
   componentDidMount: function () {
@@ -64,17 +66,14 @@ var DailyView = React.createClass({
       AppointmentStore.removeChangeListener(this.handleChange);
   },
 
-  weeklyView: function(){
-    event.preventDefault();
-     AppointmentActionCreators.weekView();
+  weeklyView: function(){ 
+     AppointmentActionCreators.changeToWeekView();
   },
-  
+
   render: function() {
-  
   
 	 var displayDate = '  '+ this.state.day + ' '+ this.state.month+ ' '+ this.state.year;
 	
-
      return (<div >
 		     	<MenuBar />
 		     	<br />

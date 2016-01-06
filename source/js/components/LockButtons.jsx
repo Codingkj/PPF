@@ -16,7 +16,7 @@ var LockButtons = React.createClass({
 
 
   handleChange: function () {
-      console.log("CHANGING");
+      console.log("CHANGING LockButtons");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
       month: AppointmentStore.getCurrentMonth(),

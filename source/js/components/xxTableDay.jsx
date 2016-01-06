@@ -13,7 +13,7 @@ var TableDay = React.createClass({
 
 
   handleChange: function () {
-      console.log("CHANGING");
+      console.log("CHANGING old table day");
     // this.setState({
     //   day: AppointmentStore.getCurrentDay(),
     //   month: AppointmentStore.getCurrentMonth(),

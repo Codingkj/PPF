@@ -38,54 +38,54 @@ function bookAnAppointmentClicked(){
 var ApplicationStart = React.createClass({
 
    getComponent: function(ComponentSetting){
-    console.log('Made it to getcomponent function',ComponentSetting);
+    console.log('Made it to getComponent function and value passed in is',ComponentSetting);
       if (ComponentSetting === 'LandingPage')
       {
-         ComponentToBeRendered = <LandingPage />
+         ComponentToBeRendered = <LandingPage />;
       }
       else if (ComponentSetting === 'Dashboard')
       {
-        ComponentToBeRendered = <Dashboard />
+        ComponentToBeRendered = <Dashboard />;
       } 
       else if (ComponentSetting === 'Login')
       {
-        ComponentToBeRendered = <Login />
+        ComponentToBeRendered = <Login />;
       }
       else if (ComponentSetting === 'CreateAccount')
       {
-        ComponentToBeRendered = <CreateAccount />
+        ComponentToBeRendered = <CreateAccount />;
       }
       else if (ComponentSetting === 'DashboardPractitioner')
       {
-        ComponentToBeRendered = <DashboardPractitioner />
+        ComponentToBeRendered = <DashboardPractitioner />;
       }
       else if (ComponentSetting === 'DateTime')
       {
-        ComponentToBeRendered = <DateTime />
+        ComponentToBeRendered = <DateTime />;
       }
       else if (ComponentSetting === 'Profiles')
       {
-        ComponentToBeRendered = <Profiles />
+        ComponentToBeRendered = <Profiles />;
       }
       else if (ComponentSetting === 'Treatments1')
       {
-        ComponentToBeRendered = <Treatments1 />
+        ComponentToBeRendered = <Treatments1 />;
       }
       else if (ComponentSetting === 'Treatments2')
       {
-        ComponentToBeRendered = <Treatments2 />
+        ComponentToBeRendered = <Treatments2 />;
       }
-      else if (ComponentSetting === 'DayView')
+      else if (ComponentSetting === 'DailyView')
       {
-        ComponentToBeRendered = <DailyView />
+        ComponentToBeRendered = <DailyView />;
       }
       else if (ComponentSetting === 'WeekView')
       {
-        ComponentToBeRendered = <WeekView />
+        ComponentToBeRendered = <WeekView />;
       }
       else if (ComponentSetting === 'Profiles')
       {
-        ComponentToBeRendered = <Profiles />
+        ComponentToBeRendered = <Profiles />;
       }
       console.log('At end of  getcomponent function',ComponentToBeRendered);
       return ComponentToBeRendered;
@@ -100,11 +100,15 @@ var ApplicationStart = React.createClass({
 
 
   handleChange: function () {
+    var test1 = AppointmentStore.getCurrentWholeDate();
+    console.log('on FRONT PAGE BEFORE calling get component the value of CurrentDate is',test1);
       console.log("CHANGING FRONT PAGE");
-      
+      console.log('appointment store value',AppointmentStore.getCurrentComponent());
     this.setState({
       component: this.getComponent(AppointmentStore.getCurrentComponent())
     });
+    var test = AppointmentStore.getCurrentWholeDate();
+    console.log('on FRONT PAGE after calling get component the value of CurrentDate is',test);
   },
 
   componentDidMount: function () {

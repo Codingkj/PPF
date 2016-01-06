@@ -14,6 +14,37 @@ var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js
 
 var Dashboard = React.createClass({
 
+  getInitialState: function () {
+    return {
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonth(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus()
+    };
+  },
+
+
+  handleChange: function () {
+      console.log("CHANGING dashboard");
+    this.setState({
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonth(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus(),
+    });
+    console.log('CHANGED TO ');
+  },
+
+  componentDidMount: function () {
+      ClientStore.addChangeListener(this.handleChange);
+      AppointmentStore.addChangeListener(this.handleChange);
+  },
+
+  componentWillUnmount: function () {
+      ClientStore.removeChangeListener(this.handleChange);
+      AppointmentStore.removeChangeListener(this.handleChange);
+  },
+
   bookPractitioner: function(event){
     event.preventDefault();
      AppointmentActionCreators.bookPractitioner();

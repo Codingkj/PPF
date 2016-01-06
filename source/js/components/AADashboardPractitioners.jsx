@@ -27,14 +27,14 @@ var DashboardPractitioners = React.createClass({
   },
 
   handleChange: function () {
-      console.log("CHANGING dashboard");
+      console.log("CHANGING dashboardPractitioner");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
       month: AppointmentStore.getCurrentMonth(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
     });
-    console.log('CHANGED TO ',day,month,year);
+    console.log('CHANGED TO dashboardPractitioner');
   },
 
   componentDidMount: function () {

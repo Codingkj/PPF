@@ -15,7 +15,7 @@ var MenuComponent = React.createClass({
 
 
   handleChange: function () {
-      console.log("CHANGING");
+      console.log("CHANGING MENU");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
       month: AppointmentStore.getCurrentMonth(),
@@ -65,7 +65,7 @@ var MenuComponent = React.createClass({
   
      return (<div data-sticky-container>
      			<div className="sticky" id="navbar" data-sticky data-margin-top="0" data-margin-bottom="0">
-			      <nav data-magellan>
+			      <nav data-magellan data-topbar role="navigation" className="top-bar" data-topbar role="navigation" data-options="is_hover: false">
 					    <ul className="horizontal menu expanded">
 					      <li className="menu-text">Our Logo</li>
 					      <li clicked={this.clientMenuOption} className="menu-text"><a href="#">CLIENT DASHBOARD</a></li>

@@ -12,20 +12,57 @@ var AppointmentStore = require('../stores/AppointmentStore.js');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 var WeekView = React.createClass({
+ 
+  getInitialState: function () {
+    return {
+      date:AppointmentStore.getCurrentWholeDate(),
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonth(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus()
+    };
+  },
+
+  handleChange: function () {
+      console.log("IN AAVIEWWEEK this.state.date and Store.getDate to ",this.state.date, AppointmentStore.getCurrentWholeDate());
+    this.setState({
+      date:AppointmentStore.getCurrentWholeDate(),
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonth(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus(),
+    });
+    console.log('IN AAVIEWWEEK this.state.date and Store.getDate to ',this.state.date, AppointmentStore.getCurrentWholeDate());
+  },
+
+  componentDidMount: function () {
+      ClientStore.addChangeListener(this.handleChange);
+      AppointmentStore.addChangeListener(this.handleChange);
+  },
+
+  componentWillUnmount: function () {
+      ClientStore.removeChangeListener(this.handleChange);
+      AppointmentStore.removeChangeListener(this.handleChange);
+  },
   dailyView: function(){
-    event.preventDefault();
-     AppointmentActionCreators.dailyView();
+     AppointmentActionCreators.changeToDailyView();
   },
   previousWeek: function(){
-    event.preventDefault();
+    console.log('in previousWeek function in AAViewWeek');
      AppointmentActionCreators.changeToPreviousWeek();
   },
   nextWeek: function(){
-    event.preventDefault();
      AppointmentActionCreators.changeToNextWeek();
+  },
+  lockWeek: function(){
+     AppointmentActionCreators.lockWeek();
+  },
+  unlockWeek: function(){
+     AppointmentActionCreators.unlockWeek();
   },
 
   render: function(){
+    console.log('in render statement',this.state.date);
     return (<div className="week-view-background">
               <MenuBar />
 
@@ -40,7 +77,8 @@ var WeekView = React.createClass({
                     <MyButton clicked={this.previousWeek} type="button" value="Previous Week" className="tiny-button" />
                   </div>
                   <div className="columns medium-8">
-                      <Table  />  
+
+                      <Table />  
                   </div>
                   <div className="columns medium-2">
                       <MyButton clicked={this.nextWeek} type="button" value="Next Week" className="tiny-button" />
@@ -49,10 +87,10 @@ var WeekView = React.createClass({
                   
               <div className="row">
                 <div className="columns medium-2 medium-offset-2">
-                 <MyButton className="med-button" type="button" value="LOCK WEEK" />
+                 <MyButton clicked={this.lockWeek} className="med-button" type="button" value="LOCK WEEK" />
                 </div>
                 <div className="columns medium-2">
-                 <MyButton className="med-button" type="button" value="UNLOCK WEEK" />    
+                 <MyButton clicked={this.unlockWeek} className="med-button" type="button" value="UNLOCK WEEK" />    
                 </div>
                 <div className="columns medium-4 medium-offset-2">
                  <MyButton clicked={this.dailyView} className="med-button" type="button" value="Go to Daily View" />    

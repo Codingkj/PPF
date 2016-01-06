@@ -25,11 +25,11 @@ var LandingPage = React.createClass({
 
 
   handleChange: function () {
-      console.log("CHANGING FRONT PAGE");
+      console.log("IN LANDING PAGE CHANGING FRONT PAGE");
     this.setState({
       component: AppointmentStore.getCurrentComponent()
     });
-    console.log('CHANGED TO ',day,month,year);
+    console.log('IN LANDING PAGE CHANGED TO ',day,month,year);
   },
 
   componentDidMount: function () {

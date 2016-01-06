@@ -17,14 +17,14 @@ var TableDay = React.createClass({
 
 
   handleChange: function () {
-      console.log("CHANGING");
+      console.log("CHANGING TABLEDAY");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
       month: AppointmentStore.getCurrentMonth(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
     });
-    console.log('CHANGED TO ',day,month,year);
+    console.log('CHANGED TO new state');
   },
 
   componentDidMount: function () {
