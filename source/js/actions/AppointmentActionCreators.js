@@ -9,7 +9,7 @@ function addAppointment(item) {
     Dispatcher.dispatch(action);
 }
 
-function removeAppointment(itemId) {
+function cancelAppointment(itemId) {
     var action = {
       type: 'remove_appointment',
       itemId: itemId
@@ -32,15 +32,8 @@ function getPreviousDay(){
      
     };
  Dispatcher.dispatch(action);
+ console.log('action type has just been set as',action.type);
   }
-
-function bookAnAppointment(){
-    var action = {
-      type:'book_AnAppointment'
-    };
- console.log('in actioncreator');
- Dispatcher.dispatch(action);
-}
 
 function getNextDay(){
     var action = {
@@ -50,7 +43,145 @@ function getNextDay(){
       year:year,
     };
  Dispatcher.dispatch(action);
+ console.log('action type has just been set as',action.type);
   }
+
+function changeToPreviousWeek(){
+  console.log('in action creator');
+   var action = {
+      type:'changeToPreviousWeek',
+      
+    };
+    console.log('ACTION type has just been set as',action.type);
+ Dispatcher.dispatch(action);
+}
+
+function changeToNextWeek(){
+   var action = {
+      type:'changeToNextWeek'
+      
+    };
+    console.log('ACTION type has just been set as',action.type);
+ Dispatcher.dispatch(action);
+}
+
+function bookAnAppointment(){
+    var action = {
+      type:'book_AnAppointment'
+    };
+ console.log('in actioncreator');
+ Dispatcher.dispatch(action);
+}
+
+function bookPractitioner(){
+    var action = {
+      type:'book_practitioner',
+      practitionerNumber:'1',
+    };
+ console.log('in actioncreator for practitioner');
+ Dispatcher.dispatch(action);
+}
+
+function changeToDailyView(){
+    var action = {
+      type:'changeToDailyView'
+    };
+ Dispatcher.dispatch(action);
+ console.log('ACTION type has just been set as',action.type);
+}
+
+function changeToWeekView(){
+    var action = {
+      type:'changeToWeekView'
+    };
+ Dispatcher.dispatch(action);
+ console.log('ACTION type has just been set as',action.type);
+}
+
+function createAccount(){
+    var action = {
+      type:'create_account'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function dashboard(){
+    var action = {
+      type:'dashboard'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function dashboardPractitioner(){
+    var action = {
+      type:'dashboard_practitioner'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function dateTime(){
+    var action = {
+      type:'date_time'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function treatment1(){
+    var action = {
+      type:'treatment-1'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function treatment2(){
+    var action = {
+      type:'treatment-2'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function logout(){
+    var action = {
+      type:'logout'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function login(){
+    var action = {
+      type:'login'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function addReminder(){
+    var action = {
+      type:'add_reminder'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function removeReminder(){
+    var action = {
+      type:'remove_reminder'
+    };
+ Dispatcher.dispatch(action);
+}
+
+
+function appDetails(){
+    var action = {
+      type:'app_details'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function profiles(){
+    var action = {
+      type:'profiles'
+    };
+ Dispatcher.dispatch(action);
+}
 
 function lockAppointment(date, time,month,year){
     var action = {
@@ -78,27 +209,35 @@ function lockDay(Date,month,year){
     for (var iterator = 1; iterator < 12;iterator++){
       lockAppointment(date,times[iterator],month,year);
     }
+    var action = {
+        type: 'lock_day',
+      };
+      
+      Dispatcher.dispatch(action);
   }
-  
-   
-
+    
 function unlockDay(Date){
     var action = {
-        type: 'remove_all_appointments',
+        type: 'unlock_day',
       };     
       Dispatcher.dispatch(action);
     }
 
-function lockWeek(startDateOfWeek,month,year){
-    for (var count=startDateOfWeek;count<startDateOfWeek+8;count++){
-      lockday(count)
-    }
+function lockWeek(){
+    // for (var count=startDateOfWeek;count<startDateOfWeek+8;count++){
+    //   lockday(count)
+    // }
+    var action = {
+        type: 'lock_week',
+      };
+      
+      Dispatcher.dispatch(action);
   }
     
 
 function unlockWeek(startDateOfWeek){
    var action = {
-      type: 'remove_all_appointments',
+      type: 'unlock_week',
     };
     
     Dispatcher.dispatch(action); 
@@ -106,8 +245,36 @@ function unlockWeek(startDateOfWeek){
 
 module.exports = {
   addAppointment: addAppointment,
-  removeAppointment: removeAppointment,
-  removeAllAppointments: removeAllAppointments,
+  addReminder:addReminder,
+  appDetails:appDetails,
+ 
+  bookAnAppointment:bookAnAppointment,
+  bookPractitioner:bookPractitioner,
+  cancelAppointment: cancelAppointment,
+  changeToPreviousWeek:changeToPreviousWeek,
+  changeToNextWeek:changeToNextWeek,
+  changeToDailyView:changeToDailyView,
+  changeToWeekView:changeToWeekView,
+  createAccount:createAccount,
+  
+  dashboard:dashboard,
+  dashboardPractitioner:dashboardPractitioner,
+  dateTime:dateTime,
   getPreviousDay:getPreviousDay,
   getNextDay:getNextDay,
+  login:login,
+  logout:logout,
+  lockDay:lockDay,
+  lockWeek:lockWeek,
+  lockAppointment:lockAppointment,
+  profiles:profiles,
+  removeReminder:removeReminder,
+  removeAllAppointments: removeAllAppointments,
+  treatment1:treatment1,
+  treatment2:treatment2,
+  
+  
+  unlockAppointment:unlockAppointment,
+  unlockDay:unlockDay,
+  unlockWeek:unlockWeek,
 };
