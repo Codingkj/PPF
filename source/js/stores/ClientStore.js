@@ -33,14 +33,13 @@ function addClient(client) {
   AppointmentStore.emit('change');
 }
 
+
+
 function removeClient(AppointmentId) {
   delete Customers[client.id];
 
   ClientStore.emit('change');
 }
-
-
-
 
 
 
@@ -63,7 +62,7 @@ var ClientStore = objectAssign({}, EventEmitter.prototype, {
   getTreatments:function(){
 	return treatmentType;
 	},
-   getClient:function (email) {
+  getClient: function (email) {
     return client;
 }
 
