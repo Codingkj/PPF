@@ -14,7 +14,7 @@ var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js
 var Practitioners = React.createClass({
   bookPractitioner: function(event){
     event.preventDefault();
-     AppointmentActionCreators.bookPractitioner();
+     AppointmentActionCreators.login();
   },
 
   render: function(){

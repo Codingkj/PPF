@@ -67,6 +67,7 @@ var MenuComponent = React.createClass({
   	AppointmentActionCreators.profiles();
   },
   
+  
 
   render: function() {
   
@@ -75,8 +76,8 @@ var MenuComponent = React.createClass({
 			      <nav data-topbar role="navigation" className="top-bar" data-options="is_hover: false">
 					    <ul className="horizontal menu expanded">
 					      <li onClick={this.goHome} className="menu-text divider"><a href="#" >HOME</a></li>
-					      <li onClick={this.goHome} className="menu-text divider"><a href="#">CLIENT DASHBOARD</a></li>
-					      <li onClick={this.goHome} className="menu-text divider"><a href="#">PRACTITIONER INFO</a></li>
+					      <li onClick={this.goLogin} className="menu-text divider"><a href="#">CLIENT DASHBOARD</a></li>
+					      <li onClick={this.goLogin} className="menu-text divider"><a href="#">PRACTITIONER INFO</a></li>
 					      <li className="menu-text divider"><a href="#"></a></li>  
 					      <li onClick={this.goLogin} className="menu-text divider"><a href="#">LOG IN</a></li>  
 					      <li onClick={this.goProfiles} className="menu-text divider"><a href="#">About Us</a></li>

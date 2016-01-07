@@ -291,7 +291,6 @@ module.exports = {
   treatment1:treatment1,
   treatment2:treatment2,
   
-  
   unlockAppointment:unlockAppointment,
   unlockDay:unlockDay,
   unlockWeek:unlockWeek,

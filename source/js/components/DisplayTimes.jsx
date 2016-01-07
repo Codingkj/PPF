@@ -38,13 +38,16 @@ getInitialState: function () {
   },
 
   freeTimes: function (dateRequested){
-	var allAppointments = AppointmentStore.getAllAppointments;
+	var allAppointments = AppointmentStore.getAllAppointments();
 	var freeTimes = [];
 	var counter = 0;
+	console.log('inside FREETIMES and DATEREQUESTED IS....',dateRequested);
+
     while (counter < 11){
+    	console.log('Appointment dateNumber is',allAppointments.dateNumber);
 		if (allAppointments.dateNumber = dateRequested){
 			if (allAppointments.email = ''){
-				if (allAppointments.lock = 'NO'){
+				if (allAppointments.lock = 'OFF'){
 					freeTimes[counter] = 'displayTime';
 					}
 				else {
@@ -57,57 +60,59 @@ getInitialState: function () {
 	return freeTimes;
   },
 
-  timeClicked: function(){
-
+  timeClicked: function(event){
+  	var dateChosen = event.id;
+  	console.log('dateChosen',dateChosen);
+  	AppointActionCreator.dashboard();
   },
 
   render: function(){
 
 	var dateRequested = AppointmentStore.getCurrentDay();
 	freeTimes = this.freeTimes(dateRequested);
-	console.log('freetimes value::',freeTimes[1],freeTimes[3]);
+	console.log('freetimes value....',freeTimes[0],freeTimes[1],freeTimes[2],freeTimes[3],freeTimes[4],freeTimes[5],freeTimes[6],freeTimes[7],freeTimes[8],freeTimes[9],freeTimes[10]);
 
     return (<div>
 			 <br />
 				<div className="row">
 					<div className="time-div columns medium-3">
-						<MyButton value="09:00am" className="time-button" type="button"/>
+						<MyButton id="9" clicked={this.timeClicked} value="09:00am" className="time-button" type="button"/>
 					</div>
 					<div className="time-div columns medium-3">	
-						<MyButton value="10:00am" className="time-button" type="button"/>
+						<MyButton id="10" clicked={this.timeClicked} value="10:00am" className="time-button" type="button"/>
 					</div>
 					<div className="time-div columns medium-6">	
-						<MyButton value="11:00am" className="time-button" type="button"/>
+						<MyButton id="11" clicked={this.timeClicked} value="11:00am" className="time-button" type="button"/>
 					</div>
 				</div>
 				<div className="row">
 					<div className="time-div columns medium-3">	
-						<MyButton value="12:00am" className="time-button" type="button"/>
+						<MyButton id="12" clicked={this.timeClicked} value="12:00am" className="time-button" type="button"/>
 					</div>
 					<div className="time-div columns medium-3">		
-						<MyButton value="1:00pm" show={freeTimes[4]} className="time-button" type="button"/>
+						<MyButton id="13" clicked={this.timeClicked} value="1:00pm" show={freeTimes[4]} className="time-button" type="button"/>
 					</div>
 					<div className="time-div columns medium-6">	
-						<MyButton value="2:00pm" show={freeTimes[5]} className="time-button" type="button"/>
+						<MyButton id="14" clicked={this.timeClicked} value="2:00pm" show={freeTimes[5]} className="time-button" type="button"/>
 					</div>
 				</div>
 				<div className="row">
 					<div className="time-div columns medium-3">
-						<MyButton value="3:00pm" show={freeTimes[6]} className="time-button" type="button"/>
+						<MyButton id="15" clicked={this.timeClicked} value="3:00pm" show={freeTimes[6]} className="time-button" type="button"/>
 					</div>
 					<div className="time-div columns medium-3">	
-						<MyButton value="4:00pm" show={freeTimes[7]} className="time-button" type="button"/>
+						<MyButton id="16" clicked={this.timeClicked} value="4:00pm" show={freeTimes[7]} className="time-button" type="button"/>
 					</div>
 					<div className="time-div columns medium-6">	
-						<MyButton value="5:00pm" show={freeTimes[8]} className="time-button" type="button"/>
+						<MyButton id="17" clicked={this.timeClicked} value="5:00pm" show={freeTimes[8]} className="time-button" type="button"/>
 					</div>
 				</div>
 				<div className="row">	
 					<div className="time-div columns medium-3">		
-						<MyButton value="6:00pm" show={freeTimes[9]} className="time-button" type="button"/>
+						<MyButton id="18" clicked={this.timeClicked} value="6:00pm" show={freeTimes[9]} className="time-button" type="button"/>
 					</div>
 					<div className="time-div columns medium-3">	
-						<MyButton value="7:00pm" show={freeTimes[10]} className="time-button" type="button"/>
+						<MyButton id="19" clicked={this.timeClicked} value="7:00pm" show={freeTimes[10]} className="time-button" type="button"/>
 					</div>
 					<div className="time-div columns medium-6">
 					</div>

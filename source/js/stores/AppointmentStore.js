@@ -40,7 +40,7 @@ var currentState = {
 
 var diaryEntry = {
 	id:'001',
-	dateNumber:'1',
+	dateNumber:'7',
 	dateMonth:'January',
 	dateYear: '2016',
 	dayOfTheWeek: 'Tuesday',
@@ -48,7 +48,7 @@ var diaryEntry = {
 	reminder: 'ON',
 	practitioner:'Angelo',
 	treatment: 'Massage',
-	lock: 'ON',
+	lock: 'OFF',
 	email:'jsimpson@tt.com',
 	manual: 'NO',
 	}
