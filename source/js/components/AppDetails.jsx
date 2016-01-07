@@ -8,6 +8,7 @@ var PanelBox = require('./PanelBox.jsx');
 var Panel = require('./Panel.jsx');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
+
 var AppDetails = React.createClass({
 
   render: function() {

@@ -3,8 +3,9 @@
 @import "./sass/Buttons";
 @import "./sass/settings";
 
-
-
+.displayTime{
+	color:blue;
+}
 .sticky{
 	width:100%;
 	background-color: black;
@@ -55,7 +56,11 @@
 }
 .table-cell{
 	border-left:1px solid black;
-
+}
+.month-cell{
+	border-left:1px solid black;
+	width:2vw;
+	height:2vw;
 }
 .hidden{
 	display:none;
@@ -138,4 +143,10 @@
 }
 .calendar-style{
 	color:blue;
+}
+.hidden{
+	display: none;
+}
+.time-div{
+	height:3vw;
 }

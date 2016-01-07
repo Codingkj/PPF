@@ -9,6 +9,37 @@ function addAppointment(item) {
     Dispatcher.dispatch(action);
 }
 
+function addReminder(){
+    var action = {
+      type:'add_reminder'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function appDetails(){
+    var action = {
+      type:'app_details'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function bookAnAppointment(){
+    var action = {
+      type:'book_AnAppointment'
+    };
+ console.log('in actioncreator');
+ Dispatcher.dispatch(action);
+}
+
+function bookPractitioner(){
+    var action = {
+      type:'date_time',
+      practitionerNumber:'1',
+    };
+ console.log('in actioncreator for practitioner');
+ Dispatcher.dispatch(action);
+}
+
 function cancelAppointment(itemId) {
     var action = {
       type: 'remove_appointment',
@@ -17,34 +48,6 @@ function cancelAppointment(itemId) {
     
     Dispatcher.dispatch(action);
 }
-
-function removeAllAppointments() {
-    var action = {
-      type: 'remove_all_appointments',
-    };
-    
-    Dispatcher.dispatch(action);
-  }
-
-function getPreviousDay(){
-    var action = {
-      type:'get_PreviousDay',
-     
-    };
- Dispatcher.dispatch(action);
- console.log('action type has just been set as',action.type);
-  }
-
-function getNextDay(){
-    var action = {
-      type:'get_NextDay',
-      date:day,
-      month:month,
-      year:year,
-    };
- Dispatcher.dispatch(action);
- console.log('action type has just been set as',action.type);
-  }
 
 function changeToPreviousWeek(){
   console.log('in action creator');
@@ -62,23 +65,6 @@ function changeToNextWeek(){
       
     };
     console.log('ACTION type has just been set as',action.type);
- Dispatcher.dispatch(action);
-}
-
-function bookAnAppointment(){
-    var action = {
-      type:'book_AnAppointment'
-    };
- console.log('in actioncreator');
- Dispatcher.dispatch(action);
-}
-
-function bookPractitioner(){
-    var action = {
-      type:'book_practitioner',
-      practitionerNumber:'1',
-    };
- console.log('in actioncreator for practitioner');
  Dispatcher.dispatch(action);
 }
 
@@ -126,6 +112,76 @@ function dateTime(){
  Dispatcher.dispatch(action);
 }
 
+function getPreviousDay(){
+    var action = {
+      type:'get_PreviousDay',
+     
+    };
+ Dispatcher.dispatch(action);
+ console.log('action type has just been set as',action.type);
+  }
+
+function getNextDay(){
+    var action = {
+      type:'get_NextDay',
+      date:day,
+      month:month,
+      year:year,
+    };
+ Dispatcher.dispatch(action);
+ console.log('action type has just been set as',action.type);
+  }
+
+function home(){
+  var action = {
+      type:'landingPage'
+    };
+ Dispatcher.dispatch(action);
+}
+function logout(){
+    var action = {
+      type:'logout'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function login(){
+    var action = {
+      type:'login'
+    };
+ console.log('created an action called login and dispatching it');
+ Dispatcher.dispatch(action);
+}
+
+function profiles(){
+    var action = {
+      type:'profiles'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function removeAllAppointments() {
+    var action = {
+      type: 'remove_all_appointments',
+    };
+    
+    Dispatcher.dispatch(action);
+  }
+
+function removeReminder(){
+    var action = {
+      type:'remove_reminder'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function showFreeTimes(){
+  var action = {
+    type: 'show_free_times'
+  };
+  Dispatcher.dispatcher(action);
+}
+
 function treatment1(){
     var action = {
       type:'treatment-1'
@@ -140,48 +196,8 @@ function treatment2(){
  Dispatcher.dispatch(action);
 }
 
-function logout(){
-    var action = {
-      type:'logout'
-    };
- Dispatcher.dispatch(action);
-}
-
-function login(){
-    var action = {
-      type:'login'
-    };
- Dispatcher.dispatch(action);
-}
-
-function addReminder(){
-    var action = {
-      type:'add_reminder'
-    };
- Dispatcher.dispatch(action);
-}
-
-function removeReminder(){
-    var action = {
-      type:'remove_reminder'
-    };
- Dispatcher.dispatch(action);
-}
 
 
-function appDetails(){
-    var action = {
-      type:'app_details'
-    };
- Dispatcher.dispatch(action);
-}
-
-function profiles(){
-    var action = {
-      type:'profiles'
-    };
- Dispatcher.dispatch(action);
-}
 
 function lockAppointment(date, time,month,year){
     var action = {
@@ -262,6 +278,7 @@ module.exports = {
   dateTime:dateTime,
   getPreviousDay:getPreviousDay,
   getNextDay:getNextDay,
+  home:home,
   login:login,
   logout:logout,
   lockDay:lockDay,
@@ -270,6 +287,7 @@ module.exports = {
   profiles:profiles,
   removeReminder:removeReminder,
   removeAllAppointments: removeAllAppointments,
+  showFreeTimes:showFreeTimes,
   treatment1:treatment1,
   treatment2:treatment2,
   

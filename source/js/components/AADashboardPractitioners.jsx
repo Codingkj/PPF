@@ -20,7 +20,7 @@ var DashboardPractitioners = React.createClass({
   getInitialState: function () {
     return {
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus()
     };
@@ -30,11 +30,11 @@ var DashboardPractitioners = React.createClass({
       console.log("CHANGING dashboardPractitioner");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
     });
-    console.log('CHANGED TO dashboardPractitioner');
+    
   },
 
   componentDidMount: function () {

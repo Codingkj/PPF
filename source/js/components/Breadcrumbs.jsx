@@ -1,13 +1,13 @@
 var React = require('react');
-
-
+var AppointmentStore = require('../stores/AppointmentStore.js');
+var ClientStore = require('../stores/ClientStore.js');
 
 var MyBreadcrumbs= React.createClass({
 
   getInitialState: function () {
     return {
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus()
   	};
@@ -18,11 +18,11 @@ var MyBreadcrumbs= React.createClass({
       console.log("CHANGING Breadcrumbs");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
     });
-    console.log('CHANGED TO ',day,month,year);
+   
   },
 
   componentDidMount: function () {

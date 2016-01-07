@@ -7,6 +7,7 @@ var MyBreadcrumbs = require('./Breadcrumbs.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
+var AppointmentStore = require('../stores/AppointmentStore.js');
 
 var Treatments2 = React.createClass({
   

@@ -8,7 +8,7 @@ var LockButtons = React.createClass({
   getInitialState: function () {
     return {
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus()
   	};
@@ -19,7 +19,7 @@ var LockButtons = React.createClass({
       console.log("CHANGING LockButtons");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
     });

@@ -6,7 +6,7 @@ var Header = require('./Header.jsx');
 var Panel = require('./Panel.jsx');
 var Map = require('./Map.jsx');
 var MenuBar = require('./MenuBar.jsx');
-
+var CalendarMonth = require('./CalendarMonth.jsx');
 var Dashboard = require('./AADashboard.jsx');
 var DashboardPractitioner =require('./AADashboardPractitioners.jsx');
 var DateTime = require('./AADateTime.jsx');
@@ -17,7 +17,7 @@ var Treatments1 = require('./AATreatments_Prac1.jsx');
 var Treatments2 = require('./AATreatments_Prac2.jsx');
 var DailyView =require('./AAViewDay.jsx');
 var WeekView = require('./AAViewWeek.jsx');
-
+var ClientMenuBar = require('./ClientMenuBarWhenLoggedIn.jsx');
 var Panel = require('./Panel.jsx');
 var ConfirmCancel = require('./ConfirmCancel.jsx');
 var ConfirmLogout = require('./ConfirmLogout.jsx');
@@ -94,16 +94,13 @@ var ApplicationStart = React.createClass({
    getInitialState: function () {
     console.log('inside setting new component at application start');
     return {
-      component:this.getComponent(AppointmentStore.getCurrentComponent())
+      component: this.getComponent(AppointmentStore.getCurrentComponent())
     };
   },
 
 
   handleChange: function () {
-    var test1 = AppointmentStore.getCurrentWholeDate();
-    console.log('on FRONT PAGE BEFORE calling get component the value of CurrentDate is',test1);
-      console.log("CHANGING FRONT PAGE");
-      console.log('appointment store value',AppointmentStore.getCurrentComponent());
+
     this.setState({
       component: this.getComponent(AppointmentStore.getCurrentComponent())
     });

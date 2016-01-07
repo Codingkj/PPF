@@ -9,7 +9,7 @@ var TableDay = React.createClass({
   getInitialState: function () {
     return {
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus()
       };
@@ -20,11 +20,11 @@ var TableDay = React.createClass({
       console.log("CHANGING TABLEDAY");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
     });
-    console.log('CHANGED TO new state');
+    
   },
 
   componentDidMount: function () {

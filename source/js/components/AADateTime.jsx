@@ -5,18 +5,21 @@ var Paragraph = require('./Paragraph.jsx');
 var MyButton = require('./Buttons.jsx');
 var MyBreadcrumbs = require('./Breadcrumbs.jsx');
 var MenuBar = require('./MenuBar.jsx');
+var ClientMenuBar = require('./ClientMenuBarWhenLoggedIn.jsx');
 var DisplayTimes = require('./DisplayTimes.jsx');
 var MyCheckbox = require('./Checkbox.jsx');
 var MyCalendar = require('./Calendar.jsx');
+var CalendarMonth = require('./CalendarMonth.jsx');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
+var AppointmentStore = require('../stores/AppointmentStore.js');
 
 var DateTime= React.createClass({
 
   getInitialState: function () {
     return {
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus()
     };
@@ -27,11 +30,11 @@ var DateTime= React.createClass({
       console.log("IN DATE TIME CHANGING ");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
     });
-    console.log(' IN DATE TIME CHANGED TO ',day,month,year);
+    
   },
 
   componentDidMount: function () {
@@ -45,12 +48,16 @@ var DateTime= React.createClass({
   },
 
   bookIt:function(){
-
+      AppointmentActionCreators.dashboard();
   },
 
   render: function(){
     return (<div className="section">
-                <MenuBar />
+              <div className="row">
+                <div className="columns medium-12">
+                  <ClientMenuBar />
+                </div>
+              </div>
              
               <div className="row">
                 <div className="columns medium-12">
@@ -61,20 +68,18 @@ var DateTime= React.createClass({
                 </div>
               </div>
               <div className="row">
-                <div className="columns medium-10 medium-offset-2">
+                <div className="columns medium-6 medium-offset-1">
                       <Paragraph value="Choose a date for your appointment:"/>
                       <br />
-                      <MyCalendar />
+                      <CalendarMonth />
                  </div>
-              </div>
-              <div className="row">
-                  <div className="columns medium-offset-1 small-2 medium-4 large-4">
-                    <Paragraph value="Times that are available on that date are:"/>
-                    <DisplayTimes />
-                    <br />
-                    <Paragraph value="Please choose a time:"/>
+                 <div className="columns medium-5">
+                      <Paragraph value="Times that are available on that date are below. Please choose a time:"/>
+                      <DisplayTimes />
+                      <br />
                   </div>
               </div>
+              <br />
               <div className="row">
                   <div className="columns medium-4 medium-offset-3">
                       <Paragraph value="Do you want a text/SMS reminder?"/>

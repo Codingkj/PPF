@@ -5,9 +5,17 @@ var InputText = require('./TextInput.jsx');
 var InputTextArea = require('./TextArea.jsx');
 var Header = require('./Header.jsx');
 var Panel = require('./Panel.jsx');
+var PanelBox = require('./PanelBox.jsx');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 var ContactForm = React.createClass({
+
+ 
+  formSent: function(){
+    var panelStatus = "hidden";
+    return panelStatus;
+  },
+
   render: function () {
     return (
       <div className="contact-form-style">
@@ -17,7 +25,7 @@ var ContactForm = React.createClass({
 	           <br />
           </div>
         </div>
-        <form data-abide>
+        <form data-abide onSubmit={this.contactFormSent}>
         <div className="row">
           <div className="column medium-6">
             
@@ -38,11 +46,14 @@ var ContactForm = React.createClass({
               <label>Please enter a comment or question:
               <InputTextArea placeholder="<Your Question?>" required className="commentQuestion"/>
               </label>
-              <PpButton className="med-button align-right" type="button" value="Send"/>
+              <PpButton className="med-button align-right" type="submit" value="Send"/>
           </div>
-          <br /><br />
-         </div>
-         </form>
+        </div>
+        </form>
+        <div>
+             <PanelBox className={this.formSent} text="Thank you for your enquiry. We will respond as soon as we can." />
+  
+        </div>
       </div>
     );
   }

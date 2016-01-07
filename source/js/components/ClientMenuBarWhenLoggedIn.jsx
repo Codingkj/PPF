@@ -3,21 +3,24 @@ var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 
-var MenuComponent = React.createClass({
+var ClientMenu = React.createClass({
   getInitialState: function () {
     return {
       day: AppointmentStore.getCurrentDay(),
-      
-      
+      month: AppointmentStore.getCurrentMonthName(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus()
   	};
   },
 
 
   handleChange: function () {
-      console.log("CHANGING MENU");
+      console.log("CHANGING CLIENT MENU");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
-     
+      month: AppointmentStore.getCurrentMonthName(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus(),
     });
   },
 
@@ -58,15 +61,15 @@ var MenuComponent = React.createClass({
   	console.log('got to GOHOME function');
   	AppointmentActionCreators.home();
   },
-  goLogin:function(){
-  	console.log('got to LOGIN function');
-  	AppointmentActionCreators.login();
+  goLogout:function(){
+  	console.log('got to LOGOUT function');
+  	AppointmentActionCreators.logout();
   },
   goProfiles:function(){
   	console.log('got to PROFILES function');
   	AppointmentActionCreators.profiles();
   },
-  
+
 
   render: function() {
   
@@ -76,9 +79,9 @@ var MenuComponent = React.createClass({
 					    <ul className="horizontal menu expanded">
 					      <li onClick={this.goHome} className="menu-text divider"><a href="#" >HOME</a></li>
 					      <li onClick={this.goHome} className="menu-text divider"><a href="#">CLIENT DASHBOARD</a></li>
-					      <li onClick={this.goHome} className="menu-text divider"><a href="#">PRACTITIONER INFO</a></li>
+					      <li onClick={this.goHome} className="menu-text divider"><a href="#">LOGOUT</a></li>
 					      <li className="menu-text divider"><a href="#"></a></li>  
-					      <li onClick={this.goLogin} className="menu-text divider"><a href="#">LOG IN</a></li>  
+	
 					      <li onClick={this.goProfiles} className="menu-text divider"><a href="#">About Us</a></li>
 					      <li onClick={this.goContactDetails} className="menu-text divider"><a href="#">Contact Us</a></li> 
 					    </ul>
@@ -89,4 +92,4 @@ var MenuComponent = React.createClass({
   }
 });
 
-module.exports = MenuComponent;
+module.exports = ClientMenu;

@@ -34,7 +34,7 @@ var currentState = {
 		month:currentDate.getMonth(),
 		monthName: currentMonthName,
 		year:'2016',
-		componentPage:'WeekView',
+		componentPage:'LandingPage',
 		lock:'NO'
 		}
 
@@ -162,7 +162,7 @@ function changeToNextWeek(action){
 		monthName: MONTH[month],
 		month: month.toString(),
 		year:year.toString(),
-		componentPage:'LandingPage',
+		componentPage:'WeekView',
 		lock:'NO'
 		};
 		console.log('at end ofchange to NEXT week',currentState.wholeDate);
@@ -181,7 +181,7 @@ function dashboardPractitioner(action){
     AppointmentStore.emit('change');
 }
 function dateAndTime(action){
-	currentState.componentPage = 'Date-time';
+	currentState.componentPage = 'DateTime';
     AppointmentStore.emit('change');
 }
 
@@ -189,22 +189,30 @@ function landingPage(action){
 	currentState.componentPage = 'LandingPage';
     AppointmentStore.emit('change');
 }
+function login(action){
+	currentState.componentPage = 'Login';
+	AppointmentStore.emit('change');
+}
 
 function profiles(action){
 	currentState.componentPage = 'Profiles';
     AppointmentStore.emit('change');
 }
 function removeAppointment(AppointmentId) {
-	 delete diary[AppointmentId];
+	 // delete diary[AppointmentId];
 	 AppointmentStore.emit('change');
 }
 function removeReminder(AppointmentId) {
-	 delete diary[AppointmentId];
+	 // delete diary[AppointmentId];
   	AppointmentStore.emit('change');
 }
 function showApptDetails(action){
 	currentState.componentPage = 'App-details';
     AppointmentStore.emit('change');
+}
+function showFreeTimes(action){
+	currentState.componentPage = 'DateTime';
+	AppointmentStore.emit('change');
 }
 function treatment1(action){
 	currentState.componentPage = 'Treatment1';
@@ -244,7 +252,7 @@ var AppointmentStore = objectAssign({}, EventEmitter.prototype, {
 		return currentState.date;
 	},
 
-	getCurrentMonth: function(){
+	getCurrentMonthName: function(){
 		return currentState.monthName;
 	}, 
 
@@ -258,6 +266,10 @@ var AppointmentStore = objectAssign({}, EventEmitter.prototype, {
 	getCurrentComponent: function(){
 		return currentState.componentPage;
 	},
+	getMonthName: function(monthNumber){
+		var monthName = MONTH[monthNumber];
+		return monthName; 
+	}
 	
 		
 });
@@ -301,7 +313,7 @@ function handleAction(action) {
   }	else if (action.type === 'logout'){
   	landingPage(action);
   }	else if (action.type === 'login'){
-  	landingPage(action);
+  	login(action);
   	
   } else if (action.type === 'lock_week'){
   	lock_week(action);
@@ -316,8 +328,8 @@ function handleAction(action) {
   	removeReminder(action);
   } else if (action.type === 'app_details'){
   	showApptDetails(action);
-
-  
+  }	else if (action.type === 'show_free_times'){
+  	showFreeTimes(action);
   }	else if (action.type === 'treatment-1'){
   	treatment1(action);
   }	else if (action.type === 'treatment-2'){

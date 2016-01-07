@@ -29,7 +29,6 @@ var LandingPage = React.createClass({
     this.setState({
       component: AppointmentStore.getCurrentComponent()
     });
-    console.log('IN LANDING PAGE CHANGED TO ',day,month,year);
   },
 
   componentDidMount: function () {
@@ -43,9 +42,10 @@ var LandingPage = React.createClass({
   },
 
   titleClicked:function(){
-    event.preventDefault();
      AppointmentActionCreators.login();
   },
+
+  
 
   render: function(){
     return (<div className="page-background1">

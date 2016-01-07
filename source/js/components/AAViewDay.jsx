@@ -27,7 +27,7 @@ var DailyView = React.createClass({
   getFirstDates:function(){
   	return{
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus()
   	};
@@ -37,7 +37,7 @@ var DailyView = React.createClass({
     return {
     	date:AppointmentStore.getCurrentWholeDate(),
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus()
   	};
@@ -49,11 +49,11 @@ var DailyView = React.createClass({
     this.setState({
     	date:AppointmentStore.getCurrentWholeDate(),
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
     });
-    console.log(' IN VIEW DAY CHANGED TO ',this.state.date);
+ 
   },
 
   componentDidMount: function () {

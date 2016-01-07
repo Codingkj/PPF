@@ -6,13 +6,16 @@ var TextInput = require('./TextInput.jsx');
 var MyButton = require('./Buttons.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
+var AppointmentStore = require('../stores/AppointmentStore.js');
+var ClientStore = require('../stores/ClientStore.js');
+
 
 var Login = React.createClass({
 
   getInitialState: function () {
     return {
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus()
   	};
@@ -23,11 +26,11 @@ var Login = React.createClass({
       console.log(" IN AALOGIN CHANGING");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
     });
-    console.log(' IN AALOGIN CHANGED TO ',this.state.day);
+  
   },
 
   componentDidMount: function () {
@@ -42,7 +45,7 @@ var Login = React.createClass({
 
   loginClient:function(){
     event.preventDefault();
-     AppointmentActionCreators.login();
+     AppointmentActionCreators.dashboard();
   },
   createClient:function(){
     event.preventDefault();
@@ -51,7 +54,11 @@ var Login = React.createClass({
 
   render: function(){
     return (<div>
-		   		<MenuBar /> 
+		   		<div className="row">
+        			<div className="columns medium-12">
+          				<MenuBar />
+        			</div>
+      			</div>
 		    	 <div className="row">
 		    	 		<div className="columns medium-12">
 		    	 		  <Header defaultValue="LOGIN" className="center"/>

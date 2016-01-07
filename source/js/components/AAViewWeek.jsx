@@ -17,7 +17,7 @@ var WeekView = React.createClass({
     return {
       date:AppointmentStore.getCurrentWholeDate(),
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus()
     };
@@ -28,7 +28,7 @@ var WeekView = React.createClass({
     this.setState({
       date:AppointmentStore.getCurrentWholeDate(),
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonth(),
+      month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
     });

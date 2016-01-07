@@ -6,6 +6,8 @@ var MyButton = require('./Buttons.jsx');
 
 var MenuBar = require('./MenuBar.jsx');
 var ProfileImage = require('./ProfileImage.jsx');
+var AppointmentStore = require('../stores/AppointmentStore.js');
+var ClientStore = require('../stores/ClientStore.js');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 

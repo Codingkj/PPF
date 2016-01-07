@@ -5,7 +5,9 @@ var Paragraph = require('./Paragraph.jsx');
 var MyButton = require('./Buttons.jsx');
 var MyBreadcrumbs = require('./Breadcrumbs.jsx');
 var MenuBar = require('./MenuBar.jsx');
+var ClientMenu = require('./ClientMenuBarWhenLoggedIn.jsx');
 var ClientStore = require('../stores/ClientStore.js');
+var AppointmentStore = require('../stores/AppointmentStore.js');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 
 var Treatments1 = React.createClass({
@@ -25,7 +27,7 @@ var Treatments1 = React.createClass({
     
 
     return (<div>
-              <MenuBar />
+              <ClientMenuBar />
               <div className="row">
                 <div className="columns medium-12">
                     <div id="treatment-header">

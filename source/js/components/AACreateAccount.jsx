@@ -7,6 +7,8 @@ var MyButton = require('./Buttons.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var MyCheckbox = require('./Checkbox.jsx');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
+var AppointmentStore = require('../stores/AppointmentStore.js');
+var ClientStore = require('../stores/ClientStore.js');
 
 var CreateAccount = React.createClass({
 
