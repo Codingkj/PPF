@@ -32,7 +32,6 @@ var WeekView = React.createClass({
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
     });
-    console.log('IN AAVIEWWEEK this.state.date and Store.getDate to ',this.state.date, AppointmentStore.getCurrentWholeDate());
   },
 
   componentDidMount: function () {

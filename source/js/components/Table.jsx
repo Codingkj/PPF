@@ -8,87 +8,88 @@ var startDate;
 
 var TableComponent = React.createClass({
 
-// getInitialState: function () {
-//     return {
-//       date:AppointmentStore.getCurrentWholeDate,
-//       day: AppointmentStore.getCurrentDay(),
-//       month: AppointmentStore.getCurrentMonth(),
-//       year:AppointmentStore.getCurrentYear(),
-//       lock:AppointmentStore.getLockDayStatus()
-//       };
-//   },
 
-
-//   handleChange: function () {
-//       console.log("CHANGING");
-//     this.setState({
-//       date:AppointmentStore.getCurrentWholeDate,
-//       day: AppointmentStore.getCurrentDay(),
-//       month: AppointmentStore.getCurrentMonth(),
-//       year:AppointmentStore.getCurrentYear(),
-//       lock:AppointmentStore.getLockDayStatus(),
-//     });
-//     console.log('CHANGED TO ',day,month,year);
-//   },
-
-//   componentDidMount: function () {
-//       ClientStore.addChangeListener(this.handleChange);
-//       AppointmentStore.addChangeListener(this.handleChange);
-//   },
-
-//   componentWillUnmount: function () {
-//       ClientStore.removeChangeListener(this.handleChange);
-//       AppointmentStore.removeChangeListener(this.handleChange);
-//   },
-
-  render: function() {
-      // var dateNum = AppointmentStore.getCurrentDateNum();  //
-      var monthNow = AppointmentStore.getCurrentMonth();  //{this.props.startDate}
-      var wholeDate = AppointmentStore.getCurrentWholeDate();  
-      console.log ('wholeDate is...B4', wholeDate);
-      console.log('this.props.startDate is..',this.props.startDate);
-      var dayOfTheWeek = wholeDate.getDay();
-      console.log ('Day of week is..B4',dayOfTheWeek);
-
-      var dayOfMonth = wholeDate.getDate();
-      console.log ('day of month is B4',dayOfMonth);
-
-      while (dayOfTheWeek !== 0){
+  findPreviousMonday: function(todaysFullDate){
+      var dayOfTheWeek = todaysFullDate.getDay();
+      var fullDayOfMonth = todaysFullDate; 
+      var sunday = 0;
+      
+      while (dayOfTheWeek !== sunday){
              dayOfTheWeek = dayOfTheWeek -1;
-             dayOfMonth = new Date(wholeDate.setDate(wholeDate.getDate()-1)).getDate();
+             fullDayOfMonth = new Date(fullDayOfMonth.getTime() - 24 * 60 * 60 * 1000);
+             console.log('fullDayOfMonth',fullDayOfMonth);
       }
-      dayOfMonth = new Date(wholeDate.setDate(wholeDate.getDate()+1)).getDate();
-      //dateObj.setDate(dayValue) //
-      // myDate.setDate(myDate.getDate() + 21)
-      console.log('wholeDate after',wholeDate);
-      console.log('dayOfTheWeek after',dayOfTheWeek);
-      console.log('dayOfTheMonth after',dayOfMonth);
+      var Monday = new Date(fullDayOfMonth.getTime() + 24 * 60 * 60 * 1000);
+      return Monday;
+  },
 
-      var date1num = wholeDate.getDate();
-      var date2num = new Date(wholeDate.setDate(wholeDate.getDate() + 1)).getDate();
-      console.log('date2num is now.',date2num);
-      var date3num = new Date(wholeDate.setDate(wholeDate.getDate() + 1)).getDate();
-     
-      var date4num = new Date(wholeDate.setDate(wholeDate.getDate() + 1)).getDate();
-      
-      var date5num = new Date(wholeDate.setDate(wholeDate.getDate() + 1)).getDate();
-      
-      var date6num = new Date(wholeDate.setDate(wholeDate.getDate() + 1)).getDate();
-      
-      var date7num = new Date(wholeDate.setDate(wholeDate.getDate() + 1)).getDate();
-      console.log('date7num is now.',date7num);
-      
+  getFullDates:function(startDate){
+      var fullDates = []; 
+      fullDates[0] = startDate;
+      fullDates[1] = new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
+      console.log('fullDates[1] is now...',fullDates[1]);
+      fullDates[2] = new Date(startDate.getTime() + 2 * 24 * 60 * 60 * 1000);
+      fullDates[3] = new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000);   
+      fullDates[4] = new Date(startDate.getTime() + 4 * 24 * 60 * 60 * 1000);  
+      fullDates[5] = new Date(startDate.getTime() + 5 * 24 * 60 * 60 * 1000);
+      fullDates[6] = new Date(startDate.getTime() + 6 * 24 * 60 * 60 * 1000);
+      console.log('fullDates[6] is now...',fullDates[6]);
+      return fullDates;
+  },
 
+  calculateDatesForTheWeek: function(fullDates){
+      var dateNum = [];           
+
+      dateNum[0] = fullDates[0].getDate();
+      dateNum[1] = fullDates[1].getDate();
+      console.log('dateNum[1] is now...',dateNum[1]);
+      dateNum[2] = fullDates[2].getDate();
+      dateNum[3] = fullDates[3].getDate();   
+      dateNum[4] = fullDates[4].getDate();  
+      dateNum[5] = fullDates[5].getDate();   
+      dateNum[6] = fullDates[6].getDate();
+      console.log('dateNum[6] is now...',dateNum[6]);
+      return dateNum;
+  },
+  assignMonthLabels: function (dateNum){
+       var MONTH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+       var displayMonthNames = [];
+       var iterator=0;
+       while (iterator<7)  {
+             monthNow = dateNum[iterator].getMonth();
+             displayMonthNames[iterator] = MONTH[monthNow];
+             iterator = iterator + 1;
+      }
+      return displayMonthNames;
+  },
+
+  findThisWeeksClients:function(startDate){
       var targetName;
       var LockedButtonText;
       var todayNames = [];
       var todayTreatments = [];
       var todayLock = [];
       var todayManual = [];
-    
-      var MONTH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      var displayMonth = MONTH[monthNow];
-     
+  },
+
+  getLockButtonStatus:function(startDate){
+
+  },
+
+  render: function() {
+       
+      var LockedButtonText;
+      var todayNames = [];
+
+      var wholeDate = AppointmentStore.getCurrentWholeDate();
+      var startDate = this.findPreviousMonday(wholeDate);
+ 
+      var fullDates = this.getFullDates(startDate);
+      var displayDates = this.calculateDatesForTheWeek(fullDates);  
+      var displayMonth = this.assignMonthLabels(fullDates);
+      
+      var displayClients = this.findThisWeeksClients(wholeDate);
+      var LockButtonStatus = this.getLockButtonStatus(wholeDate);
 
      return (<div className="table-week">
       <table>
@@ -105,13 +106,13 @@ var TableComponent = React.createClass({
       		</tr>
                   <tr className="second-weekly-header">
                         <th className="table-cell center" width="60">Time</th>
-                        <th className="table-cell center" width="140">{date1num} {displayMonth}</th>
-                        <th className="table-cell center" width="140">{date2num} {displayMonth}</th>
-                        <th className="table-cell center" width="140">{date3num} {displayMonth}</th>
-                        <th className="table-cell center" width="140">{date4num} {displayMonth}</th>
-                        <th className="table-cell center" width="140">{date5num} {displayMonth}</th>
-                        <th className="table-cell center" width="100">{date6num} {displayMonth}</th>
-                        <th className="table-cell center" width="100">{date7num} {displayMonth}</th>
+                        <th className="table-cell center" width="140">{displayDates[0]} {displayMonth[0]}</th>
+                        <th className="table-cell center" width="140">{displayDates[1]} {displayMonth[1]}</th>
+                        <th className="table-cell center" width="140">{displayDates[2]} {displayMonth[2]}</th>
+                        <th className="table-cell center" width="140">{displayDates[3]} {displayMonth[3]}</th>
+                        <th className="table-cell center" width="140">{displayDates[4]} {displayMonth[4]}</th>
+                        <th className="table-cell center" width="100">{displayDates[5]} {displayMonth[5]}</th>
+                        <th className="table-cell center" width="100">{displayDates[6]} {displayMonth[6]}</th>
                   </tr>
       	</thead>
       	<tbody>

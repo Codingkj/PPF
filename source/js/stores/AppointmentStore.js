@@ -21,7 +21,7 @@ var practice = {
 	email: 'service@practice.com'
 }
 
-currentDate = new Date();
+var currentDate = new Date();
 console.debug('immediately after setting initial value:',currentDate);
 var currentMonth = currentDate.getMonth();
 var currentMonthName = MONTH[currentMonth];
@@ -125,7 +125,7 @@ function changeToWeekView(action){
 
 function changeToPreviousWeek(action){
 	console.log('recalculating currentdate that is...',currentDate);
-   currentDate = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+   	currentDate = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
 	day =currentDate.getDate();
 	month =currentDate.getMonth();
 	year =currentDate.getFullYear();
@@ -140,6 +140,7 @@ function changeToPreviousWeek(action){
 		componentPage:'WeekView',
 		lock:'NO'
 		};
+
 	AppointmentStore.emit('change');
 	console.log('at end of change to PREVIOUS week',currentState.wholeDate);
 }
@@ -161,7 +162,7 @@ function changeToNextWeek(action){
 		monthName: MONTH[month],
 		month: month.toString(),
 		year:year.toString(),
-		componentPage:'WeekView',
+		componentPage:'LandingPage',
 		lock:'NO'
 		};
 		console.log('at end ofchange to NEXT week',currentState.wholeDate);
@@ -265,76 +266,73 @@ function handleAction(action) {
 	console.log('INSIDE handleaction in Store',action.type);
 	console.log('CurrentDate is ',currentDate);
 	console.log('CurrentState.date is',currentState.date);
-  // if (action.type === 'add_appointment') {
-  //   addAppointment(action);
-  // } else if (action.type === 'add_reminder') {
-  //   addReminder(action);
-  //    } else if (action.type === 'book_AnAppointment'){
-  // 	bookAnAppointment(action);
-  // } else if (action.type === 'book_practitioner'){
-  // 	bookPractitioner(action);
-  // } else if (action.type === 'get_PreviousDay'){
-  // 	changeDateToPreviousDay(action);
+  if (action.type === 'add_appointment') {
+    addAppointment(action)
+  } else if (action.type === 'add_reminder') {
+    addReminder(action);
+  } else if (action.type === 'book_AnAppointment'){
+  	bookAnAppointment(action);
+  } else if (action.type === 'book_practitioner'){
+  	bookPractitioner(action);
+  } else if (action.type === 'get_PreviousDay'){
+  	changeDateToPreviousDay(action);
 
-  // } else if (action.type === 'get_NextDay'){
-  // 	changeDateToNextDay(action);
-  // } else 
-  if (action.type === 'changeToDailyView'){
+  } else if (action.type === 'get_NextDay'){
+  	changeDateToNextDay(action);
+  } else if (action.type === 'changeToDailyView'){
   	changeToDailyView(action);
   } else if (action.type === 'changeToWeekView'){
   	changeToWeekView(action);
-  } else 
-  if (action.type === 'changeToNextWeek'){
+  } else if (action.type === 'changeToNextWeek'){
   	changeToNextWeek(action);
-  }
- //  } else if (action.type === 'changeToPreviousWeek'){
- //  	changeToPreviousWeek(action);
+  } else if (action.type === 'changeToPreviousWeek'){
+  	changeToPreviousWeek(action);
   
- //  } else if (action.type === 'create_account'){
- //  	createAccount(action);
- //  }	else if (action.type === 'dashboard'){
- //  	dashboard(action);
- //  }	else if (action.type === 'dashboard_practitioner'){
- //  	dashboardPractitioner(action);
- //  }	else if (action.type === 'date_time'){
- //  	dateAndTime(action);
+  } else if (action.type === 'create_account'){
+  	createAccount(action);
+  }	else if (action.type === 'dashboard'){
+  	dashboard(action);
+  }	else if (action.type === 'dashboard_practitioner'){
+  	dashboardPractitioner(action);
+  }	else if (action.type === 'date_time'){
+  	dateAndTime(action);
   
  
- //  }	else if (action.type === 'logout'){
- //  	landingPage(action);
- //  }	else if (action.type === 'login'){
- //  	landingPage(action);
+  }	else if (action.type === 'logout'){
+  	landingPage(action);
+  }	else if (action.type === 'login'){
+  	landingPage(action);
   	
- //     } else if (action.type === 'lock_week'){
- //  	lock_week(action);
- //  	} else if (action.type === 'lock_day'){
- //  	lockDay(action);
+  } else if (action.type === 'lock_week'){
+  	lock_week(action);
+  } else if (action.type === 'lock_day'){
+  	lockDay(action);
 
- //  } else if (action.type === 'profiles'){
- //  	profiles(action);
- //   } else if (action.type === 'remove_appointment') {
- //    removeAppointment(action);
- //  } else if (action.type === 'remove_reminder'){
- //  	removeReminder(action);
- //  }else if (action.type === 'app_details'){
- //  	showApptDetails(action);
+  } else if (action.type === 'profiles'){
+  	profiles(action);
+  } else if (action.type === 'remove_appointment') {
+    removeAppointment(action);
+  } else if (action.type === 'remove_reminder'){
+  	removeReminder(action);
+  } else if (action.type === 'app_details'){
+  	showApptDetails(action);
 
   
- //  }	else if (action.type === 'treatment-1'){
- //  	treatment1(action);
- //  }	else if (action.type === 'treatment-2'){
- //  	treatment2(action);
- //  } else if (action.type === 'unlock_week'){
- //  	unlockWeek(action);
- //  } else if (action.type === 'lock_appointment'){
- //  	lockAppointment(action);
- //  } else if (action.type === 'unlock_appointment'){
- //  	unlockAppointment(action);
- //  	} else if (action.type === 'unlock_day'){
- //  	unlockDay(action);
- //  	} else if (action.type === 'remove_all_appointments'){
- //  	unlockAppointment(action);
-	// }
+  }	else if (action.type === 'treatment-1'){
+  	treatment1(action);
+  }	else if (action.type === 'treatment-2'){
+  	treatment2(action);
+  } else if (action.type === 'unlock_week'){
+  	unlockWeek(action);
+  } else if (action.type === 'lock_appointment'){
+  	lockAppointment(action);
+  } else if (action.type === 'unlock_appointment'){
+  	unlockAppointment(action);
+  } else if (action.type === 'unlock_day'){
+  	unlockDay(action);
+  } else if (action.type === 'remove_all_appointments'){
+  	unlockAppointment(action);
+	}
 }
 
 AppointmentStore.dispatchToken = Dispatcher.register(handleAction);
