@@ -4,6 +4,8 @@ var MyButton = require('./Buttons.jsx');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 var ClientStore = require('../stores/ClientStore.js');
 
+
+
 var TableDay = React.createClass({
  
   getInitialState: function () {
@@ -140,7 +142,8 @@ var TableDay = React.createClass({
       		</tr>
       	</thead>
       	<tbody>
-                  <tr>
+                  <tr className="dayRowShade">
+
                         <td>09:00</td>
                         <td>{}</td>
                         <td>{todayTreatments[0]}</td>
@@ -168,7 +171,7 @@ var TableDay = React.createClass({
       		</tr>
       		<tr>
       			<td>12:00</td>
-      			<td>{todayNames[3]}</td>
+      			     <td>{todayNames[3]}</td>
                         <td>{todayTreatments[3]}</td>
                         <td><LockButton value={todayLock[3]}/></td>
                         <td></td>

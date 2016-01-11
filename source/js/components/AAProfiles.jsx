@@ -9,16 +9,24 @@ var ProfileImage = require('./ProfileImage.jsx');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
-
+var ClientMenuBar = require('./ClientMenuBarWhenLoggedIn.jsx');
 
 var Practitioners = React.createClass({
+  
   bookPractitioner: function(event){
     event.preventDefault();
      AppointmentActionCreators.login();
   },
 
   render: function(){
-    return (<div>
+    return (<div className="page-background1">
+            <div className=" separator">
+                      <div className="row">
+                          <div className="large-12 columns">
+                             
+                          </div>
+                      </div>
+                  </div>
             <MenuBar />
             <br />
               <div className="row">

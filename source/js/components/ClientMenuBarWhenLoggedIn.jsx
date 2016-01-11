@@ -1,5 +1,5 @@
 var React = require('react');
-var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 
@@ -73,8 +73,8 @@ var ClientMenu = React.createClass({
 
   render: function() {
   
-     return (<div data-sticky-container>
-     			<div className="sticky" id="navbar" data-sticky data-margin-top="0" data-margin-bottom="0">
+     return (<div data-sticky-container className="clientMenu">
+     			<div className="sticky" id="navbar" data-sticky data-margin-top="0" data-margin-bottom="20">
 			      <nav data-topbar role="navigation" className="top-bar" data-options="is_hover: false">
 					    <ul className="horizontal menu expanded">
 					      <li onClick={this.goHome} className="menu-text divider"><a href="#" >HOME</a></li>
@@ -83,7 +83,7 @@ var ClientMenu = React.createClass({
 					      <li className="menu-text divider"><a href="#"></a></li>  
 	
 					      <li onClick={this.goProfiles} className="menu-text divider"><a href="#">About Us</a></li>
-					      <li onClick={this.goContactDetails} className="menu-text divider"><a href="#">Contact Us</a></li> 
+					      <li onClick={this.goContactDetails} className="menu-text divider"><a href="#location">Contact Us</a></li> 
 					    </ul>
 				
 				  </nav>

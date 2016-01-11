@@ -11,12 +11,15 @@ var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js
 var ContactForm = React.createClass({
 
  
-  formSent: function(){
+  contactFormSent: function(){
     var panelStatus = "hidden";
     return panelStatus;
   },
 
+
   render: function () {
+    var panelStatus = 'OFF';
+
     return (
       <div className="contact-form-style">
       	<div className="row">
@@ -30,28 +33,30 @@ var ContactForm = React.createClass({
           <div className="column medium-6">
             
               <label>First name:
-              <InputText placeholder="<Enter your name>" required className="field20" />
+              <input placeholder="<Enter your name>" required className="field20" ref="cf-name"></input>
               </label>
-              <small className="error">Name is required thanks</small>
+              <small className="form-error">Name is required thanks</small>
               <label>Email:
-              <Input type="email" placeholder="<your email address>" required className="field30"/>
+              <input type="email" placeholder="<your email address>" required className="field30" ref="cf-email"></input>
               </label>
-              <small className="error">Email is required thanks</small>
+              <small className="form-error">Email is required thanks</small>
               <label>Phone:
-              <InputText placeholder="<your phone number>" className="field20"/>
+              <input placeholder="<your phone number>" className="field20" ref="cf-phone"></input>
               </label>
             
           </div>
           <div className="column medium-6">
               <label>Please enter a comment or question:
-              <InputTextArea placeholder="<Your Question?>" required className="commentQuestion"/>
+              <input type="text" placeholder="<Your Question?>" required className="commentQuestion" ref="cf-query"></input>
               </label>
-              <PpButton className="med-button align-right" type="submit" value="Send"/>
+              <button className="med-button align-right" type="submit" value="Send" ></button>
           </div>
         </div>
         </form>
         <div>
-             <PanelBox className={this.formSent} text="Thank you for your enquiry. We will respond as soon as we can." />
+
+        {panelStatus==='ON' ? <PanelBox text="Thank you for your enquiry. We will respond as soon as we can." />:null}
+            
   
         </div>
       </div>

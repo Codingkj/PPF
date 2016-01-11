@@ -6,14 +6,15 @@ var MyButton = require('./Buttons.jsx');
 var MyBreadcrumbs = require('./Breadcrumbs.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var ClientStore = require('../stores/ClientStore.js');
+var ClientMenuBar = require('./ClientMenuBarWhenLoggedIn.jsx');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 
 var Treatments2 = React.createClass({
   
-  bookTreatment: function(event){
+  bookTreatment: function(){
     event.preventDefault();
-     AppointmentActionCreators.bookPractitioner();
+     AppointmentActionCreators.dateTime();
   },
 
   render: function(){
@@ -24,8 +25,15 @@ var Treatments2 = React.createClass({
     var firstText = standardText + practitioners.practitioner1 + ' ?';
     var secondText = standardText + practitioners.practitioner2 + ' ?';
 
-    return (<div>
-              <MenuBar />
+    return (<div className="page-background1">
+              
+              <ClientMenuBar />
+              <div className="separator">
+                <div className="row">
+                  <div className="large-12 columns">
+                  </div>
+                </div>
+              </div>
               <div className="row">
                 <div className="columns medium-12">
                     <div id="treatment-header">
@@ -53,6 +61,13 @@ var Treatments2 = React.createClass({
                     </div>
                 </div>
               </div>
+              <div className=" separator">
+                      <div className="row">
+                          <div className="large-12 columns">
+                             
+                          </div>
+                      </div>
+                  </div>
         </div>);
   }
 });

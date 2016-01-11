@@ -117,7 +117,7 @@ var TableComponent = React.createClass({
       	</thead>
       	<tbody>
                   <tr>
-                        <td>09:00</td>
+                        <td className="time-column-style">09:00</td>
                         <td id="11" className="table-cell">{todayNames[0]}</td>
                         <td id="12" className="table-cell"></td>
                         <td id="13" className="table-cell"></td>
@@ -128,7 +128,7 @@ var TableComponent = React.createClass({
 
                   </tr>
       		<tr>
-      			<td>10:00</td>
+      			<td className="time-column-style">10:00</td>
       			<td id="21" className="table-cell">{todayNames[1]}</td>
       			<td id="22" className="table-cell"></td>
       			<td id="23" className="table-cell"></td>
@@ -139,7 +139,7 @@ var TableComponent = React.createClass({
 
       		</tr>
       		<tr>
-      			<td>11:00</td>
+      			<td className="time-column-style">11:00</td>
                         <td className="table-cell">{todayNames[2]}</td>
                         <td className="table-cell"></td>
                         <td className="table-cell"></td>
@@ -151,7 +151,7 @@ var TableComponent = React.createClass({
                       
       		</tr>
       		<tr>
-      			<td>12:00</td>
+      			<td className="time-column-style">12:00</td>
       			<td className="table-cell">{todayNames[3]}</td>
                         <td className="table-cell"></td>
                         <td className="table-cell"></td>
@@ -161,7 +161,7 @@ var TableComponent = React.createClass({
                         <td className="table-cell"></td>
       		</tr>
       		<tr>
-      			<td>13:00</td>
+      			<td className="time-column-style">13:00</td>
       			<td className="table-cell">{todayNames[4]}</td>
                         <td className="table-cell"></td>
                         <td className="table-cell"></td>
@@ -171,7 +171,7 @@ var TableComponent = React.createClass({
                         <td className="table-cell"></td>
       		</tr>
       		<tr>
-      			<td>14:00</td>
+      			<td className="time-column-style">14:00</td>
       			<td className="table-cell">{todayNames[5]}</td>
                         <td className="table-cell"></td>
                         <td className="table-cell"></td>
@@ -181,7 +181,7 @@ var TableComponent = React.createClass({
                         <td className="table-cell"></td>
       		</tr>
       		<tr>
-      			<td>15:00</td>
+      			<td className="time-column-style">15:00</td>
       			<td className="table-cell">{todayNames[6]}</td>
                         <td className="table-cell"></td>
                         <td className="table-cell"></td>
@@ -191,7 +191,7 @@ var TableComponent = React.createClass({
                         <td className="table-cell"></td>
       		</tr>
       		<tr>
-      			<td>16:00</td>
+      			<td className="time-column-style">16:00</td>
       			<td className="table-cell">{todayNames[7]}</td>
                         <td className="table-cell"></td>
                         <td className="table-cell"></td>
@@ -201,7 +201,7 @@ var TableComponent = React.createClass({
                         <td className="table-cell"></td>
       		</tr>
       		<tr>
-      			<td>17:00</td>
+      			<td className="time-column-style">17:00</td>
       			<td className="table-cell">{todayNames[8]}</td>
                         <td className="table-cell"></td>
                         <td className="table-cell"></td>
@@ -211,7 +211,7 @@ var TableComponent = React.createClass({
                         <td className="table-cell"></td>
       		</tr>
       		<tr>
-      			<td>18:00</td>
+      			<td className="time-column-style">18:00</td>
       			<td className="table-cell">{todayNames[9]}</td>
                         <td className="table-cell"></td>
                         <td className="table-cell"></td>
@@ -221,7 +221,7 @@ var TableComponent = React.createClass({
                         <td className="table-cell"></td>
       		</tr>
       		<tr>
-      			<td>19:00</td>
+      			<td className="time-column-style" >19:00</td>
       			<td className="table-cell">{todayNames[10]}</td>
                         <td className="table-cell"></td>
                         <td className="table-cell"></td>
@@ -241,9 +241,9 @@ var TableComponent = React.createClass({
                         <td></td>
                   </tr>
                   <tr>
-                        <td></td>
-                        <td className="table-cell"><LockButton data-toggler id="lockMonday" type="button" value={LockedButtonText} className="small-button2"/></td>
-                        <td className="table-cell"><LockButton data-toggler id="lockTuesday" type="button" value={LockedButtonText} className="small-button2"/></td>
+                        <td className="time-column-style"></td>
+                        <td className="table-cell"><MyButton id="lockMonday" type="button" value={LockedButtonText} className="tiny-button"/></td>
+                        <td className="table-cell"><MyButton id="lockTuesday" type="button" value={LockedButtonText} className="tiny-button"/></td>
                         <td className="table-cell"><LockButton data-toggler id="lockWednesday" type="button" value={LockedButtonText} className="small-button2"/></td>
                         <td className="table-cell"><LockButton data-toggler id="lockThursday" type="button" value={LockedButtonText} className="small-button2"/></td>
                         <td className="table-cell"><LockButton data-toggler id="lockFriday" type="button" value={LockedButtonText} className="small-button2"/></td>

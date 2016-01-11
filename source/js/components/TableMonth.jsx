@@ -2,11 +2,45 @@ var React = require('react');
 var LockButton = require('./LockButtons.jsx');
 var MyButton = require('./Buttons.jsx');
 var AppointmentStore = require('../stores/AppointmentStore.js');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 var ClientStore = require('../stores/ClientStore.js');
 var Utilities = require('../Utilities.js');
 var startDate;
 
 var TableMonth = React.createClass({
+
+getInitialState: function () {
+    return {
+      date:AppointmentStore.getCurrentWholeDate(),
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonthName(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus()
+      };
+  },
+
+
+  handleChange: function () {
+      console.log(" IN VIEW DAY CHANGING",this.state.date);
+    this.setState({
+      date:AppointmentStore.getCurrentWholeDate(),
+      day: AppointmentStore.getCurrentDay(),
+      month: AppointmentStore.getCurrentMonthName(),
+      year:AppointmentStore.getCurrentYear(),
+      lock:AppointmentStore.getLockDayStatus(),
+    });
+ 
+  },
+
+  componentDidMount: function () {
+      ClientStore.addChangeListener(this.handleChange);
+      AppointmentStore.addChangeListener(this.handleChange);
+  },
+
+  componentWillUnmount: function () {
+      ClientStore.removeChangeListener(this.handleChange);
+      AppointmentStore.removeChangeListener(this.handleChange);
+  },
 
 
   findFirstMondayInCurrentMonth: function(todaysFullDate){
@@ -48,14 +82,15 @@ var TableMonth = React.createClass({
   },
 
   calculateDatesForTheWeek: function(fullDates){
+      console.log('Inside calculateDatesForTheWeek function');
       var cellDates = [];           
       var cell = 0;
 
       while (cell < 42) {
             cellDates[cell] = fullDates[cell].getDate();
             cell = cell +1;
-      }
-      
+      }  
+      console.log('celldates 1,2,3 are',cellDates[1],cellDates[2],cellDates[3])
       return cellDates;
   },
 
@@ -69,13 +104,23 @@ var TableMonth = React.createClass({
       var todayManual = [];
   },
 
-  
-  dateClicked: function(event){
-      console.log('Got to DATE-CLICKED');
-      var highlight = Utilities.highlightChosenDate();
-      findFreeTimes = Utilities.FreeAppointmentTimes();
-      AppointmentActionCreators.showFreeTimes();
+ highlightChosenDate: function(){
+        console.log('in utilities file trying to higlight date');
   },
+
+  dateClicked: function(event){
+
+      console.log('Got to DATE-CLICKED',event.target.innerHTML);
+      var highlight = this.highlightChosenDate();
+      findFreeTimes = this.freeAppointmentTimes();
+      AppointmentActionCreators.showFreeTimes(event.target.innerHTML);
+  },
+
+  freeAppointmentTimes:function(){
+      console.log('reached freeAppointmentTimes');
+  },
+
+
 
   previousMonth: function(){
       var currentDate = AppointmentStore.getCurrentWholeDate();
@@ -140,67 +185,67 @@ var TableMonth = React.createClass({
       	<tbody>
                   <tr>
                         
-                        <td id="00" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[0]} /></td>
-                        <td id="01" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[1]} /></td>
-                        <td id="02" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[2]} /></td>
-                        <td id="03" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[3]} /></td>
-                        <td id="04" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[4]} /></td>
-                        <td id="05" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[5]} /></td>
-                        <td id="06" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[6]} /></td>
+                        <td id="00" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[0]} /></td>
+                        <td id="01" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[1]} /></td>
+                        <td id="02" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[2]} /></td>
+                        <td id="03" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[3]} /></td>
+                        <td id="04" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[4]} /></td>
+                        <td id="05" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[5]} /></td>
+                        <td id="06" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[6]} /></td>
 
                   </tr>
       		<tr>
       			
-      			<td id="07" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[7]} /></td>
-      			<td id="08" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[8]} /></td>
-      			<td id="09" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[9]} /></td>
-      			<td id="10" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[10]} /></td>
-      			<td id="11" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[11]} /></td>
-      			<td id="12" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[12]} /></td>
-                        <td id="13" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[13]} /></td>
+      			<td id="07" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[7]} /></td>
+      			<td id="08" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[8]} /></td>
+      			<td id="09" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[9]} /></td>
+      			<td id="10" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[10]} /></td>
+      			<td id="11" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[11]} /></td>
+      			<td id="12" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[12]} /></td>
+                        <td id="13" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[13]} /></td>
 
       		</tr>
       		<tr>
       			
-                        <td id="14" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[14]} /></td>
-                        <td id="15" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[15]} /></td>
-                        <td id="16" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[16]} /></td>
-                        <td id="17" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[17]} /></td>
-                        <td id="18" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[18]} /></td>
-                        <td id="19" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[19]} /></td>
-                        <td id="20" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[20]} /></td>
+                        <td id="14" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[14]} /></td>
+                        <td id="15" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[15]} /></td>
+                        <td id="16" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[16]} /></td>
+                        <td id="17" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[17]} /></td>
+                        <td id="18" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[18]} /></td>
+                        <td id="19" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[19]} /></td>
+                        <td id="20" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[20]} /></td>
                         
                       
       		</tr>
       		<tr>
       			
-      			<td id="21" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[21]} /></td>
-                        <td id="22" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[22]} /></td>
-                        <td id="23" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[23]} /></td>
-                        <td id="24" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[24]} /></td>
-                        <td id="25" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[25]} /></td>
-                        <td id="26" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[26]} /></td>
-                        <td id="27" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[27]} /></td>
+      			<td id="21" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[21]} /></td>
+                        <td id="22" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[22]} /></td>
+                        <td id="23" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[23]} /></td>
+                        <td id="24" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[24]} /></td>
+                        <td id="25" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[25]} /></td>
+                        <td id="26" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[26]} /></td>
+                        <td id="27" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[27]} /></td>
       		</tr>
       		<tr>
       			
-      			<td id="28" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[28]} /></td>
-                        <td id="29" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[29]} /></td>
-                        <td id="30" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[30]} /></td>
-                        <td id="31" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[31]}/></td>
-                        <td id="32" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[32]}/></td>
-                        <td id="33" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[33]}/></td>
-                        <td id="34" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[34]}/></td>
+      			<td id="28" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[28]} /></td>
+                        <td id="29" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[29]} /></td>
+                        <td id="30" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[30]} /></td>
+                        <td id="31" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[31]}/></td>
+                        <td id="32" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[32]}/></td>
+                        <td id="33" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[33]}/></td>
+                        <td id="34" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[34]}/></td>
       		</tr>
       		<tr>
       		
-      			<td id="35" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[35]}/></td>
-                        <td id="36" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[36]}/></td>
-                        <td id="37" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[37]}/></td>
-                        <td id="38" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[38]}/></td>
-                        <td id="39" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[39]}/></td>
-                        <td id="40" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[40]}/></td>
-                        <td id="41" className="month-cell"><MyButton clicked={this.dateClicked} type="button" value={displayDates[41]}/></td>
+      			<td id="35" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[35]}/></td>
+                        <td id="36" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[36]}/></td>
+                        <td id="37" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[37]}/></td>
+                        <td id="38" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[38]}/></td>
+                        <td id="39" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[39]}/></td>
+                        <td id="40" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[40]}/></td>
+                        <td id="41" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[41]}/></td>
       		</tr>
       		
             

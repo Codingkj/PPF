@@ -3,6 +3,8 @@ var MyButton = require('./Buttons.jsx');
 var timeButton = require('./TimeButtons.jsx')
 var AppointmentStore = require('../stores/AppointmentStore.js');
 var ClientStore = require('../stores/ClientStore.js');
+var Paragraph = require('./Paragraph.jsx');
+
 
 var DisplayTimes= React.createClass({
 
@@ -61,9 +63,9 @@ getInitialState: function () {
   },
 
   timeClicked: function(event){
-  	var dateChosen = event.id;
+  	var dateChosen = event.target.innerHTML;
   	console.log('dateChosen',dateChosen);
-  	AppointActionCreator.dashboard();
+  	AppointmentActionCreators.highlightTime(event);
   },
 
   render: function(){
@@ -74,6 +76,16 @@ getInitialState: function () {
 
     return (<div>
 			 <br />
+			 	<div className="row">
+					<div className="time-div columns medium-12">
+			 				<Paragraph value="You have chosen:" />
+                      
+                      		<br />
+                      		<Paragraph value="Times that are available on that date are below. Please choose a time:"/>
+							<br />
+							<br />		
+					</div>
+				</div>	
 				<div className="row">
 					<div className="time-div columns medium-3">
 						<MyButton id="9" clicked={this.timeClicked} value="09:00am" className="time-button" type="button"/>

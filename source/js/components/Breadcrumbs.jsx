@@ -6,10 +6,7 @@ var MyBreadcrumbs= React.createClass({
 
   getInitialState: function () {
     return {
-      day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonthName(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus()
+      
   	};
   },
 
@@ -37,16 +34,20 @@ var MyBreadcrumbs= React.createClass({
 
   render: function(){
     return (<div>
-				<nav aria-label="You are here:" role="navigation">
-				  <ul className="breadcrumbs">
-				    <li><a href="#">Treatment</a></li>
-				    <li><a href="#">Date & Time </a></li>
-				     <li><a href="#">Book & Confirm</a></li>
-				    <li>
-				      <span className="show-for-sr">Current: </span> Choosing
-				    </li>
-				  </ul>
-				</nav>
+    	 <div className=" row">
+    	 	<div className="columns-12 center">
+    			<ul className="pagination" role="navigation" aria-label="Your Path to Success">
+				      <li className="disabled">« <span className="show-for-sr">Previous page</span></li>
+				      <li className="current"><span className="show-for-sr">This page</span> 1</li>
+				      <li><a href="#" aria-label="Treatment">2</a></li>
+				      <li><a href="#" aria-label="Date & Time">3</a></li>
+				      <li><a href="#" aria-label="Book & Confirm">4</a></li>
+				      <li><a href="#" aria-label="Next page">» <span className="show-for-sr">Next page</span></a></li>
+				</ul>
+		   </div>
+		 </div>
+			
+				  
       </div>);
   }
 });

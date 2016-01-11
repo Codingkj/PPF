@@ -8,6 +8,8 @@ var Paragraph = require('./Paragraph.jsx');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
+var ClientMenuBar = require('./ClientMenuBarWhenLoggedIn.jsx');
+
 
 var DailyView = React.createClass({
   
@@ -74,8 +76,8 @@ var DailyView = React.createClass({
   
 	 var displayDate = '  '+ this.state.day + ' '+ this.state.month+ ' '+ this.state.year;
 	
-     return (<div >
-		     	<MenuBar />
+     return (<div className="page-background1">
+              <MenuBar />
 		     	<br />
 		     	<div className="row">
 		     		<div className="columns medium-10 center">

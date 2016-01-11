@@ -3,7 +3,7 @@ var Dispatcher = require('../dispatcher/Dispatcher');
 function addAppointment(item) {
     var action = {
       type: 'add_appointment',
-      item: item
+      time: item.target.innerHTML,
     };
     
     Dispatcher.dispatch(action);
@@ -33,17 +33,17 @@ function bookAnAppointment(){
 
 function bookPractitioner(){
     var action = {
-      type:'date_time',
+      type:'treatment1',
       practitionerNumber:'1',
     };
  console.log('in actioncreator for practitioner');
  Dispatcher.dispatch(action);
 }
 
-function cancelAppointment(itemId) {
+function cancelAppointment() {
     var action = {
       type: 'remove_appointment',
-      itemId: itemId
+      appointmentId: '8',
     };
     
     Dispatcher.dispatch(action);
@@ -85,9 +85,11 @@ function changeToWeekView(){
 }
 
 function createAccount(){
+
     var action = {
       type:'create_account'
     };
+ 
  Dispatcher.dispatch(action);
 }
 
@@ -95,6 +97,7 @@ function dashboard(){
     var action = {
       type:'dashboard'
     };
+    console.log('inside dashboard actionCreator');
  Dispatcher.dispatch(action);
 }
 
@@ -105,10 +108,11 @@ function dashboardPractitioner(){
  Dispatcher.dispatch(action);
 }
 
-function dateTime(){
+function dateAndTime(){
     var action = {
       type:'date_time'
     };
+    console.log('dispatching action to change to DATETIME');
  Dispatcher.dispatch(action);
 }
 
@@ -132,12 +136,27 @@ function getNextDay(){
  console.log('action type has just been set as',action.type);
   }
 
+function createClient(){
+  var action = {
+      type:'go_create_account'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function highlightTime(){
+var action = {
+      type:'highlight_time'
+    };
+ Dispatcher.dispatch(action);
+}
+
 function home(){
   var action = {
       type:'landingPage'
     };
  Dispatcher.dispatch(action);
 }
+
 function logout(){
     var action = {
       type:'logout'
@@ -175,11 +194,22 @@ function removeReminder(){
  Dispatcher.dispatch(action);
 }
 
-function showFreeTimes(){
+function showFreeTimes(dayPicked){
+  console.log('at start of showFreeTimes');
   var action = {
-    type: 'show_free_times'
+    type: 'show_free_times',
+    date: dayPicked
   };
-  Dispatcher.dispatcher(action);
+  console.log('inside actioncreator ',action.date);
+  Dispatcher.dispatch(action);
+}
+
+function storeToken(token){
+  console.log('made it to storeToken action creator');
+  var action = {
+    type: 'store_token',
+    token: 'YES',
+  }
 }
 
 function treatment1(){
@@ -195,8 +225,6 @@ function treatment2(){
     };
  Dispatcher.dispatch(action);
 }
-
-
 
 
 function lockAppointment(date, time,month,year){
@@ -259,11 +287,18 @@ function unlockWeek(startDateOfWeek){
     Dispatcher.dispatch(action); 
   }
 
+function weekView(){
+   var action = {
+      type: 'week_view',
+    };
+    
+    Dispatcher.dispatch(action); 
+}
+
 module.exports = {
   addAppointment: addAppointment,
   addReminder:addReminder,
   appDetails:appDetails,
- 
   bookAnAppointment:bookAnAppointment,
   bookPractitioner:bookPractitioner,
   cancelAppointment: cancelAppointment,
@@ -272,12 +307,13 @@ module.exports = {
   changeToDailyView:changeToDailyView,
   changeToWeekView:changeToWeekView,
   createAccount:createAccount,
-  
+  createClient:createClient,
   dashboard:dashboard,
   dashboardPractitioner:dashboardPractitioner,
-  dateTime:dateTime,
+  dateAndTime:dateAndTime,
   getPreviousDay:getPreviousDay,
   getNextDay:getNextDay,
+  highlightTime:highlightTime,
   home:home,
   login:login,
   logout:logout,
@@ -288,10 +324,11 @@ module.exports = {
   removeReminder:removeReminder,
   removeAllAppointments: removeAllAppointments,
   showFreeTimes:showFreeTimes,
+  storeToken:storeToken,
   treatment1:treatment1,
   treatment2:treatment2,
-  
   unlockAppointment:unlockAppointment,
   unlockDay:unlockDay,
   unlockWeek:unlockWeek,
+  weekView:weekView,
 };

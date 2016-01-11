@@ -62,9 +62,15 @@ var WeekView = React.createClass({
 
   render: function(){
     console.log('in render statement',this.state.date);
-    return (<div className="week-view-background">
+    return (<div className="page-background1">
               <MenuBar />
-
+              <div className=" separator">
+                      <div className="row">
+                          <div className="large-12 columns">
+                             
+                          </div>
+                      </div>
+              </div>
               <div className="row">
                 <div className="columns medium-12">
                   <Header defaultValue="Weekly View of Appointments" className="center"/><br />

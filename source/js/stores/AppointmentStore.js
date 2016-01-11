@@ -12,15 +12,6 @@ var MONTH = ['January','February','March','April','May','June','July','August','
 
 var DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']; 
 
-var practice = {
-	number: 1122,
-	street: 'Good Avenue',
-	city: 'London',
-	postcode:'SE1 4U2',
-	phone: '555-2434',
-	email: 'service@practice.com'
-}
-
 var currentDate = new Date();
 console.debug('immediately after setting initial value:',currentDate);
 var currentMonth = currentDate.getMonth();
@@ -38,12 +29,14 @@ var currentState = {
 		lock:'NO'
 		}
 
-var diaryEntry = {
-	id:'001',
+
+
+var appointment = {
+	dateSelected:'NO',
+	timeSelected:'NO',
 	dateNumber:'7',
 	dateMonth:'January',
 	dateYear: '2016',
-	dayOfTheWeek: 'Tuesday',
 	time: '12:00',
 	reminder: 'ON',
 	practitioner:'Angelo',
@@ -51,14 +44,21 @@ var diaryEntry = {
 	lock: 'OFF',
 	email:'jsimpson@tt.com',
 	manual: 'NO',
+
 	}
 
-function addAppointment(Appointment) {
-	  diaryEntry[Appointment.id] = Appointment;
+
+
+function addAppointment(event) {
+	// for (var rightDate in allAppointments){
+
+	//   allAppointments.timeSelected = 'YES'
+	  appointment.dateSelected = 'YES';
 	  AppointmentStore.emit('change');
 }
+
 function addReminder(Appointment) {
-	  diaryEntry[Appointment.id] = Appointment;
+	  appointment[Appointment.id] = Appointment;
 	  AppointmentStore.emit('change');
 }
 function bookAnAppointment(action){
@@ -169,7 +169,11 @@ function changeToNextWeek(action){
     AppointmentStore.emit('change');
 }
 function createAccount(action){
-	currentState.componentPage = 'WeekView';
+	currentState.componentPage = 'Dashboard';
+    AppointmentStore.emit('change');
+}
+function goCreateAccount(action){
+	currentState.componentPage = 'GoToCreatePage';
     AppointmentStore.emit('change');
 }
 function dashboard(action){
@@ -183,6 +187,11 @@ function dashboardPractitioner(action){
 function dateAndTime(action){
 	currentState.componentPage = 'DateTime';
     AppointmentStore.emit('change');
+}
+function highlightTime(action){
+	currentState.componentPage = 'DateTime';
+	console.log('got to Highlight time function that should be local');
+	AppointmentStore.emit('change');
 }
 
 function landingPage(action){
@@ -199,11 +208,17 @@ function profiles(action){
     AppointmentStore.emit('change');
 }
 function removeAppointment(AppointmentId) {
+	 //find matching appointment
+	 		//find user and then day/month/year or find Id?
+	 //find appointment that matches the one that was being displayed.
 	 // delete diary[AppointmentId];
+	 currentState.componentPage('Dashboard');
 	 AppointmentStore.emit('change');
 }
 function removeReminder(AppointmentId) {
+	 //find matching appointmentId
 	 // delete diary[AppointmentId];
+	currentState.componentPage('Dashboard');
   	AppointmentStore.emit('change');
 }
 function showApptDetails(action){
@@ -212,6 +227,17 @@ function showApptDetails(action){
 }
 function showFreeTimes(action){
 	currentState.componentPage = 'DateTime';
+	dateRequested = action.date;
+	allAppointments = AppointmentStore.getAllAppointments();
+
+	for (var freeSlot in allAppointments){
+		if (allAppointments.date === dateRequested){
+			allAppointments.dateSelected === 'YES'
+			}
+		} 
+	AppointmentStore.emit('change');
+}
+function storeToken(action){
 	AppointmentStore.emit('change');
 }
 function treatment1(action){
@@ -220,6 +246,10 @@ function treatment1(action){
 }
 function treatment2(action){
 	currentState.componentPage = 'Treatment2';
+    AppointmentStore.emit('change');
+}
+function weekView(action){
+	currentState.componentPage = 'WeekView';
     AppointmentStore.emit('change');
 }
 
@@ -234,7 +264,7 @@ var AppointmentStore = objectAssign({}, EventEmitter.prototype, {
 	  },
 
 	getAllAppointments: function() {
-	    return diaryEntry;
+	    return appointment;
 		},
 
 	getCurrentDay: function(){
@@ -269,6 +299,13 @@ var AppointmentStore = objectAssign({}, EventEmitter.prototype, {
 	getMonthName: function(monthNumber){
 		var monthName = MONTH[monthNumber];
 		return monthName; 
+	},
+	getDateSelected: function(){
+		return appointment.dateSelected;
+	},
+
+	getToken: function(){
+		return 'YES';
 	}
 	
 		
@@ -278,6 +315,7 @@ function handleAction(action) {
 	console.log('INSIDE handleaction in Store',action.type);
 	console.log('CurrentDate is ',currentDate);
 	console.log('CurrentState.date is',currentState.date);
+
   if (action.type === 'add_appointment') {
     addAppointment(action)
   } else if (action.type === 'add_reminder') {
@@ -308,8 +346,13 @@ function handleAction(action) {
   	dashboardPractitioner(action);
   }	else if (action.type === 'date_time'){
   	dateAndTime(action);
+  } else if (action.type === 'go_create_account'){
+  	goCreateAccount(action);
+  } else if (action.type === 'highlight_time'){
+  	highlightTime(action);
+  }	else if (action.type === 'landingPage'){
+  	landingPage(action);
   
- 
   }	else if (action.type === 'logout'){
   	landingPage(action);
   }	else if (action.type === 'login'){
@@ -329,10 +372,14 @@ function handleAction(action) {
   } else if (action.type === 'app_details'){
   	showApptDetails(action);
   }	else if (action.type === 'show_free_times'){
+  	console.log('got back to Store with action');
   	showFreeTimes(action);
-  }	else if (action.type === 'treatment-1'){
+
+  }	else if (action.type === 'store_token'){
+  	storeToken(action);
+  }	else if (action.type === 'treatment1'){
   	treatment1(action);
-  }	else if (action.type === 'treatment-2'){
+  }	else if (action.type === 'treatment2'){
   	treatment2(action);
   } else if (action.type === 'unlock_week'){
   	unlockWeek(action);
@@ -344,6 +391,8 @@ function handleAction(action) {
   	unlockDay(action);
   } else if (action.type === 'remove_all_appointments'){
   	unlockAppointment(action);
+  } else if (action.type === 'week_view'){
+  	weekView(action);
 	}
 }
 

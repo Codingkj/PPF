@@ -66,22 +66,26 @@ var MenuComponent = React.createClass({
   	console.log('got to PROFILES function');
   	AppointmentActionCreators.profiles();
   },
+  goDashboardPractitioner:function(){
+    console.log('chose Practitioner on Menu');
+    AppointmentActionCreators.dashboardPractitioner();
+  },
   
   
 
   render: function() {
   
-     return (<div data-sticky-container>
+     return (<div data-sticky-container className="menuDiv">
      			<div className="sticky" id="navbar" data-sticky data-margin-top="0" data-margin-bottom="0">
 			      <nav data-topbar role="navigation" className="top-bar" data-options="is_hover: false">
 					    <ul className="horizontal menu expanded">
 					      <li onClick={this.goHome} className="menu-text divider"><a href="#" >HOME</a></li>
 					      <li onClick={this.goLogin} className="menu-text divider"><a href="#">CLIENT DASHBOARD</a></li>
-					      <li onClick={this.goLogin} className="menu-text divider"><a href="#">PRACTITIONER INFO</a></li>
+					      <li onClick={this.goDashboardPractitioner} className="menu-text divider"><a href="#">PRACTITIONER INFO</a></li>
 					      <li className="menu-text divider"><a href="#"></a></li>  
 					      <li onClick={this.goLogin} className="menu-text divider"><a href="#">LOG IN</a></li>  
 					      <li onClick={this.goProfiles} className="menu-text divider"><a href="#">About Us</a></li>
-					      <li onClick={this.goContactDetails} className="menu-text divider"><a href="#">Contact Us</a></li> 
+					      <li onClick={this.goContactDetails} className="menu-text divider"><a href="#location">Contact Us</a></li> 
 					    </ul>
 				
 				  </nav>

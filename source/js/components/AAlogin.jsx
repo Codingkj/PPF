@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Header = require('./Header.jsx');
 var Paragraph = require('./Paragraph.jsx');
-var TextInput = require('./TextInput.jsx');
+var Input = require('./Input.jsx');
 var MyButton = require('./Buttons.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
@@ -17,7 +17,7 @@ var Login = React.createClass({
       day: AppointmentStore.getCurrentDay(),
       month: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus()
+      lock:AppointmentStore.getLockDayStatus(),
   	};
   },
 
@@ -43,60 +43,70 @@ var Login = React.createClass({
       AppointmentStore.removeChangeListener(this.handleChange);
   },
 
-  loginClient:function(){
-    event.preventDefault();
-     AppointmentActionCreators.dashboard();
+  
+
+  handleLoginFormSubmit: function (submitEvent) {
+    submitEvent.preventDefault();
+
+    var username = this.refs.username.value;
+    var password = this.refs.password.value;
+
+    this.props.handleUserLogInFormSubmit(username, password);
   },
+
   createClient:function(){
     event.preventDefault();
-     AppointmentActionCreators.createAccount();
+     AppointmentActionCreators.createClient();
   },
 
   render: function(){
-    return (<div>
-		   		<div className="row">
-        			<div className="columns medium-12">
-          				<MenuBar />
-        			</div>
-      			</div>
-		    	 <div className="row">
-		    	 		<div className="columns medium-12">
-		    	 		  <Header defaultValue="LOGIN" className="center"/>
-		    	 		</div>
-		    	 </div>
-		    	 <div className="row">
-		    	 		<div className="columns medium-10 medium-offset-3">
-		    	 		<br />
-					      <h5>So that we know its you can you please login: </h5><br />
-					      <label>Your Email:
-					      <TextInput className="field30" placeholder="yourname@gmail.com" id="login-email"/>
-					      </label>
-					      <label>Your Password:
-					      <TextInput className="field30" placeholder="your password" id="login-password"/>
-					      </label>
-					 </div>
-				</div>
-				 <div className="row">
-				 	<div className="columns medium-7 medium-offset-5">
-				      <MyButton clicked={this.loginClient} className="med-button" value="LOGIN" />
-				      <br /><br />
-				     </div>
-		     	</div>
+    return (<div className="page-background1">
+              	<MenuBar />
+		   		<div className=" separator">
+                      <div className="row">
+                          <div className="large-12 columns">
+                             
+                          </div>
+                      </div>
+                  	</div>
+          		
+
+          			<div className="row">
+					  <div className="medium-6 medium-centered large-4 large-centered columns">
+
+					    <form onSubmit={this.handleLoginFormSubmit}>
+					      <div className="row column log-in-form">
+						        <h4 className="text-center">Please Log In</h4>
+						        <label>Email
+						          <Input type="text" placeholder="somebody@example.com" ref="username"/>
+						        </label>
+						        <label>Password
+						          <Input type="text" placeholder="Password" ref="password"/>
+						        </label>
+						        <Input id="show-password" type="checkbox" /><label htmlFor="show-password">Show password</label>
+						        <MyButton  clicked={this.handleLoginFormSubmit} className="button expanded" value="Log In" type="submit" />
+		
+					          
+					      </div>
+					    </form>
+
+					  </div>
+					</div>
 			    
-			     <div className="row">
-			     	<div className="columns medium-9 medium-offset-3">
-			     	<br />
-			      		<Paragraph value="If you are not able to login, because you do not yet have an account with us, please create an account." />
-			      		<br />
-			      	</div>
-			      </div>
-			      <div className="row">
-			      	<div className="columns medium-6 medium-offset-6">
-			      		<MyButton clicked={this.createClient} className="med-button" value="Click here to create an account" type="button" />
-			      	</div>
-			     </div>
+				     <div className="row">
+				     	<div className="columns medium-9 medium-offset-3">
+				     		<br />
+				      		<Paragraph value="If you are not able to login, because you do not yet have an account with us, please create an account." />
+				      		<br />
+				      	</div>
+				      </div>
+				      <div className="row">
+				      	<div className="columns medium-5 medium-offset-7">
+				      		<MyButton clicked={this.createClient} className="med-button" value="Click here to create an account"  />
+				      	</div>
+				     </div>
 			     
-			<br /><br />
+					<br /><br />
 		    </div>);
     }
 });
