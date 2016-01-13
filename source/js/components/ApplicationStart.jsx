@@ -30,12 +30,13 @@ var FailMessage = require('./FailMessage.jsx');
 var SuccessMessage = require('./SuccessMessage.jsx');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 var AuthenticationService = require('../services/authentication');
+var Utilities = require('../Utilities.js');
+
 
 var ComponentToBeRendered;
 
 function bookAnAppointmentClicked(){
   event.preventDefault();
-    console.log('INSIDE BOOK AN APPOINTMENT CLICKED');
     AppointmentActionCreators.bookAnAppointment();
 }
 
@@ -43,7 +44,7 @@ function bookAnAppointmentClicked(){
 var ApplicationStart = React.createClass({
 
    getComponent: function(ComponentSetting){
-    console.log('Made it to getComponent function and value passed in is',ComponentSetting);
+   
       if (ComponentSetting === 'LandingPage')
       {
          ComponentToBeRendered = <LandingPage />;
@@ -94,57 +95,49 @@ var ApplicationStart = React.createClass({
       {
         ComponentToBeRendered = <Profiles />;
       }
-      console.log('At end of  getcomponent function',ComponentToBeRendered);
+
       return ComponentToBeRendered;
    },
    
    getInitialState: function () {
-    console.log('inside setting initial component at application start');
+   
     return {
       currentPage: this.getComponent(AppointmentStore.getCurrentComponent()),
-      pageToShowAfterLogin:null,
-      token:null,
-      failMessage:null,
-      successMessage:null
+      pageToShowAfterLogin: AppointmentStore.getPageToShowAfterLogin(),
+      token:AppointmentStore.getToken(),
+      failMessage:AppointmentStore.getFailMessage(),
+      successMessage:AppointmentStore.getSuccessMessage(),
     };
   },
 
   clearMessages: function () {
-    this.setState({
-      failMessage: null,
-      successMessage: null
-    });
+    AppointmentActionCreators.failMessage(null);
+    AppointmentActionCreators.successMessage(null);
   },
 
   showFailMessage: function (message) {
-    this.setState({
-      failMessage: message
-    });
+    AppointmentActionCreators.failMessage('Failed to join.');
   },
 
   showSuccessMessage: function (message) {
-    this.setState({
-      successMessage: message
-    });
+    AppointmentActionCreators.successMessage('Thanks for joining!');
   },
 
   showPageAfterLogIn: function (pageName) {
-    this.setState({
-      pageToShowAfterLogin: 'dashboard'
-    });
+    AppointmentActionCreators.dashboard();
   },
 
   handleChange: function () {
 
     this.setState({
       currentPage: this.getComponent(AppointmentStore.getCurrentComponent()),
-      pageToShowAfterLogin:null,
+      pageToShowAfterLogin:AppointmentStore.getPageToShowAfterLogin(),
       token:AppointmentStore.getToken(),
-      failMessage:showFailMessage(),
-      successMessage:showSuccessMessage()
+      failMessage:AppointmentStore.getFailMessage(),
+      successMessage: AppointmentStore.getSuccessMessage(),
     });
-    var test = AppointmentStore.getCurrentWholeDate();
-    console.log('on FRONT PAGE in handleChange - date value of CurrentDate is',test);
+
+    console.log('CHANGING APPLICATION START ');
   },
 
   setUserAuthenticationToken: function (token) {
@@ -167,15 +160,13 @@ var ApplicationStart = React.createClass({
   },
 
   hideFailMessage: function () {
-    this.setState({
-      failMessage: null
-    });
+    // closebox and then 
+    AppointmentActionCreators.failMessage(null);
   },
 
   hideSuccessMessage: function () {
-    this.setState({
-      successMessage: null
-    });
+    //close box and then
+    AppointmentActionCreators.successMessage(null);
   },
 
   logOut: function () {
@@ -187,28 +178,28 @@ var ApplicationStart = React.createClass({
     return (this.state.token !== null);
   },
 
-  handleCreateAccountFormSubmit: function (username, password) {
+  handleCreateAccountFormSubmit: function (username, password,firstName,lastName) {
     console.log('got to handleCreateAccountFormSubmit');
-    AuthenticationService.signUp(username, password, function handleUserSignUp(error, response) {
+    AuthenticationService.signUp(username, password, firstName, lastName, function handleUserSignUp(error, response) {
       if (error) {
-        this.showFailMessage('Failed to join.');
+        AppointmentActionCreators.failMessage('Failed to join.');
         return;
       }
 
-    console.log('after authenticationfirst call');
-      AuthenticationService.logIn(username, password, function handleUserLogIn(error, response) {
+      console.log('after authentication first call');
+      AuthenticationService.logIn(username, password, firstName, lastName,function handleUserLogIn(error, response) {
         if (error) {
-          this.showFailMessage('Failed to log in.');
+          AppointmentActionCreators.failMessage('Failed to log in.');
           return;
         }
 
         this.setUserAuthenticationToken(response.token);
-        console.log('Thanks for joining');
-        this.showSuccessMessage('Thanks for joining!');
+        console.log('Thanks for joining - token is',response.token);
+        AppointmentActionCreators.successMessage('Thanks for joining!');
 
         if (this.state.pageToShowAfterLogin) {
-          this.setCurrentPageTo(this.state.pageToShowAfterLogin);
-          this.showPageAfterLogIn(null);
+          AppointmentActionCreators.dashboard();
+          // this.showPageAfterLogIn(null);
         } else {
           AppointmentActionCreators.home();
         }
@@ -220,24 +211,26 @@ var ApplicationStart = React.createClass({
   handleUserLogInFormSubmit: function (username, password) {
     console.log('got to handleUserLogInFormSubmit');
     AuthenticationService.logIn(username, password, function handleUserLogIn(error, response) {
-      console.log('been to authentication service and returned');
+      console.log('BEEN to authentication service and returned');
       if (error) {
-        this.showFailMessage('Failed to log in.');
+        AppointmentActionCreators.failMessage('Failed to log in.');
         return;
       }
 
       this.setUserAuthenticationToken(response.token);
-      console.log('done setUserAuthenticationToken');
-      this.showSuccessMessage('Welcome back!');
+      console.log('done setUserAuthenticationToken and it was',response.token);
+      AppointmentActionCreators.successMessage('Welcome back!');
+      AppointmentActionCreators.setCurrentClientEmail(username);
 
       if (this.state.pageToShowAfterLogin) {
-        this.setCurrentPageTo(this.state.pageToShowAfterLogin);
-        this.showPageAfterLogIn(null);
+        AppointmentActionCreators.dashboard();
+        // this.showPageAfterLogIn(null);
       } else {
-        this.showLandingPage();
+        AppointmentActionCreators.home();
       }
 
     }.bind(this));
+
   },
 
 

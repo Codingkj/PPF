@@ -16,7 +16,6 @@ var DailyView = React.createClass({
   previousDayClicked: function(event)
   {
     event.preventDefault();
-    console.log('INSIDE DAYCLICKED');
     AppointmentActionCreators.getPreviousDay();
   },
   nextDayClicked: function(event)
@@ -77,41 +76,41 @@ var DailyView = React.createClass({
 	 var displayDate = '  '+ this.state.day + ' '+ this.state.month+ ' '+ this.state.year;
 	
      return (<div className="page-background1">
-              <MenuBar />
-		     	<br />
-		     	<div className="row">
-		     		<div className="columns medium-10 center">
-		     			<Header defaultValue="Daily View" />
-		     			<br />
-		     		</div>
-		     	</div>
-		     	<div className="row">
-			     	<div className="columns medium-1 medium-offset-1">
-			     		<MyButton clicked={this.previousDayClicked} className="tiny-button" type="button" value="Previous Day" />  
-			     	</div>
-			     	<div className="columns medium-3">
-			     		<Paragraph value={displayDate} className="date-dayview" shade=""/> 
-			     	</div>
-					<div className="columns medium-1">
+                  <MenuBar />
+    		     	<br />
+    		     	<div className="row">
+    		     		<div className="columns medium-10 center">
+    		     			<Header defaultValue="Daily View" />
+    		     			<br />
+    		     		</div>
+    		     	</div>
+    		     	<div className="row">
+    			     	<div className="columns medium-1 medium-offset-1">
+    			     		<MyButton clicked={this.previousDayClicked} className="tiny-button" type="button" value="Previous Day" />  
+    			     	</div>
+    			     	<div className="columns medium-3">
+    			     		<Paragraph value={displayDate} className="date-dayview" shade=""/> 
+    			     	</div>
+    					<div className="columns medium-1">
 
-			     		<MyButton clicked={this.nextDayClicked} className="tiny-button" type="button" value="Next Day" />  
-			     	</div>
-			     	<div className="columns medium-6">
-			     	</div>
+    			     		<MyButton clicked={this.nextDayClicked} className="tiny-button" type="button" value="Next Day" />  
+    			     	</div>
+    			     	<div className="columns medium-6">
+    			     	</div>
 
-			     </div>
-			     <div className="row">
-			     	<div className="columns medium-offset-1 medium-6" id="dashboard-dayview">
-				      	<TableDay day={this.state.day} month={this.state.month} year={this.state.year}/> 
-				    </div>
-				    <div className="columns medium-4 medium-offset-1">
-				    	<h5>Manage Appointments</h5>
-				    	<MyButton clicked={this.weeklyView} className="med-button" type="button" value="Go to Weekly View" /> 
-				    		
-					</div>
-				</div>
-				<br /><br />
-     </div>);
+    			     </div>
+    			     <div className="row">
+    			     	<div className="columns medium-offset-1 medium-6" id="dashboard-dayview">
+    				      	<TableDay day={this.state.day} month={this.state.month} year={this.state.year}/> 
+    				    </div>
+    				    <div className="columns medium-4 medium-offset-1">
+    				    	<h5>Manage Appointments</h5>
+    				    	<MyButton clicked={this.weeklyView} className="med-button" type="button" value="Go to Weekly View" /> 
+    				    		
+    					</div>
+    				</div>
+    				<br /><br />
+         </div>);
   }
 });
 

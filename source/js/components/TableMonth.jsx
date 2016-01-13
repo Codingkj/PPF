@@ -6,7 +6,7 @@ var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js
 var ClientStore = require('../stores/ClientStore.js');
 var Utilities = require('../Utilities.js');
 var startDate;
-
+var fullDates = []; 
 var TableMonth = React.createClass({
 
 getInitialState: function () {
@@ -21,7 +21,7 @@ getInitialState: function () {
 
 
   handleChange: function () {
-      console.log(" IN VIEW DAY CHANGING",this.state.date);
+      console.log("CHANGING tableMONTH",this.state.date);
     this.setState({
       date:AppointmentStore.getCurrentWholeDate(),
       day: AppointmentStore.getCurrentDay(),
@@ -58,17 +58,16 @@ getInitialState: function () {
       while (dayOfTheWeek !== sunday){
              dayOfTheWeek = dayOfTheWeek -1;
              fullDayOfMonth = new Date(fullDayOfMonth.getTime() - 24 * 60 * 60 * 1000);
-             console.log('fullDayOfMonth',fullDayOfMonth);
+      
       }
       var firstMonday = new Date(fullDayOfMonth.getTime() + 24 * 60 * 60 * 1000);
       return firstMonday;
   },
 
   getFullDates:function(startDate){
-      var fullDates = []; 
+     
       var cell = 0;
       
-      console.log('startDate in getFullDates function is...',startDate);
       fullDates[cell] = startDate;
       cell = cell + 1;
 
@@ -90,7 +89,6 @@ getInitialState: function () {
             cellDates[cell] = fullDates[cell].getDate();
             cell = cell +1;
       }  
-      console.log('celldates 1,2,3 are',cellDates[1],cellDates[2],cellDates[3])
       return cellDates;
   },
 
@@ -105,15 +103,23 @@ getInitialState: function () {
   },
 
  highlightChosenDate: function(){
-        console.log('in utilities file trying to higlight date');
+        console.log('in tableMonth trying to highlight date');
   },
 
   dateClicked: function(event){
-
-      console.log('Got to DATE-CLICKED',event.target.innerHTML);
+      console.log('The event detail to dateClicked IS',event.target.textContent);
+      var targetDate = parseFloat(event.target.textContent);
+      console.log('targetdate is now',targetDate);
+      var targetFullDate = fullDates[targetDate];
+      console.log('targetFullDate is now',targetFullDate);
       var highlight = this.highlightChosenDate();
       findFreeTimes = this.freeAppointmentTimes();
-      AppointmentActionCreators.showFreeTimes(event.target.innerHTML);
+      var dateSelected = this.refs.dateToClick.value;
+      var dateChosen = targetFullDate;
+      console.log('this.refs.date.value is',this.refs.dateToClick.value);
+     
+      AppointmentActionCreators.dateChosen(dateChosen);
+      
   },
 
   freeAppointmentTimes:function(){
@@ -178,27 +184,27 @@ getInitialState: function () {
       			<th className="weekly-header center" width="60">Th</th>
       			<th className="weekly-header center" width="60">Fr</th>
       			<th className="weekly-header center" width="60">Sa</th>
-                        <th className="weekly-header center" width="60">Su </th>
+            <th className="weekly-header center" width="60">Su </th>
       		</tr>
                   
       	</thead>
       	<tbody>
-                  <tr>
-                        
-                        <td id="00" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[0]} /></td>
-                        <td id="01" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[1]} /></td>
-                        <td id="02" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[2]} /></td>
-                        <td id="03" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[3]} /></td>
-                        <td id="04" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[4]} /></td>
-                        <td id="05" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[5]} /></td>
-                        <td id="06" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[6]} /></td>
+        <tr>
+              
+              <td id="0" className="month-cell"><button className="calendar-button" onClick={this.dateClicked} type="button" ref="dateToClick" >{displayDates[0]}</button></td>
+              <td id="1" className="month-cell"><button className="calendar-button" onClick={this.dateClicked} type="button" ref="dateToClick" >{displayDates[1]}</button></td>
+              <td id="2" className="month-cell"><button className="calendar-button" onClick={this.dateClicked} type="button" ref="dateToClick" >{displayDates[2]}</button></td>
+              <td id="3" className="month-cell"><button className="calendar-button" onClick={this.dateClicked} type="button" ref="dateToClick" >{displayDates[3]}</button></td>
+              <td id="4" className="month-cell"><button className="calendar-button" onClick={this.dateClicked} type="button" ref="dateToClick" >{displayDates[4]}</button></td>
+              <td id="5" className="month-cell"><button className="calendar-button" onClick={this.dateClicked} type="button" ref="dateToClick" >{displayDates[5]}</button></td>
+              <td id="6" className="month-cell"><button className="calendar-button" onClick={this.dateClicked} type="button" ref="dateToClick" >{displayDates[6]}</button></td>
 
-                  </tr>
+        </tr>
       		<tr>
       			
-      			<td id="07" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[7]} /></td>
-      			<td id="08" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[8]} /></td>
-      			<td id="09" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[9]} /></td>
+      			<td id="7" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[7]} /></td>
+      			<td id="8" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[8]} /></td>
+      			<td id="9" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[9]} /></td>
       			<td id="10" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[10]} /></td>
       			<td id="11" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[11]} /></td>
       			<td id="12" className="month-cell"><MyButton className="calendar-button" clicked={this.dateClicked} type="button" value={displayDates[12]} /></td>

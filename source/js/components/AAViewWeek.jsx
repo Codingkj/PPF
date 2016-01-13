@@ -64,13 +64,7 @@ var WeekView = React.createClass({
     console.log('in render statement',this.state.date);
     return (<div className="page-background1">
               <MenuBar />
-              <div className=" separator">
-                      <div className="row">
-                          <div className="large-12 columns">
-                             
-                          </div>
-                      </div>
-              </div>
+              <br />
               <div className="row">
                 <div className="columns medium-12">
                   <Header defaultValue="Weekly View of Appointments" className="center"/><br />
@@ -82,7 +76,6 @@ var WeekView = React.createClass({
                     <MyButton clicked={this.previousWeek} type="button" value="Previous Week" className="tiny-button" />
                   </div>
                   <div className="columns medium-8">
-
                       <Table />  
                   </div>
                   <div className="columns medium-2">

@@ -78,7 +78,7 @@ var TableComponent = React.createClass({
 
   render: function() {
        
-      var LockedButtonText;
+      var LockedButtonText = 'LOCK';
       var todayNames = [];
 
       var wholeDate = AppointmentStore.getCurrentWholeDate();
@@ -242,13 +242,13 @@ var TableComponent = React.createClass({
                   </tr>
                   <tr>
                         <td className="time-column-style"></td>
-                        <td className="table-cell"><MyButton id="lockMonday" type="button" value={LockedButtonText} className="tiny-button"/></td>
-                        <td className="table-cell"><MyButton id="lockTuesday" type="button" value={LockedButtonText} className="tiny-button"/></td>
-                        <td className="table-cell"><LockButton data-toggler id="lockWednesday" type="button" value={LockedButtonText} className="small-button2"/></td>
-                        <td className="table-cell"><LockButton data-toggler id="lockThursday" type="button" value={LockedButtonText} className="small-button2"/></td>
-                        <td className="table-cell"><LockButton data-toggler id="lockFriday" type="button" value={LockedButtonText} className="small-button2"/></td>
-                        <td className="table-cell"><LockButton data-toggler id="lockSaturday" type="button" value={LockedButtonText} className="small-button2"/></td>
-                        <td className="table-cell"><LockButton data-toggler id="lockSunday" type="button" value={LockedButtonText} className="small-button2"/></td>
+                        <td className="table-cell"><button id="lockMonday" type="button" className="small-button">{LockedButtonText}</button></td>
+                        <td className="table-cell"><button id="lockTuesday" type="button" className="small-button">{LockedButtonText}</button></td>
+                        <td className="table-cell"><button id="lockWednesday" type="button" className="small-button">{LockedButtonText}</button></td>
+                        <td className="table-cell"><button id="lockThursday" type="button" className="small-button">{LockedButtonText}</button></td>
+                        <td className="table-cell"><button id="lockFriday" type="button" className="small-button">{LockedButtonText}</button></td>
+                        <td className="table-cell"><button id="lockSaturday" type="button" className="small-button">{LockedButtonText}</button></td>
+                        <td className="table-cell"><button id="lockSunday" type="button"  className="small-button">{LockedButtonText}</button></td>
                   </tr>
       	</tbody>
       </table>	  

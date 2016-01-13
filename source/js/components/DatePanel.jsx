@@ -1,4 +1,5 @@
 var React = require('react');
+var MyButton = require('./Buttons.jsx');
 
 var DatePanel = React.createClass({
   render: function() {

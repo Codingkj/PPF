@@ -1,9 +1,9 @@
 var Dispatcher = require('../dispatcher/Dispatcher');
 
-function addAppointment(item) {
+function addAppointment(event) {
     var action = {
       type: 'add_appointment',
-      time: item.target.innerHTML,
+      time: event.target.textContent,
     };
     
     Dispatcher.dispatch(action);
@@ -115,6 +115,22 @@ function dateAndTime(){
     console.log('dispatching action to change to DATETIME');
  Dispatcher.dispatch(action);
 }
+function dateChosen(date){
+    var action = {
+      type:'date_chosen',
+      date:date,
+    };
+ Dispatcher.dispatch(action);
+}
+
+function failMessage(message){
+    var action = {
+      type:'fail_message',
+      text: message,
+    };
+ Dispatcher.dispatch(action);
+ console.log('action type has just been set as',action.type);
+  }
 
 function getPreviousDay(){
     var action = {
@@ -204,13 +220,43 @@ function showFreeTimes(dayPicked){
   Dispatcher.dispatch(action);
 }
 
+function setCurrentClientEmail(username){
+  console.log('setting client email');
+ var action = {
+    type: 'set_clientEmail',
+    email: username
+  };
+  console.log('inside actioncreator ',action.email);
+  Dispatcher.dispatch(action);
+}
+
 function storeToken(token){
   console.log('made it to storeToken action creator');
   var action = {
     type: 'store_token',
-    token: 'YES',
-  }
+    token: token,
+  };
+  console.log('action type has just been set as',action.type);
+Dispatcher.dispatch(action);
 }
+
+function successMessage(message){
+    var action = {
+      type:'success_message',
+      text: message,
+    };
+ Dispatcher.dispatch(action);
+ console.log('action type has just been set as',action.type);
+  }
+
+function timeEntered(time){
+var action = {
+      type:'time_entered',
+      time: time,
+    };
+ Dispatcher.dispatch(action);
+ console.log('action type has just been set as',action.type);
+  }
 
 function treatment1(){
     var action = {
@@ -311,6 +357,8 @@ module.exports = {
   dashboard:dashboard,
   dashboardPractitioner:dashboardPractitioner,
   dateAndTime:dateAndTime,
+  dateChosen:dateChosen,
+  failMessage:failMessage,
   getPreviousDay:getPreviousDay,
   getNextDay:getNextDay,
   highlightTime:highlightTime,
@@ -323,8 +371,11 @@ module.exports = {
   profiles:profiles,
   removeReminder:removeReminder,
   removeAllAppointments: removeAllAppointments,
+  setCurrentClientEmail:setCurrentClientEmail,
   showFreeTimes:showFreeTimes,
   storeToken:storeToken,
+  successMessage,successMessage,
+  timeEntered:timeEntered,
   treatment1:treatment1,
   treatment2:treatment2,
   unlockAppointment:unlockAppointment,

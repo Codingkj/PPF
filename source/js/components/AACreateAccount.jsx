@@ -16,7 +16,6 @@ var CreateAccount = React.createClass({
 
   createAccountClicked: function(event){
     event.preventDefault();
-    console.log('INSIDE createaccountCLICKED');
     // Utilities.createUser();
     AppointmentActionCreators.createAccount();
 },
@@ -24,14 +23,15 @@ var CreateAccount = React.createClass({
 	handleFormSubmit: function (submitEvent) {
     submitEvent.preventDefault();
 
-    var email = this.refs.email1.value;
+    var username = this.refs.username.value;
+    console.log('username logged as',username);
     var password = this.refs.password1.value;
     var passwordCheck = this.refs.password2.value;
     var firstName = this.refs.fname.value;
     var lastName = this.refs.lname.value;
     var mobile = this.refs.mobile.value;
     var phone = this.refs.altPhone.value;
-    var email1= this.refs.email1.value;
+    var email1= this.refs.username.value;
     var email2 = this.refs.email2.value;
 
     if (email1 !== email2){
@@ -41,21 +41,15 @@ var CreateAccount = React.createClass({
 
     }
     console.log('in handleFormSubmit on Createaccount page');
-    console.log('username, password');
-    this.props.handleCreateAccountFormSubmit(email, password,firstName,lastName);
+    console.log('email, password',email);
+    this.props.handleCreateAccountFormSubmit(username, password,firstName,lastName);
   
   },
 
   render: function(){
     return (<div className="page-background1">
               <MenuBar />
-                  <div className=" separator">
-                      <div className="row">
-                          <div className="large-12 columns">
-                             
-                          </div>
-                      </div>
-            	 </div>
+                 
 	    	 	 <form data-abide onSubmit={this.handleFormSubmit}>
 		    	 <div className="row">
 				    	<div className="column medium-6 medium-offset-1">
@@ -72,17 +66,17 @@ var CreateAccount = React.createClass({
 						      </label>
 	
 						      <label>Your Email:
-						      <input type="text" className="field30" placeholder="<e.g. home@practice.com" id="emailaddy1" ref="email1"></input>
+						      <input type="text" className="field30" placeholder="<e.g. home@practice.com" id="emailaddy1" ref="username"></input>
 						      </label>
 						      <label>Your Email (again, to prevent typos):
 						      <input type="text" className="field30" placeholder="<e.g. home@practice.com" id="emailaddy2" ref="email2"></input>
 						      </label>
 						      <label>Password
-						      <input type="text" className="field20" placeholder="<at least 6 characters>" id="pwd1" ref="password1"></input>
+						      <input type="password" className="field20" placeholder="<at least 6 characters>" id="pwd1" ref="password1"></input>
 						      </label>
 						      <p className="help-text" id="pwd1HelpText">Your password must be at least 6 characters long </p>
 						      <label>Password: (again, to prevent typos)
-						      <input type="text" className="field20" placeholder="<at least 6 characters>" id="pwd2" ref="password2"></input>
+						      <input type="password" className="field20" placeholder="<at least 6 characters>" id="pwd2" ref="password2"></input>
 						      </label>
 						      <label>Your mobile phone number:
 						      <input className="field20" placeholder=" " id="mobile-phone" ref="mobile"></input>
@@ -93,7 +87,7 @@ var CreateAccount = React.createClass({
 				      	 </div>
 				      	 <div className="columns medium-7">
 				      	 		<label>Your Last Name:
-						      	<input className="field20" placeholder="<last name>" id="lname" ref="lname"></input>
+						      	<input type="text" className="field20" placeholder="<last name>" id="lname" ref="lname"></input>
 						      	</label>
 				      	 </div>
 				 </div>

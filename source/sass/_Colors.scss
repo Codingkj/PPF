@@ -2,26 +2,58 @@
 $softblue:#6699ff;
 $softpink:#ffcce6;
 $softgray:#cccccc;
-$mintgreen:#66ffcc;
+$mintgreen:rgba(58, 219, 118, 0.26);
 $softyellow:#ffff99;
 $verylightblue:#ccedff;
 $pinkyred:#ff80b2;
-$verylightyellow:#ffffe5;
+$verylightyellow:#FFFFE0;
 $verylightgreen:#ccffcc;
 
+$verylightgray:#e1e3e4;
+$greenish: #3c948b;
+$terracotta: #f9a646;
+$darkgray:#555555;
+$mylightblue:#c5e0dc;
+$mydarkbrown:#774F38;
+$mymidbrown:#E08e79;
+$mydarkbeige:#F1D4AF;
+$mylightbeige:#ECE5CE;
+$mydarkcolourfortext:#6D635D;
+$mylightorange:#f5C692;
+$mylightkhaki:#929A5A;
+$mykhaki:#9A8e43;
+$mystrawberry:#FBCFCF;
+
+.softpink{
+	background: $softpink;
+}
+.redbrown{
+	color:$mymidbrown;
+}
 .week-view-background{
-	background-color: $verylightgreen;
+	background-image: url(../img/bgtexture.jpg);
 }
 .appt-details{
-	background-color: $softpink;
+	background-image: url(../img/bgtexture.jpg);
 }
 .header-background{
 	background-color: $softblue;
 
 }
 .page-background1{
-	background-color: $verylightyellow;
+	background-image: url(../img/bgtexture.jpg);
+	background-size: cover;
 }
 .gray{
-	background-color: $softgray;
+	background-color: $mylightblue;
+}
+
+.greenish {
+	color:$greenish;
+}
+.occupied {
+	background-color: $mydarkbeige;
+}
+.manual-occupied{
+	background-color: $mylightbeige;
 }

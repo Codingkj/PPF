@@ -4,25 +4,28 @@
   	border-style: solid;
   	border-radius: 2vw;
   	margin:2vw;
-  	background-color: yellow;
-  	font-size: 2vw;
-  	padding: 1vw;	
+  	background-color: $mymidbrown;
+  	font-size: 3vw;
+  	padding: 1vw;
+  	font-family:Amaranth;
 }
 
 .large-button{
-  	height: 7vw;
-  	width: 20vw;
+  	height: 6vw;
+  	width: 18vw;
  	border-style: solid;
- 	background-color: $softblue;
+ 	background-color: $mystrawberry;
  	font-size: 1.5vw;
  	border-radius: 2vw;
- 	padding: 1vw;
+ 	padding: 1.5vw;
+ 	margin-bottom:2vw;
+ 	text-align: center;
 }
 .med-button{
 	height:3vw;
 	width:12vw;
 	border-style: solid;
-	background-color: $pinkyred;
+	background-color: $mymidbrown;
 	font-size: 1vw;
 	border-radius: 1vw;
 }
@@ -30,7 +33,7 @@
 	height:2vw;
 	width:7vw;
 	border-style: solid;
-	background-color: $pinkyred;
+	background-color: $mylightblue;
 	font-size: 1.5vw;
 	border-radius: 1vw;
 }
@@ -40,22 +43,11 @@
 	border-style: solid;
 	border-width: 1px;
 	border-color: black;
-	background-color: $mintgreen;
+	background-color: $mydarkbeige;
 	font-size: 0.8vw;
 	border-radius: 1vw;
 	margin-top: 1vw;
 	font-style: center;
-}
-#lockMonday{
-	height:2vw;
-	width:10vw;
-	border-style: solid;
-	border-width: 1px;
-	border-color: black;
-	background-color: $mintgreen;
-	font-size: 0.8vw;
-	border-radius: 1vw;
-	margin-top: 1vw;
 }
 .tiny-button{
 	height:2vw;
@@ -63,11 +55,37 @@
 	border-style: solid;
 	border-width: 1px;
 	border-color: black;
-	background-color: $mintgreen;
+	background-color: $mylightblue;
 	font-size: 0.8vw;
 	border-radius: 1vw;
+	margin-right: 1vw;
+}
+.calendar-button{
+	height:100%;
+	width: 100%;
+	border:none;
+	background-color: $mylightbeige;
+	font-size: 1.5vw;
+	text-align: center;
+	padding-bottom: 0.2vw;
+	padding-top: 0.2vw;
+	font-weight: 500;
+}
+.cancelAppointment-button{
+	height:2vw;
+	width: 7vw;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	background-color: $mystrawberry;
+	font-size: 0.8vw;
+	border-radius: 1vw;
+	margin-top: 0;
 }
 .name-as-button{
 	height:2vw;
 	width:100%;
+}
+.treatment-button{
+	margin:1vw 1vw 1vw 1vw;
 }

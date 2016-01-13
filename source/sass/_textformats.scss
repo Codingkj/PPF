@@ -1,11 +1,13 @@
 .profile-text{
 	font-family: Helvetica;
-	font-size: 1.5vw;
+	font-size: 1.2vw;
 
 }
 .location-text{
 	text-align: center;
-	font-size: 1vw;
+	font-size: 1.5vw;
+	margin-bottom: 0.3vw;
+	color: $mylightkhaki;
 }
 .center{
 	text-align: center;
@@ -25,10 +27,12 @@
 }
 .tiny-font{
 	font-size: 0.8vw;
+	margin-bottom: 0;
 }
 
 .second-weekly-header{
 	margin-top:none;
+	border-bottom: solid 1px;
 }
 
 .tagline{
@@ -43,9 +47,14 @@
 	font-size: 1.5vw;
 }
 .weekly-header{
-	background-color: $softpink;
+	background-color: $mylightorange;
 	border-left:1px solid black;
 }
 .calendar-month{
 	font-size: 1.5vw;
+}
+.header-style{
+	color:$mylightkhaki;
+	font-weight: 500;
+	margin-top: 5vw;
 }

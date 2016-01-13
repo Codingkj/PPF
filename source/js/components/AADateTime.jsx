@@ -19,22 +19,24 @@ var DateTime= React.createClass({
   getInitialState: function () {
     return {
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonthName(),
+      monthSelected: AppointmentStore.getCurrentMonthName(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
-      dateSelected:'',
+      isDateSelected:'',
+      dateChosen:'',
     };
   },
 
 
   handleChange: function () {
-      console.log("IN DATE TIME CHANGING ");
+      console.log("CHANGING DateTime");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonthName(),
+      monthSelected: AppointmentStore.getValueOfMonthSelected(),
       year:AppointmentStore.getCurrentYear(),
       lock:AppointmentStore.getLockDayStatus(),
-      dateSelected:AppointmentStore.getDateSelected(),
+      isDateSelected:AppointmentStore.getDateSelected(),
+      dateChosen:AppointmentStore.getValueOfDateSelected()
     });
     
   },
@@ -50,7 +52,8 @@ var DateTime= React.createClass({
   },
 
   bookIt:function(){
-      AppointmentActionCreators.addAppointment(event);
+    console.log(' got to the BOOK IT function');
+    AppointmentActionCreators.addAppointment(event);
   },
 
   render: function(){
@@ -77,9 +80,10 @@ var DateTime= React.createClass({
                       <CalendarMonth />
                  </div>
                  <div className="columns medium-5">
-                      
-                      {this.state.dateSelected !== "" ?<DisplayTimes />:''}
+                
+                      {this.state.isDateSelected !== "" ?<DisplayTimes isDateChosen={true} date={this.state.dateChosen} />:''}
                       <br />
+                    
                  </div>
               </div>
               <br />
@@ -106,7 +110,7 @@ var DateTime= React.createClass({
               <div className="row">
                   <div className="columns medium-4 medium-offset-8">
                       <br />
-                      <MyButton clicked={this.bookIt} className="med-button" type="button" value="BOOK IT!" />
+                      <button onClick={this.bookIt} className="med-button" type="submit">BOOK IT!</button>
                   </div>
               </div>
               <br /><br />

@@ -1,0 +1,150 @@
+.top-bar {
+  padding: 0.5rem; }
+  .top-bar::before, .top-bar::after {
+    content: ' ';
+    display: table; }
+  .top-bar::after {
+    clear: both; }
+  .top-bar,
+  .top-bar ul {
+    background-color: transparent;
+    margin-left: 3vw;}
+  .top-bar a {
+    color: black; }
+  .top-bar input {
+    width: 200px;
+    margin-right: 5vw; }
+  .top-bar input.button {
+    width: auto; 
+}
+.top-bar a {  
+    background-color: transparent;
+    font-family: Helvetica;
+    font-weight:500;
+}
+.menu-text{
+  padding:0.2rem;
+}
+$topbar-bg-color: transparent;
+$topbar-bg: $topbar-bg-color;
+
+@media only screen and (min-width: 40em) {
+  .top-bar {
+    text-align: center; }
+
+  ul.center-buttons {
+    display: inline-block; }
+
+.top-bar.expanded {
+  background: transparent; }
+}
+// Color used for medium gray UI items within Foundation.
+$medium-gray: #cacaca;
+
+// the following variable from the _settings.scss file
+// changes the fonts size and circle size
+$pagination-font-size: rem-calc(36);
+
+// the following variable should be adjusted in the _settings.scss file
+// changes roundness based on font size
+$pagination-item-padding: rem-calc(6 15);
+
+.pagination li {
+  border: 1px solid $medium-gray;
+  border-radius: 50%;
+}
+
+.pagination a {
+  border-radius: 50%;
+}
+
+// Default medium-gray color
+$medium-gray: #cacaca;
+// Default global padding
+$global-padding: 1rem;
+// Global value used for all elements that have a border radius.
+$global-radius: 3px;
+
+// Setting the form border color
+$form-border-color: $medium-gray;
+// Setting the form padding
+$form-padding: $global-padding;
+// Setting the form border radius
+$form-radius: $global-radius;
+
+.log-in-form {
+  border: 1px solid $form-border-color;
+  padding: $form-padding;
+  border-radius: $form-radius;
+  margin-top: 5vw;
+}
+
+
+.spinner {
+  color: #3A539B;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 5s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite; 
+  -webkit-animation-fill-mode: both;
+}
+
+.event {
+  display: table;
+  border:solid black 2px;
+}
+
+.event-date {
+  width: 6rem;
+  margin: 0 auto 1rem;
+  display: table-cell;
+  width: auto;
+  height: 100%;
+}
+  .event-month {
+    margin: 0;
+    background: $mymidbrown;
+    padding: 0.5rem 2rem;
+    text-align: center;
+    font-size: 1.5vw;
+  }
+
+  .event-day {
+    margin: 0;
+    border: 1px solid black;
+    padding: 0 2rem;
+    text-align: center;
+    font-size: 2.5rem;
+  }
+
+
+.event-desc {
+  padding: 0 0 0 1rem;
+  text-align: left;
+  display: table-cell;
+  vertical-align: top;
+}
+  .event-desc-header {
+    margin: 0 0 0.2rem 0;
+    padding: 0;
+  }
+
+  .event-desc-detail {
+    margin: 0 1rem 0.25rem 0rem;
+    padding: 0;
+  }
+
+  .event-desc-time {
+    font-weight: bold;
+  }
+
+  .rsvp.button {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    margin: 0;
+  }
+tbody td{
+  padding:0.2rem 0.2rem 0.2rem;
+}
+
+

@@ -7,10 +7,13 @@ var MyButton = require('./Buttons.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var TableDay = require('./TableDay.jsx');
 var TextInput = require('./TextInput.jsx');
+var Spacer = require('./Spacer.jsx');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 var clientSearchClicked = false;
+
+
 var DashboardPractitioners = React.createClass({
 
   clientSearch:function(){
@@ -72,14 +75,7 @@ var DashboardPractitioners = React.createClass({
   render: function(){
     return (<div className="page-background1">
               <MenuBar />
-              
-              <div className=" separator">
-                  <div className="row">
-                      <div className="large-12 columns">
-                         
-                      </div>
-                  </div>
-              </div>
+     
               <div className="row">
                   <div className="columns medium-12">
                       <Header defaultValue="The Practitioner Dashboard" className="center"/>

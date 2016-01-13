@@ -10,6 +10,7 @@ var AppointmentStore = require('../stores/AppointmentStore.js');
 var ClientStore = require('../stores/ClientStore.js');
 
 
+
 var Login = React.createClass({
 
   getInitialState: function () {
@@ -23,7 +24,7 @@ var Login = React.createClass({
 
 
   handleChange: function () {
-      console.log(" IN AALOGIN CHANGING");
+      console.log("CHANGING LOGIN");
     this.setState({
       day: AppointmentStore.getCurrentDay(),
       month: AppointmentStore.getCurrentMonthName(),
@@ -62,36 +63,28 @@ var Login = React.createClass({
   render: function(){
     return (<div className="page-background1">
               	<MenuBar />
-		   		<div className=" separator">
-                      <div className="row">
-                          <div className="large-12 columns">
-                             
-                          </div>
-                      </div>
-                  	</div>
           		
 
-          			<div className="row">
-					  <div className="medium-6 medium-centered large-4 large-centered columns">
+      			<div className="row">
+				  <div className="medium-6 medium-centered large-4 large-centered columns">
 
-					    <form onSubmit={this.handleLoginFormSubmit}>
-					      <div className="row column log-in-form">
-						        <h4 className="text-center">Please Log In</h4>
-						        <label>Email
-						          <Input type="text" placeholder="somebody@example.com" ref="username"/>
-						        </label>
-						        <label>Password
-						          <Input type="text" placeholder="Password" ref="password"/>
-						        </label>
-						        <Input id="show-password" type="checkbox" /><label htmlFor="show-password">Show password</label>
-						        <MyButton  clicked={this.handleLoginFormSubmit} className="button expanded" value="Log In" type="submit" />
-		
+				    <form onSubmit={this.handleLoginFormSubmit}>
+				      <div className="row column log-in-form">
+					        <h4 className="text-center">Please Log In</h4>
+					        <label>Email
+					          <input type="email" placeholder="somebody@example.com" ref="username"></input>
+					        </label>
+					        <label>Password
+					          <input type="password" placeholder="Password" ref="password"></input>
+					        </label>
+					        <input id="show-password" type="checkbox" ref="passwordCheckbox">Show password</input>
+					        <MyButton clicked={this.handleLoginFormSubmit} className="button expanded" value="Log In" type="submit" />
 					          
-					      </div>
-					    </form>
+				      </div>
+				    </form>
 
-					  </div>
-					</div>
+				  </div>
+				</div>
 			    
 				     <div className="row">
 				     	<div className="columns medium-9 medium-offset-3">

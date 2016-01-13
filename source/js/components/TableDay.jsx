@@ -47,6 +47,7 @@ var TableDay = React.createClass({
   
   var allAppointments = AppointmentStore.getAllAppointments();
   var allClients = ClientStore.getAllClients();
+  var dayRowShade = 'occupied';
 
 
       // if (allAppointments.dateNumber == allCients.){
@@ -142,7 +143,7 @@ var TableDay = React.createClass({
       		</tr>
       	</thead>
       	<tbody>
-                  <tr className="dayRowShade">
+                  <tr className={this.dayRowShade}>
 
                         <td>09:00</td>
                         <td>{}</td>
@@ -176,6 +177,7 @@ var TableDay = React.createClass({
                         <td><LockButton value={todayLock[3]}/></td>
                         <td></td>
                         <td><MyButton value={todayManual[3]} /></td>
+              
       		</tr>
       		<tr>
       			<td>13:00</td>

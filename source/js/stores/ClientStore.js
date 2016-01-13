@@ -2,6 +2,7 @@ var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 
+
 var DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']; 
 
 var practice = {
@@ -25,6 +26,7 @@ var client ={
 	password: 'xxxxxx',
 	mobile: '0771 4950123',
 	otherPhone: ' ',
+	currentClientEmail:'',
 }
 
 function addClient(client) {
@@ -64,7 +66,10 @@ var ClientStore = objectAssign({}, EventEmitter.prototype, {
 	},
   getClient: function (email) {
     return client;
-}
+	},
+  getCurrentClientEmail: function (email) {
+    return client.currentClientEmail;
+	},
 
 });
 
@@ -73,6 +78,9 @@ function handleAction(action) {
     addClient(action.item);
   } else if (action.type === 'remove_client') {
     removeAppointment(action.itemId);
+  } else if (action.type === 'set_clientEmail') {
+    client.currentClientEmail = (action.email);
+    ClientStore.emit('change');
   } 
 }
 

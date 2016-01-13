@@ -43,6 +43,7 @@ var LandingPage = React.createClass({
   },
 
   titleClicked:function(){
+     console.log('In titleClicked function');
      AppointmentActionCreators.login();
   },
 
@@ -60,7 +61,7 @@ var LandingPage = React.createClass({
                           <h1>Rejuvenation Private Practice </h1>
                           <br /><br />
                           <p className="tagline">We specialise in MASSAGE, REIKI and ACUPUNCTURE</p>
-                          <Spacer height="40" />
+                    
                           <PpButton clicked={this.titleClicked} value="Book An Appointment" className="x-large-button center" />
                       </div>
                   </div>  
@@ -70,7 +71,7 @@ var LandingPage = React.createClass({
                   
                   <div className="row">
                           <div className="medium-12 columns">
-                              <Header className="greenish" defaultValue="Our Practitioners" />
+                              <Header className="redbrown" defaultValue="Our Practitioners" />
                               <br /><br />
                           </div>
                   </div>
@@ -100,7 +101,7 @@ var LandingPage = React.createClass({
                   <Spacer height="20" />
         
                   <div className="row">
-                      <div className="column medium-8 medium-offset-2">
+                      <div className="column medium-11 medium-offset-1">
                           <br />
                           <ContactForm />
                       </div>
@@ -112,7 +113,7 @@ var LandingPage = React.createClass({
                 
                 <div className="row ">
                       <div className="column medium-12">
-                          <Header defaultValue="Our location" className="greenish center"/>
+                          <Header defaultValue="Our location" className="redbrown center"/>
                           <br />
                       </div>
                 </div>

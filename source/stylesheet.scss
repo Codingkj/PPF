@@ -13,12 +13,16 @@
 	color:white;
 }
 .backdrop{
-	background-image: url(../img/waikato.jpg);
-	background-repeat: no-repeat;
-	background-position: center;
-	width:100%;
-	height:60vw;
+	background-image: url(../img/waikato2.jpg);
+	background-position:center;
+	background-repeat: no-repeat; 
+	background-size:100%;
 
+}
+html {
+    background: url(../img/bgtexture.jpg); 
+    background-size: cover;
+    background-repeat: repeat;
 }
 .profile{
 	width:10vw;
@@ -33,9 +37,7 @@
 .blue{
 	background: blue;
 }
-.softpink{
-	background: $softpink;
-}
+
 .panel{
 	width:100%;
 }
@@ -68,9 +70,10 @@
 }
 .location-div{
 	border:solid;
-	border-width: 1px;
-	border-radius: 1px;
-	border-color: black;
+	border-width: 2px;
+	border-radius: 5px;
+	border-color: $mymidbrown;
+
 }
 .date-panel{
 	border-radius: 1px;
@@ -111,8 +114,8 @@
 }
 .contact-form-style{
 	padding:2vw;
-	background-color: $softpink;
-	border-radius: 4px;
+	background-color: $mylightbeige;
+	border-radius: 1vw;
 }
 .panel-box{
 	border-width: 1px;
