@@ -8,6 +8,12 @@
 	font-size: 1.5vw;
 	margin-bottom: 0.3vw;
 	color: $mylightkhaki;
+
+}
+.title-text{
+	font-family: Amaranth;
+	font-size: 5vw;
+	font-weight: 500;
 }
 .center{
 	text-align: center;
@@ -26,7 +32,7 @@
 	height:15vw;
 }
 .tiny-font{
-	font-size: 0.8vw;
+	font-size: 1vw;
 	margin-bottom: 0;
 }
 
@@ -36,8 +42,9 @@
 }
 
 .tagline{
+	font-family: Amaranth;
 	color:black;
-	font-size: 1.5vw;
+	font-size: 3vw;
 }
 .align-right{
 	float: right;
@@ -49,12 +56,21 @@
 .weekly-header{
 	background-color: $mylightorange;
 	border-left:1px solid black;
+	font-family: Amaranth;
 }
 .calendar-month{
 	font-size: 1.5vw;
 }
 .header-style{
-	color:$mylightkhaki;
+	color:$mymidbrown;
 	font-weight: 500;
 	margin-top: 5vw;
+	font-family: Amaranth;
+
+}
+.panel-text{
+	margin-left: 2vw;
+	color: black;
+	margin-bottom: none;
+	padding:0.5vw;
 }

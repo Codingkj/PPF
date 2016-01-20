@@ -1,17 +1,26 @@
 var Dispatcher = require('../dispatcher/Dispatcher');
+var ClientStore = require('../stores/ClientStore.js');
+var AppointmentStore = require('../stores/AppointmentStore.js');
+var Utilities2 = require('../services/apptsaves.js');
 
 function addAppointment(event) {
     var action = {
       type: 'add_appointment',
       time: event.target.textContent,
-    };
-    
+    };   
     Dispatcher.dispatch(action);
 }
 
 function addReminder(){
     var action = {
       type:'add_reminder'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function afterCreateAccount(){
+    var action = {
+      type:'after_create_account'
     };
  Dispatcher.dispatch(action);
 }
@@ -23,11 +32,12 @@ function appDetails(){
  Dispatcher.dispatch(action);
 }
 
-function bookAnAppointment(){
+function bookAnAppointment(practitionerString){
     var action = {
-      type:'book_AnAppointment'
+      type:'book_AnAppointment',
+      practitioner:practitionerString,
     };
- console.log('in actioncreator');
+ console.log('ACTION type has just been set as',action.type);
  Dispatcher.dispatch(action);
 }
 
@@ -36,7 +46,7 @@ function bookPractitioner(){
       type:'treatment1',
       practitionerNumber:'1',
     };
- console.log('in actioncreator for practitioner');
+  console.log('ACTION type has just been set as',action.type);
  Dispatcher.dispatch(action);
 }
 
@@ -44,8 +54,7 @@ function cancelAppointment() {
     var action = {
       type: 'remove_appointment',
       appointmentId: '8',
-    };
-    
+    };   
     Dispatcher.dispatch(action);
 }
 
@@ -84,22 +93,14 @@ function changeToWeekView(){
  console.log('ACTION type has just been set as',action.type);
 }
 
-function createAccount(){
-
-    var action = {
-      type:'create_account'
+function createClient(){
+  var action = {
+      type:'go_create_account'
     };
- 
  Dispatcher.dispatch(action);
 }
 
-function dashboard(){
-    var action = {
-      type:'dashboard'
-    };
-    console.log('inside dashboard actionCreator');
- Dispatcher.dispatch(action);
-}
+
 
 function dashboardPractitioner(){
     var action = {
@@ -112,9 +113,10 @@ function dateAndTime(){
     var action = {
       type:'date_time'
     };
-    console.log('dispatching action to change to DATETIME');
+     console.log('ACTION type has just been set as',action.type);
  Dispatcher.dispatch(action);
 }
+
 function dateChosen(date){
     var action = {
       type:'date_chosen',
@@ -131,6 +133,69 @@ function failMessage(message){
  Dispatcher.dispatch(action);
  console.log('action type has just been set as',action.type);
   }
+
+function dashboard () {
+    //go to backend and get appointments
+   var userToken = AppointmentStore.getToken();
+   console.log('Token we have in getAllAppointments is',userToken);
+   var userEmail = ClientStore.getCurrentClientEmail();
+   console.log('the Email RETRIEVED is...', userEmail);
+      
+   Utilities2.getUserAppointments(userToken, userEmail, function handleResponse(error, response) {
+        console.log('BEEN to GET appointments');
+          if (error) {
+            AppointmentActionCreators.failMessage('Could not GET appointment.');
+            console.log('Your GET Failed');
+          return;
+          }
+      console.log('the response was',response);
+       
+        
+      var ReturnedAppointments = response.appointment;  
+      console.log('returned appointments are:',ReturnedAppointments);
+      successMessage('GOT Appointments!');
+      var action = {
+        type:'returned_appointments',
+        data: ReturnedAppointments
+      };
+      console.log('ACTION type dispatched from getAllAppointments',action.type);
+      Dispatcher.dispatch(action);
+      var action = {
+          type:'dashboard'
+      };
+      Dispatcher.dispatch(action);
+      }.bind(this));
+        
+}
+
+function getAllAppointmentsForOneDayFromBackEnd(dateChosen){
+   var userToken = AppointmentStore.getToken();
+   console.log('Token we have in getAllAppointments is',userToken);
+   var userEmail = ClientStore.getCurrentClientEmail();
+   console.log('the Email RETRIEVED is...', userEmail);
+     Utilities2.getAllUserAppointmentsOnOneDay(userToken, dateChosen, function handleResponse(error, response) {
+          console.log('BEEN to GET appointments');
+            if (error) {
+              AppointmentActionCreators.failMessage('Could not GET appointment.');
+              console.log('Your GET Failed');
+            return;
+            }
+        console.log('the response was',response);
+        console.log('The GET APPOINTMENT response was',response.appointment);      
+          
+        var ReturnedAppointments = response.appointment;  
+        console.log('returned appointments FOR ONE DAY are:',ReturnedAppointments);
+        successMessage('GOT Appointments!');
+        var action = {
+          type:'returned_appointments_on_one_day',
+          data: ReturnedAppointments
+        };
+        console.log('ACTION type dispatched from getAllAppointments',action.type);
+        Dispatcher.dispatch(action);
+    });
+}
+
+
 
 function getPreviousDay(){
     var action = {
@@ -152,12 +217,7 @@ function getNextDay(){
  console.log('action type has just been set as',action.type);
   }
 
-function createClient(){
-  var action = {
-      type:'go_create_account'
-    };
- Dispatcher.dispatch(action);
-}
+
 
 function highlightTime(){
 var action = {
@@ -173,6 +233,42 @@ function home(){
  Dispatcher.dispatch(action);
 }
 
+function lockAppointment(date, time,month,year){
+    var action = {
+        type: 'lock_appointment',
+        date: date,
+        time: time,
+        month: month,
+        year: year,
+        lock: 'ON',
+      };
+      
+      Dispatcher.dispatch(action);
+    }
+
+function lockWeek(){
+    // for (var count=startDateOfWeek;count<startDateOfWeek+8;count++){
+    //   lockday(count)
+    // }
+    var action = {
+        type: 'lock_week',
+      };
+      
+      Dispatcher.dispatch(action);
+  }
+
+function lockDay(Date,month,year){
+    var times = ['9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00']
+    for (var iterator = 1; iterator < 12;iterator++){
+      lockAppointment(date,times[iterator],month,year);
+    }
+    var action = {
+        type: 'lock_day',
+      };
+      
+      Dispatcher.dispatch(action);
+  }
+
 function logout(){
     var action = {
       type:'logout'
@@ -184,13 +280,27 @@ function login(){
     var action = {
       type:'login'
     };
- console.log('created an action called login and dispatching it');
+  console.log('ACTION type has just been set as',action.type);
+ Dispatcher.dispatch(action);
+}
+
+function nextMonth(){
+   var action = {
+      type:'next_month'
+    };
  Dispatcher.dispatch(action);
 }
 
 function profiles(){
     var action = {
       type:'profiles'
+    };
+ Dispatcher.dispatch(action);
+}
+
+function previousMonth(){
+   var action = {
+      type:'previous_month'
     };
  Dispatcher.dispatch(action);
 }
@@ -216,7 +326,7 @@ function showFreeTimes(dayPicked){
     type: 'show_free_times',
     date: dayPicked
   };
-  console.log('inside actioncreator ',action.date);
+  console.log('ACTION type has just been set as',action.type);
   Dispatcher.dispatch(action);
 }
 
@@ -231,7 +341,6 @@ function setCurrentClientEmail(username){
 }
 
 function storeToken(token){
-  console.log('made it to storeToken action creator');
   var action = {
     type: 'store_token',
     token: token,
@@ -272,15 +381,10 @@ function treatment2(){
  Dispatcher.dispatch(action);
 }
 
-
-function lockAppointment(date, time,month,year){
-    var action = {
-        type: 'lock_appointment',
-        date: date,
-        time: time,
-        month: month,
-        year: year,
-        lock: 'ON',
+function treatmentUpdate(treatmentChosen){
+  var action = {
+        type: 'treatment_chosen',
+        treatment: treatmentChosen,
       };
       
       Dispatcher.dispatch(action);
@@ -293,38 +397,14 @@ function unlockAppointment(date, time){
       
       Dispatcher.dispatch(action);
     }
-
-function lockDay(Date,month,year){
-    var times = ['9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00']
-    for (var iterator = 1; iterator < 12;iterator++){
-      lockAppointment(date,times[iterator],month,year);
-    }
-    var action = {
-        type: 'lock_day',
-      };
-      
-      Dispatcher.dispatch(action);
-  }
-    
+  
 function unlockDay(Date){
     var action = {
         type: 'unlock_day',
       };     
       Dispatcher.dispatch(action);
     }
-
-function lockWeek(){
-    // for (var count=startDateOfWeek;count<startDateOfWeek+8;count++){
-    //   lockday(count)
-    // }
-    var action = {
-        type: 'lock_week',
-      };
-      
-      Dispatcher.dispatch(action);
-  }
-    
-
+   
 function unlockWeek(startDateOfWeek){
    var action = {
       type: 'unlock_week',
@@ -336,8 +416,7 @@ function unlockWeek(startDateOfWeek){
 function weekView(){
    var action = {
       type: 'week_view',
-    };
-    
+    }; 
     Dispatcher.dispatch(action); 
 }
 
@@ -352,13 +431,14 @@ module.exports = {
   changeToNextWeek:changeToNextWeek,
   changeToDailyView:changeToDailyView,
   changeToWeekView:changeToWeekView,
-  createAccount:createAccount,
+  afterCreateAccount:afterCreateAccount,
   createClient:createClient,
   dashboard:dashboard,
   dashboardPractitioner:dashboardPractitioner,
   dateAndTime:dateAndTime,
   dateChosen:dateChosen,
   failMessage:failMessage,
+  getAllAppointmentsForOneDayFromBackEnd:getAllAppointmentsForOneDayFromBackEnd,
   getPreviousDay:getPreviousDay,
   getNextDay:getNextDay,
   highlightTime:highlightTime,
@@ -368,16 +448,19 @@ module.exports = {
   lockDay:lockDay,
   lockWeek:lockWeek,
   lockAppointment:lockAppointment,
+  nextMonth:nextMonth,
+  previousMonth:previousMonth,
   profiles:profiles,
   removeReminder:removeReminder,
-  removeAllAppointments: removeAllAppointments,
+  removeAllAppointments:removeAllAppointments,
   setCurrentClientEmail:setCurrentClientEmail,
   showFreeTimes:showFreeTimes,
   storeToken:storeToken,
-  successMessage,successMessage,
+  successMessage:successMessage,
   timeEntered:timeEntered,
   treatment1:treatment1,
   treatment2:treatment2,
+  treatmentUpdate:treatmentUpdate,
   unlockAppointment:unlockAppointment,
   unlockDay:unlockDay,
   unlockWeek:unlockWeek,

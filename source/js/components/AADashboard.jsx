@@ -17,47 +17,48 @@ var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js
 
 var Dashboard = React.createClass({
 
-  getInitialState: function () {
-    var allClients = ClientStore.getAllClients();
-    var allAppointments = AppointmentStore.getAllAppointments();
-    return {
-      day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonthName(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus(),
-      appointmentReminder: allAppointments.reminder,
+  // getInitialState: function () {
+  //   var allClients = ClientStore.getAllClients();
+  //   var allAppointments = AppointmentStore.getAllAppointments();
+  //   return {
+  //     day: AppointmentStore.getCurrentDay(),
+  //     month: AppointmentStore.getCurrentMonthName(),
+  //     year:AppointmentStore.getCurrentYear(),
+  //     lock:AppointmentStore.getLockDayStatus(),
+  //     // appointmentReminder: allAppointments.reminder,
       
-    };
-  },
+  //   };
+  // },
 
 
-  handleChange: function () {
-     var allClients = ClientStore.getAllClients();
-     var allAppointments = AppointmentStore.getAllAppointments();
-      console.log("CHANGING dashboard");
-    this.setState({
-      day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonthName(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus(),
-      appointmentReminder:allAppointments.reminder,
-    });
+  // handleChange: function () {
+  //    var allClients = ClientStore.getAllClients();
+  //    var allAppointments = AppointmentStore.getAllAppointments();
+  //     console.log("CHANGING dashboard");
+  //   this.setState({
+  //     day: AppointmentStore.getCurrentDay(),
+  //     month: AppointmentStore.getCurrentMonthName(),
+  //     year:AppointmentStore.getCurrentYear(),
+  //     lock:AppointmentStore.getLockDayStatus(),
+  //     appointmentReminder:allAppointments.reminder,
+  //   });
     
-  },
+  // },
 
-  componentDidMount: function () {
-      ClientStore.addChangeListener(this.handleChange);
-      AppointmentStore.addChangeListener(this.handleChange);
-  },
+  // componentDidMount: function () {
+  //     ClientStore.addChangeListener(this.handleChange);
+  //     AppointmentStore.addChangeListener(this.handleChange);
+  // },
 
-  componentWillUnmount: function () {
-      ClientStore.removeChangeListener(this.handleChange);
-      AppointmentStore.removeChangeListener(this.handleChange);
-  },
+  // componentWillUnmount: function () {
+  //     ClientStore.removeChangeListener(this.handleChange);
+  //     AppointmentStore.removeChangeListener(this.handleChange);
+  // },
 
   bookPractitioner: function(event){
     event.preventDefault();
-    console.log('in function of Dashboard and about to call ActionCreator');
+    console.log('clicked on practitioner button',event);
+
      AppointmentActionCreators.bookPractitioner();
   },
 
@@ -77,6 +78,18 @@ var Dashboard = React.createClass({
 
   },
 
+  cancelApptClicked: function(){
+   
+  },
+
+  changeReminder:function(){
+      if (reminderStatus === 'ON') {
+        AppointmentStore.setReminderOff();
+      } else {
+        AppointmentStore.setReminderOn();
+      }
+  },
+
   setReminderValues: function(appointmentReminder){
     var reminderStatus = {};
 
@@ -93,22 +106,29 @@ var Dashboard = React.createClass({
     return reminderStatus;
   },
 
+  appointmentsToShow: function(Appointments){
+    var orderedAppointments = [];
+    console.log('values of appointments as in appointmentstoshow:',Appointments[1]);
+  },
+
+  getDateBoxElements: function (appointments) {
+    return appointments.map(function (appointment) {
+      return (<DateBox key={appointment._id} month={appointment.month} day={appointment.day} time={appointment.time} treatment={appointment.treatment} practitioner={appointment.practitioner} buttonStatus={appointment.reminderFlag} />);
+   });
+  },
+
   render: function(){
-    var allAppointments = AppointmentStore.getAllAppointments();
-    var findReminders = this.state.appointmentReminder;
-    var displayReminder = this.setReminderValues(findReminders);
+    // AppointmentActionCreators.getAllAppointments();
+    var allAppointments = AppointmentStore.getCurrentUserAppointments();
+    console.debug('in dashboard SOURCING appointments',allAppointments);
+    appointmentTotal = allAppointments.length;
+    var newList = this.appointmentsToShow(allAppointments);
+    // var findReminders = this.state.appointmentReminder;
+    // var displayReminder = this.setReminderValues(findReminders);
 
     return (<div className="page-background1">
 
           <ClientMenuBar />
-     
-          <div className=" separator">
-              <div className="row">
-                  <div className="large-12 columns">
-                      
-                  </div>
-              </div>     
-          </div>
 
           <div className="row">
               <div className="columns medium-10 center">
@@ -120,11 +140,11 @@ var Dashboard = React.createClass({
           <div className="row">
 
               <div className="columns medium-4 medium-offset-2">
-                    <MyButton clicked={this.bookPractitioner} className="large-button" type="button" value="Book an Appointment with Dr Micheals" id="mich-Button"/>
+                    <button onClick={this.bookPractitioner} className="large-button" type="button" ref="practitioner1" id="mich-Button" >Book an Appointment with Dr Micheals</button>
               </div>
 
               <div className="columns medium-6">  
-                    <MyButton clicked={this.bookPractitioner} className="large-button" type="button" value="Book an Appointment with Angelo" id="angelo-button"/>
+                    <button onClick={this.bookPractitioner} className="large-button" type="button" ref="practitioner2" id="angelo-button">Book an Appointment with Angelo</button>
               </div>
           </div>
 
@@ -135,7 +155,7 @@ var Dashboard = React.createClass({
             </div>
           </div>
 
-          <DateBox month={allAppointments.dateMonth} day={allAppointments.dateNumber} time={allAppointments.time} message={displayReminder.message} treatment={allAppointments.treatment} practitioner={allAppointments.practitioner} buttonText={displayReminder.buttonText}/>
+          {this.getDateBoxElements(allAppointments)}
           
           <div className="row">
             <div className="columns medium-11 medium-offset-1">
@@ -161,12 +181,12 @@ var Dashboard = React.createClass({
                             <MyButton clicked={this.cancelApptClicked} className="cancelAppointment-button" type="button" value="Cancel Appointment"/>
                         </div>
                         <div className="columns small-4">    
-                            <Paragraph value={displayReminder.message} className="tiny-font"/>
+                            <p className="tiny-font">reminder message goes here</p>
                            
                             <br />
                         </div>
                         <div className="columns small-4">
-                            <MyButton clicked={this.changeReminder} className="tiny-button" type="button" value={displayReminder.buttonText}/>
+                            <MyButton clicked={this.changeReminder} className="tiny-button" type="button" />
                         </div>
                     </div> 
                   </div>
@@ -178,19 +198,7 @@ var Dashboard = React.createClass({
      
      
         
-      <div className="separator">
-        <div className="row">
-          <div className="large-12 columns">
-          </div>
-        </div>
-      </div>
       
-      <div className="separator">
-        <div className="row">
-          <div className="large-12 columns">
-          </div>
-        </div>
-      </div>
         <br /><br />
     </div>);
   }

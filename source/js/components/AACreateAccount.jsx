@@ -41,7 +41,6 @@ var CreateAccount = React.createClass({
 
     }
     console.log('in handleFormSubmit on Createaccount page');
-    console.log('email, password',email);
     this.props.handleCreateAccountFormSubmit(username, password,firstName,lastName);
   
   },

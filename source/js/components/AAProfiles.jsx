@@ -15,21 +15,16 @@ var Practitioners = React.createClass({
   
   bookPractitioner: function(event){
     event.preventDefault();
+     //now did they click on practitioner one or two.
+     console.log('event when Book it clicked on?',event);
      AppointmentActionCreators.login();
   },
 
   render: function(){
     return (<div className="page-background1">
-            <div className=" separator">
-                      <div className="row">
-                          <div className="large-12 columns">
-                             
-                          </div>
-                      </div>
-                  </div>
             <MenuBar />
             <br />
-              <div className="row">
+              <div className="row profiles-div">
                    <br />
                 <div className="columns medium-2 medium-offset-1">
                   <ProfileImage />
@@ -39,7 +34,7 @@ var Practitioners = React.createClass({
                   <Paragraph value="Some text goes here about how the practitioner came to join the practice" />
                 </div>
                 <div className="columns medium-3"> 
-                  <MyButton clicked={this.bookPractitioner} className="med-button" type="button" value="BOOK NOW!" />
+                  <button clicked={this.bookPractitioner} ref="practitioner2" className="med-button" type="button" >BOOK NOW! </button>
                 </div>
               </div>
               <div className="row">
@@ -50,7 +45,7 @@ var Practitioners = React.createClass({
                   <Paragraph value="Some text goes here about how the practitioner came to join the practice" />
                 </div>
                 <div className="columns medium-3"> 
-                  <MyButton clicked={this.bookPractitioner} className="med-button" type="button" value="BOOK NOW!" />
+                  <button onClick={this.bookPractitioner} ref="practitioner2" className="med-button" type="button">BOOK NOW! </button>
                 </div>
               </div>
              <br /><br /> 

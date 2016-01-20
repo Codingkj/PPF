@@ -16,51 +16,31 @@ var AppointmentStore = require('../stores/AppointmentStore.js');
 
 var DateTime= React.createClass({
 
-  getInitialState: function () {
-    return {
-      day: AppointmentStore.getCurrentDay(),
-      monthSelected: AppointmentStore.getCurrentMonthName(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus(),
-      isDateSelected:'',
-      dateChosen:'',
-    };
-  },
-
-
-  handleChange: function () {
-      console.log("CHANGING DateTime");
-    this.setState({
-      day: AppointmentStore.getCurrentDay(),
-      monthSelected: AppointmentStore.getValueOfMonthSelected(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus(),
-      isDateSelected:AppointmentStore.getDateSelected(),
-      dateChosen:AppointmentStore.getValueOfDateSelected()
-    });
-    
-  },
-
-  componentDidMount: function () {
-      ClientStore.addChangeListener(this.handleChange);
-      AppointmentStore.addChangeListener(this.handleChange);
-  },
-
-  componentWillUnmount: function () {
-      ClientStore.removeChangeListener(this.handleChange);
-      AppointmentStore.removeChangeListener(this.handleChange);
-  },
-
+  
   bookIt:function(){
     console.log(' got to the BOOK IT function');
     AppointmentActionCreators.addAppointment(event);
   },
 
+  getAppointmentsForOneDay: function(allAppointments) {
+    return allAppointments.map(function (appointment) {
+       
+   });
+  },
+
   render: function(){
+    AppointmentActionCreators.getAllAppointmentsForOneDayFromBackEnd();
+    var allAppointments = AppointmentStore.getCurrentUserAppointments();
+    var dateChosen = this.props.dateChosen;
+    var isDateChosen = this.props.isDateChosen;
+    var timeChosen = this.props.timeChosen;
+
+    console.log('isDateChosen and Date chosen are::  ',isDateChosen,dateChosen);
+
     return (<div className="page-background1">           
              
               <ClientMenuBar />
-              <Spacer height="20" />         
+                   
               <div className="row">
                   <div id="treatment-header" className="columns medium-12">
                     
@@ -80,16 +60,15 @@ var DateTime= React.createClass({
                       <CalendarMonth />
                  </div>
                  <div className="columns medium-5">
-                
-                      {this.state.isDateSelected !== "" ?<DisplayTimes isDateChosen={true} date={this.state.dateChosen} />:''}
-                      <br />
+                      
+                      {isDateChosen ?<DisplayTimes isDateChosen={isDateChosen} dateChosen={dateChosen} timeChosen={timeChosen}/>:''}
                     
                  </div>
               </div>
               <br />
               <div className="row">
                   <div className="columns medium-4 medium-offset-3">
-                      <Paragraph value="Do you want a text/SMS reminder?"/>
+                      <p>Do you want a text/SMS reminder?</p>
                   </div>
                   <div className="columns medium-5">
                       <MyCheckbox />
@@ -97,14 +76,14 @@ var DateTime= React.createClass({
               </div>
               <div className="row">
                   <div className="columns medium-4 medium-offset-3">
-                      <Paragraph value="Do you agree with our cancellation policy"/>
+                      <p>Do you agree with our cancellation policy</p>
                   </div>
                   
                   <div className="columns medium-1">
                       <MyCheckbox />
                   </div>
                   <div className="columns medium-4">
-                      <Paragraph value="Read Policy" />
+                      <p>Read Policy</p>
                   </div>
               </div>
               <div className="row">

@@ -26,20 +26,17 @@ var client ={
 	password: 'xxxxxx',
 	mobile: '0771 4950123',
 	otherPhone: ' ',
-	currentClientEmail:'',
+	currentClientEmail:'sc@calstate.com',
 }
 
 function addClient(client) {
   Customers[client.id] = client;
-
   AppointmentStore.emit('change');
 }
 
 
-
 function removeClient(AppointmentId) {
   delete Customers[client.id];
-
   ClientStore.emit('change');
 }
 

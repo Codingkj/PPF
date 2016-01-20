@@ -7,7 +7,7 @@
     clear: both; }
   .top-bar,
   .top-bar ul {
-    background-color: transparent;
+    background-color: $mymidbrown;
     margin-left: 3vw;}
   .top-bar a {
     color: black; }
@@ -18,12 +18,14 @@
     width: auto; 
 }
 .top-bar a {  
-    background-color: transparent;
+    background-color: $mymidbrown;
     font-family: Helvetica;
     font-weight:500;
 }
 .menu-text{
   padding:0.2rem;
+  color:black;
+  font-weight: 400;
 }
 $topbar-bg-color: transparent;
 $topbar-bg: $topbar-bg-color;
@@ -96,12 +98,11 @@ $form-radius: $global-radius;
 
 .event-date {
   width: 6rem;
-  margin: 0 auto 1rem;
+  margin: 0 0 0 0rem;
   display: table-cell;
-  width: auto;
   height: 100%;
 }
-  .event-month {
+.event-month {
     margin: 0;
     background: $mymidbrown;
     padding: 0.5rem 2rem;
@@ -109,7 +110,7 @@ $form-radius: $global-radius;
     font-size: 1.5vw;
   }
 
-  .event-day {
+.event-day {
     margin: 0;
     border: 1px solid black;
     padding: 0 2rem;
@@ -143,6 +144,7 @@ $form-radius: $global-radius;
     padding-bottom: 0.2rem;
     margin: 0;
   }
+
 tbody td{
   padding:0.2rem 0.2rem 0.2rem;
 }

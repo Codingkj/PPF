@@ -22,37 +22,37 @@ var DashboardPractitioners = React.createClass({
     this.setState.clientList
   },
 
-  getInitialState: function () {
-    return {
-      day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonthName(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus(),
-      clientList:false,
-    };
-  },
+  // getInitialState: function () {
+  //   return {
+  //     day: AppointmentStore.getCurrentDay(),
+  //     month: AppointmentStore.getCurrentMonthName(),
+  //     year:AppointmentStore.getCurrentYear(),
+  //     lock:AppointmentStore.getLockDayStatus(),
+  //     clientList:false,
+  //   };
+  // },
 
-  handleChange: function () {
-      console.log("CHANGING dashboardPractitioner");
-    this.setState({
-      day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonthName(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus(),
-      clientList:this.getClientListing(),
-    });
+  // handleChange: function () {
+  //     console.log("CHANGING dashboardPractitioner");
+  //   this.setState({
+  //     day: AppointmentStore.getCurrentDay(),
+  //     month: AppointmentStore.getCurrentMonthName(),
+  //     year:AppointmentStore.getCurrentYear(),
+  //     lock:AppointmentStore.getLockDayStatus(),
+  //     clientList:this.getClientListing(),
+  //   });
     
-  },
+  // },
 
-  componentDidMount: function () {
-      ClientStore.addChangeListener(this.handleChange);
-      AppointmentStore.addChangeListener(this.handleChange);
-  },
+  // componentDidMount: function () {
+  //     ClientStore.addChangeListener(this.handleChange);
+  //     AppointmentStore.addChangeListener(this.handleChange);
+  // },
 
-  componentWillUnmount: function () {
-      ClientStore.removeChangeListener(this.handleChange);
-      AppointmentStore.removeChangeListener(this.handleChange);
-  },
+  // componentWillUnmount: function () {
+  //     ClientStore.removeChangeListener(this.handleChange);
+  //     AppointmentStore.removeChangeListener(this.handleChange);
+  // },
 
   getClientListing: function(){
       if (clientSearchClicked === false) {
@@ -126,7 +126,7 @@ var DashboardPractitioners = React.createClass({
 
               <div className="row">
                   <div className="columns medium-8">
-                      <Paragraph defaultValue="Search Results" />
+                      <p>Search Results</p>
                   </div>
               </div>
               

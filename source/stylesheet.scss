@@ -9,7 +9,7 @@
 }
 .sticky{
 	width:100%;
-	background-color: transparent;
+	background-color: $mymidbrown;
 	color:white;
 }
 .backdrop{
@@ -124,12 +124,7 @@ html {
 	background-color: white;
 
 }
-.panel-text{
-	margin-left: 2vw;
-	color: black;
-	margin-bottom: none;
-	padding:0.5vw;
-}
+
 .date-highlight{
 	background-color: $pinkyred;
 	font-size: 2vw;
@@ -155,4 +150,7 @@ html {
 .menuDiv .clientMenu{
 	width:100%;
 	height:2vw;
+}
+.profiles-div{
+	margin:2vw;
 }

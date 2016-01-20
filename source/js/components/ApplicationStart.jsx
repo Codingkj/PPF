@@ -33,12 +33,11 @@ var AuthenticationService = require('../services/authentication');
 var Utilities = require('../Utilities.js');
 
 
-var ComponentToBeRendered;
 
-function bookAnAppointmentClicked(){
-  event.preventDefault();
-    AppointmentActionCreators.bookAnAppointment();
-}
+// function bookAnAppointmentClicked(){
+//   event.preventDefault();
+//     AppointmentActionCreators.bookAnAppointment();
+// }
 
 
 var ApplicationStart = React.createClass({
@@ -47,66 +46,68 @@ var ApplicationStart = React.createClass({
    
       if (ComponentSetting === 'LandingPage')
       {
-         ComponentToBeRendered = <LandingPage />;
+         return <LandingPage />;
       }
       else if (ComponentSetting === 'Dashboard')
       {
-        ComponentToBeRendered = <Dashboard />;
+        return <Dashboard />;
       } 
       else if (ComponentSetting === 'Login')
       {
-        ComponentToBeRendered = <LoginForm handleUserLogInFormSubmit={this.handleUserLogInFormSubmit}/>;
+        return <LoginForm handleUserLogInFormSubmit={this.handleUserLogInFormSubmit}/>;
     
       }
       else if (ComponentSetting === 'GoToCreatePage')
       {
-        ComponentToBeRendered = <CreateClientForm handleCreateAccountFormSubmit={this.handleCreateAccountFormSubmit}/>;
+        return <CreateClientForm handleCreateAccountFormSubmit={this.handleCreateAccountFormSubmit}/>;
       }
       
       else if (ComponentSetting === 'DashboardPractitioner')
       {
-        ComponentToBeRendered = <DashboardPractitioner />;
+        return <DashboardPractitioner />;
       }
       else if (ComponentSetting === 'DateTime')
       {
-        ComponentToBeRendered = <DateTime />;
+        return <DateTime dateChosen={this.state.dateChosen} isDateChosen={this.state.isDateChosen} timeChosen={this.state.timeChosen}/>;
       }
       else if (ComponentSetting === 'Profiles')
       {
-        ComponentToBeRendered = <Profiles />;
+        return <Profiles />;
       }
       else if (ComponentSetting === 'Treatment1')
       {
-        ComponentToBeRendered = <Treatments1 />;
+        return <Treatments1 />;
       }
       else if (ComponentSetting === 'Treatment2')
       {
-        ComponentToBeRendered = <Treatments2 />;
+        return <Treatments2 />;
       }
       else if (ComponentSetting === 'DailyView')
       {
-        ComponentToBeRendered = <DailyView />;
+        return <DailyView />;
       }
       else if (ComponentSetting === 'WeekView')
       {
-        ComponentToBeRendered = <WeekView />;
+        return <WeekView />;
       }
       else if (ComponentSetting === 'Profiles')
       {
-        ComponentToBeRendered = <Profiles />;
+        return <Profiles />;
       }
 
-      return ComponentToBeRendered;
    },
    
    getInitialState: function () {
    
     return {
-      currentPage: this.getComponent(AppointmentStore.getCurrentComponent()),
+      currentPage: AppointmentStore.getCurrentComponent(),
       pageToShowAfterLogin: AppointmentStore.getPageToShowAfterLogin(),
       token:AppointmentStore.getToken(),
       failMessage:AppointmentStore.getFailMessage(),
       successMessage:AppointmentStore.getSuccessMessage(),
+      dateChosen:AppointmentStore.getValueOfDateSelected(),
+      isDateChosen:AppointmentStore.getDateSelected(),
+      timeChosen:AppointmentStore.getValueOfTimeSelected(),
     };
   },
 
@@ -123,18 +124,21 @@ var ApplicationStart = React.createClass({
     AppointmentActionCreators.successMessage('Thanks for joining!');
   },
 
-  showPageAfterLogIn: function (pageName) {
-    AppointmentActionCreators.dashboard();
-  },
+  // showPageAfterLogIn: function (pageName) {
+  //   AppointmentActionCreators.dashboard();
+  // },
 
   handleChange: function () {
 
     this.setState({
-      currentPage: this.getComponent(AppointmentStore.getCurrentComponent()),
+      currentPage: AppointmentStore.getCurrentComponent(),
       pageToShowAfterLogin:AppointmentStore.getPageToShowAfterLogin(),
       token:AppointmentStore.getToken(),
       failMessage:AppointmentStore.getFailMessage(),
       successMessage: AppointmentStore.getSuccessMessage(),
+      dateChosen:AppointmentStore.getValueOfDateSelected(),
+      isDateChosen:AppointmentStore.getDateSelected(),
+      timeChosen:AppointmentStore.getValueOfTimeSelected(),
     });
 
     console.log('CHANGING APPLICATION START ');
@@ -179,14 +183,14 @@ var ApplicationStart = React.createClass({
   },
 
   handleCreateAccountFormSubmit: function (username, password,firstName,lastName) {
-    console.log('got to handleCreateAccountFormSubmit');
+    
     AuthenticationService.signUp(username, password, firstName, lastName, function handleUserSignUp(error, response) {
       if (error) {
         AppointmentActionCreators.failMessage('Failed to join.');
         return;
       }
 
-      console.log('after authentication first call');
+      
       AuthenticationService.logIn(username, password, firstName, lastName,function handleUserLogIn(error, response) {
         if (error) {
           AppointmentActionCreators.failMessage('Failed to log in.');
@@ -194,7 +198,7 @@ var ApplicationStart = React.createClass({
         }
 
         this.setUserAuthenticationToken(response.token);
-        console.log('Thanks for joining - token is',response.token);
+       
         AppointmentActionCreators.successMessage('Thanks for joining!');
 
         if (this.state.pageToShowAfterLogin) {
@@ -209,7 +213,7 @@ var ApplicationStart = React.createClass({
   },
 
   handleUserLogInFormSubmit: function (username, password) {
-    console.log('got to handleUserLogInFormSubmit');
+  
     AuthenticationService.logIn(username, password, function handleUserLogIn(error, response) {
       console.log('BEEN to authentication service and returned');
       if (error) {
@@ -222,7 +226,7 @@ var ApplicationStart = React.createClass({
       AppointmentActionCreators.successMessage('Welcome back!');
       AppointmentActionCreators.setCurrentClientEmail(username);
 
-      if (this.state.pageToShowAfterLogin) {
+      if (response.token !== '') {
         AppointmentActionCreators.dashboard();
         // this.showPageAfterLogIn(null);
       } else {
@@ -236,13 +240,10 @@ var ApplicationStart = React.createClass({
 
   render: function(){
     return (<div >
+           
       
-      
-      
-      {this.state.currentPage}
-      
-     
-     
+      {this.getComponent(this.state.currentPage)}
+         
       
       </div>)
     

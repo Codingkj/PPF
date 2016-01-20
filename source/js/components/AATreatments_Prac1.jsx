@@ -14,6 +14,10 @@ var Treatments1 = React.createClass({
   
   bookTreatment: function(){
     event.preventDefault();
+    
+     var treatmentChosen = event.target.textContent;
+     console.log('Treatment has been chosen as ',event, treatmentChosen);
+     AppointmentActionCreators.treatmentUpdate(treatmentChosen);
      AppointmentActionCreators.dateAndTime();
   },
 

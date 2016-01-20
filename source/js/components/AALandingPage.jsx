@@ -58,7 +58,7 @@ var LandingPage = React.createClass({
                       <div className="columns medium-12 center">
                           <br />
                           <br />
-                          <h1>Rejuvenation Private Practice </h1>
+                          <p className="title-text">Rejuvenation Private Practice </p>
                           <br /><br />
                           <p className="tagline">We specialise in MASSAGE, REIKI and ACUPUNCTURE</p>
                     

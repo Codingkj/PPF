@@ -1,4 +1,5 @@
 var jQuery = require('jquery');
+var HashId = require('./HashId.js');
 
 var HOST_NAME = 'http://localhost:8080';
 
@@ -42,32 +43,56 @@ function saveAppointment(token, date,day, month,year,time,lock,clientEmail,pract
   });
 }
 
-function getAppointmentsForClient(token, clientEmail, handleResponse) {
-
+function getUserAppointments(token, clientEmail, handleResponse) {
   var data = {
     token: token,
-    Email: clientEmail,
-    
+    Email: clientEmail,   
   };
 //get and then remove
   var request = jQuery.ajax({
-    method: 'post',
-    url: HOST_NAME + API_ENDPOINTS.LOG_IN,
+    method: 'get',
+    url: HOST_NAME + API_ENDPOINTS.APPOINTMENTS,
     dataType: 'json',
     data: data
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {
+     console.log('in request.fail');
     handleResponse(jqXHR, null);
   });
 
   request.done(function (data) {
     handleResponse(null, data);
-    console.log('in request for appointments are done');
+    console.log('in request.done',data);
+  });
+}
+
+function getAllUserAppointmentsOnOneDay(token, date, handleResponse) {
+  var data = {
+    token: token,
+    date: date,   
+  };
+//get and then remove
+  var request = jQuery.ajax({
+    method: 'get',
+    url: HOST_NAME + API_ENDPOINTS.APPOINTMENTS,
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+     console.log('in request.fail');
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+    console.log('in request.done',data);
   });
 }
 
 module.exports = {
   saveAppointment: saveAppointment,
-  getAppointmentsForClient: getAppointmentsForClient,
+  getUserAppointments: getUserAppointments,
+  getAllUserAppointmentsOnOneDay:getAllUserAppointmentsOnOneDay,
 };

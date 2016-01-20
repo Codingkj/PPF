@@ -4,21 +4,19 @@ var ClientStore = require('../stores/ClientStore.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 
 var MenuComponent = React.createClass({
+  
   getInitialState: function () {
     return {
-      day: AppointmentStore.getCurrentDay(),
-      
-      
-  	};
+    }
   },
 
 
   handleChange: function () {
       console.log("CHANGING MENU");
-    this.setState({
-      day: AppointmentStore.getCurrentDay(),
+    // this.setState({
+    //   // day: AppointmentStore.getCurrentDay(),
      
-    });
+    // });
   },
 
   componentDidMount: function () {
@@ -78,14 +76,14 @@ var MenuComponent = React.createClass({
      return (<div data-sticky-container className="menuDiv">
      			<div className="sticky" id="navbar" data-sticky data-margin-top="0" data-margin-bottom="0">
 			      <nav data-topbar role="navigation" className="top-bar" data-options="is_hover: false">
-					    <ul className="horizontal menu expanded">
-					      <li onClick={this.goHome} className="menu-text divider"><a href="#" >HOME</a></li>
-					      <li onClick={this.goLogin} className="menu-text divider"><a href="#">CLIENT DASHBOARD</a></li>
-					      <li onClick={this.goDashboardPractitioner} className="menu-text divider"><a href="#">PRACTITIONER INFO</a></li>
-					      <li className="menu-text divider"><a href="#"></a></li>  
-					      <li onClick={this.goLogin} className="menu-text divider"><a href="#">LOG IN</a></li>  
-					      <li onClick={this.goProfiles} className="menu-text divider"><a href="#">About Us</a></li>
-					      <li onClick={this.goContactDetails} className="menu-text divider"><a href="#location">Contact Us</a></li> 
+					    <ul className="horizontal menu expanded center-buttons">
+					      <li className="divider"><button onClick={this.goHome} className="menu-text">HOME</button></li>
+					      <li className="divider"><button onClick={this.goLogin} className="menu-text">CLIENT DASHBOARD</button></li>
+					      <li className="divider"><button onClick={this.goDashboardPractitioner} className="menu-text">PRACTITIONER INFO</button></li>
+					      <li className="divider"><a href="#"></a></li>  
+					      <li className="divider"><button onClick={this.goLogin} className="menu-text">LOG IN</button></li>  
+					      <li className="divider"><button onClick={this.goProfiles} className="menu-text">ABOUT US</button></li>
+					      <li className="divider"><button onClick={this.goContactDetails} className="menu-text">CONTACT US</button></li> 
 					    </ul>
 				
 				  </nav>
