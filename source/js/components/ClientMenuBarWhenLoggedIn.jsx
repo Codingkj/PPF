@@ -4,35 +4,7 @@ var ClientStore = require('../stores/ClientStore.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 
 var ClientMenu = React.createClass({
-  // getInitialState: function () {
-  //   return {
-  //     day: AppointmentStore.getCurrentDay(),
-  //     month: AppointmentStore.getCurrentMonthName(),
-  //     year:AppointmentStore.getCurrentYear(),
-  //     lock:AppointmentStore.getLockDayStatus()
-  // 	};
-  // },
-
-
-  // handleChange: function () {
-  //     console.log("CHANGING CLIENT MENU");
-  //   this.setState({
-  //     day: AppointmentStore.getCurrentDay(),
-  //     month: AppointmentStore.getCurrentMonthName(),
-  //     year:AppointmentStore.getCurrentYear(),
-  //     lock:AppointmentStore.getLockDayStatus(),
-  //   });
-  // },
-
-  // componentDidMount: function () {
-  //     ClientStore.addChangeListener(this.handleChange);
-  //     AppointmentStore.addChangeListener(this.handleChange);
-  // },
-
-  // componentWillUnmount: function () {
-  // //     ClientStore.removeChangeListener(this.handleChange);
-  // //     AppointmentStore.removeChangeListener(this.handleChange);
-  // },
+  
   clientMenuOption: function(){
   	event.preventDefault();
      AppointmentActionCreators.dashboard();

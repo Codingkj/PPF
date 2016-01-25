@@ -40,6 +40,13 @@ var Dashboard = React.createClass({
    }
   },
 
+  getNextAppointment:function(){
+
+  },
+
+  cancelApptClicked: function(){
+   
+  },
 
   changeReminder:function(){
       if (reminderStatus === 'ON') {
@@ -72,22 +79,18 @@ var Dashboard = React.createClass({
 
   getDateBoxElements: function (appointments) {
     return appointments.map(function (appointment) {
-      var currentClientEmail = ClientStore.getCurrentClientEmail();
-      console.log('currentClientEmail is',currentClientEmail);
-      console.log('appointment.practitioner is',appointment.practitioner);
-      if (currentClientEmail === appointment.clientEmail){
       return (<DateBox key={appointment._id} month={appointment.month} day={appointment.day} time={appointment.time} treatment={appointment.treatment} practitioner={appointment.practitioner} buttonStatus={appointment.reminderFlag} />);
-    }
    });
   },
 
   render: function(){
-   
+    // AppointmentActionCreators.getAllAppointments();
     var allAppointments = AppointmentStore.getCurrentUserAppointments();
     console.debug('in dashboard SOURCING appointments',allAppointments);
     appointmentTotal = allAppointments.length;
     var newList = this.appointmentsToShow(allAppointments);
-    
+    // var findReminders = this.state.appointmentReminder;
+    // var displayReminder = this.setReminderValues(findReminders);
 
     return (<div className="page-background1">
 
@@ -120,7 +123,47 @@ var Dashboard = React.createClass({
 
           {this.getDateBoxElements(allAppointments)}
           
-      
+          // <div className="row">
+          //   <div className="columns medium-11 medium-offset-1">
+          //       <Paragraph value="Your future appointments are:"/>
+          //   </div>
+          // </div>
+     
+          // <br /><br />
+          // <div className="row">
+          //     <div className="small-9 columns small-centered">
+          //         // <article className="event">
+
+          //         // <div className="event-date">
+          //         //     <p className="event-month">{allAppointments.month}</p>
+          //         //     <p className="event-day">{allAppointments.day}</p>
+          //         // </div>
+
+          //         // <div className="event-desc">
+          //         //   <h4 className="event-desc-header">{allAppointments.time}</h4>
+          //         //   <p className="event-desc-detail"><span className="event-desc-time"></span>You have an appointment for a {allAppointments.treatment} with {allAppointments.practitioner}</p>
+          //         //   <div className="row">
+          //         //       <div className="columns small-4">  
+          //         //           <MyButton clicked={this.cancelApptClicked} className="cancelAppointment-button" type="button" value="Cancel Appointment"/>
+          //         //       </div>
+          //         //       <div className="columns small-4">    
+          //         //           <p className="tiny-font">reminder message goes here</p>
+                           
+          //         //           <br />
+          //         //       </div>
+          //         //       <div className="columns small-4">
+          //         //           <MyButton clicked={this.changeReminder} className="tiny-button" type="button" />
+          //         //       </div>
+          //         //   </div> 
+          //         // </div>
+
+          //         // </article>
+          //         <hr />          
+          //     </div>
+          // </div>
+     
+     
+        
       
         <br /><br />
     </div>);

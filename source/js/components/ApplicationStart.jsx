@@ -1,43 +1,38 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var uuid = require('node-uuid');
 
+var AppDetails = require('./AppDetails.jsx');
+var AppointmentStore = require('../stores/AppointmentStore.js');
+var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
+var AuthenticationService = require('../services/authentication.js');
 var CreateClientForm =require('./AACreateAccount.jsx');
-var Paragraph = require('./Paragraph.jsx');
-var Header = require('./Header.jsx');
-var Panel = require('./Panel.jsx');
-var Map = require('./Map.jsx');
-var MenuBar = require('./MenuBar.jsx');
-var CalendarMonth = require('./CalendarMonth.jsx');
+var ClientMenuBar = require('./ClientMenuBarWhenLoggedIn.jsx');
+var ClientStore = require('../stores/ClientStore.js');
+var ConfirmCancel = require('./ConfirmCancel.jsx');
+var ConfirmLogout = require('./ConfirmLogout.jsx');
+var DailyView =require('./AAViewDay.jsx');
 var Dashboard = require('./AADashboard.jsx');
 var DashboardPractitioner = require('./AADashboardPractitioners.jsx');
 var DateTime = require('./AADateTime.jsx');
+var FailMessage = require('./FailMessage.jsx');
+var Header = require('./Header.jsx');
 var LoginForm =require('./AAlogin.jsx');
 var LandingPage = require('./AALandingPage.jsx');
+var Map = require('./Map.jsx');
+var MenuBar = require('./MenuBar.jsx');
+var Panel = require('./Panel.jsx');
+var Policy = require('./Policy.jsx');
 var Profiles = require('./AAProfiles.jsx');
+var Paragraph = require('./Paragraph.jsx');
+var TableMonth = require('./TableMonth.jsx');
+var Spacer = require('./Spacer.jsx');
+var SuccessMessage = require('./SuccessMessage.jsx');
 var Treatments1 = require('./AATreatments_Prac1.jsx');
 var Treatments2 = require('./AATreatments_Prac2.jsx');
-var DailyView =require('./AAViewDay.jsx');
-var WeekView = require('./AAViewWeek.jsx');
-var ClientMenuBar = require('./ClientMenuBarWhenLoggedIn.jsx');
-var Panel = require('./Panel.jsx');
-var ConfirmCancel = require('./ConfirmCancel.jsx');
-var ConfirmLogout = require('./ConfirmLogout.jsx');
-var AppDetails = require('./AppDetails.jsx');
-var Policy = require('./Policy.jsx');
-var AppointmentStore = require('../stores/AppointmentStore.js');
-var ClientStore = require('../stores/ClientStore.js');
-var FailMessage = require('./FailMessage.jsx');
-var SuccessMessage = require('./SuccessMessage.jsx');
-var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
-var AuthenticationService = require('../services/authentication');
 var Utilities = require('../Utilities.js');
+var WeekView = require('./AAViewWeek.jsx');
 
-
-
-// function bookAnAppointmentClicked(){
-//   event.preventDefault();
-//     AppointmentActionCreators.bookAnAppointment();
-// }
 
 
 var ApplicationStart = React.createClass({
@@ -54,6 +49,7 @@ var ApplicationStart = React.createClass({
       } 
       else if (ComponentSetting === 'Login')
       {
+
         return <LoginForm handleUserLogInFormSubmit={this.handleUserLogInFormSubmit}/>;
     
       }
@@ -100,14 +96,19 @@ var ApplicationStart = React.createClass({
    getInitialState: function () {
    
     return {
+    
+      currentDate:AppointmentStore.getCurrentWholeDate(),
       currentPage: AppointmentStore.getCurrentComponent(),
       pageToShowAfterLogin: AppointmentStore.getPageToShowAfterLogin(),
       token:AppointmentStore.getToken(),
       failMessage:AppointmentStore.getFailMessage(),
       successMessage:AppointmentStore.getSuccessMessage(),
       dateChosen:AppointmentStore.getValueOfDateSelected(),
-      isDateChosen:AppointmentStore.getDateSelected(),
+      isDateChosen:AppointmentStore.getIsDateChosen(),
       timeChosen:AppointmentStore.getValueOfTimeSelected(),
+      pageToShowAfterLogin:true,
+      failMessage: null,
+      successMessage: null,
     };
   },
 
@@ -131,14 +132,18 @@ var ApplicationStart = React.createClass({
   handleChange: function () {
 
     this.setState({
+      currentDate:AppointmentStore.getCurrentWholeDate(),
       currentPage: AppointmentStore.getCurrentComponent(),
       pageToShowAfterLogin:AppointmentStore.getPageToShowAfterLogin(),
       token:AppointmentStore.getToken(),
       failMessage:AppointmentStore.getFailMessage(),
       successMessage: AppointmentStore.getSuccessMessage(),
       dateChosen:AppointmentStore.getValueOfDateSelected(),
-      isDateChosen:AppointmentStore.getDateSelected(),
+      isDateChosen:AppointmentStore.getIsDateChosen(),
       timeChosen:AppointmentStore.getValueOfTimeSelected(),
+      pageToShowAfterLogin:true,
+      failMessage: null,
+      successMessage: null
     });
 
     console.log('CHANGING APPLICATION START ');
@@ -173,6 +178,18 @@ var ApplicationStart = React.createClass({
     AppointmentActionCreators.successMessage(null);
   },
 
+  showFailMessage: function (message) {
+    this.setState({
+      failMessage: message
+    });
+  },
+
+  showSuccessMessage: function (message) {
+    this.setState({
+      successMessage: message
+    });
+  },
+
   logOut: function () {
     this.setUserAuthenticationToken(null);
     AppointmentActionCreators.logout();
@@ -183,27 +200,25 @@ var ApplicationStart = React.createClass({
   },
 
   handleCreateAccountFormSubmit: function (username, password,firstName,lastName) {
+    console.log('IN handleCreateAccountFormSubmit',username,password,firstName,lastName);
     
     AuthenticationService.signUp(username, password, firstName, lastName, function handleUserSignUp(error, response) {
       if (error) {
-        AppointmentActionCreators.failMessage('Failed to join.');
+        this.showFailMessage('Failed to join.');
         return;
       }
-
       
-      AuthenticationService.logIn(username, password, firstName, lastName,function handleUserLogIn(error, response) {
+      AuthenticationService.logIn(username, password, function handleUserLogIn(error, response) {
         if (error) {
-          AppointmentActionCreators.failMessage('Failed to log in.');
+          this.showFailMessage('Failed to join.');
           return;
         }
-
-        this.setUserAuthenticationToken(response.token);
-       
-        AppointmentActionCreators.successMessage('Thanks for joining!');
+        console.debug('IN APPSTART AFTER AuthenticationService',response);
+        this.setUserAuthenticationToken(response.token);      
+        this.showSuccessMessage('Thanks for joining!');
 
         if (this.state.pageToShowAfterLogin) {
           AppointmentActionCreators.dashboard();
-          // this.showPageAfterLogIn(null);
         } else {
           AppointmentActionCreators.home();
         }
@@ -211,6 +226,7 @@ var ApplicationStart = React.createClass({
       }.bind(this));
     }.bind(this));
   },
+
 
   handleUserLogInFormSubmit: function (username, password) {
   
@@ -225,8 +241,12 @@ var ApplicationStart = React.createClass({
       console.log('done setUserAuthenticationToken and it was',response.token);
       AppointmentActionCreators.successMessage('Welcome back!');
       AppointmentActionCreators.setCurrentClientEmail(username);
+      AppointmentActionCreators.getAllUsers();
+      AppointmentActionCreators.getAllAppointments();
+    
 
       if (response.token !== '') {
+
         AppointmentActionCreators.dashboard();
         // this.showPageAfterLogIn(null);
       } else {
@@ -239,6 +259,7 @@ var ApplicationStart = React.createClass({
 
 
   render: function(){
+
     return (<div >
            
       

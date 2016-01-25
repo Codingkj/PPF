@@ -7,9 +7,9 @@ var MyBreadcrumbs = require('./Breadcrumbs.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var ClientMenuBar = require('./ClientMenuBarWhenLoggedIn.jsx');
 var DisplayTimes = require('./DisplayTimes.jsx');
-var MyCheckbox = require('./Checkbox.jsx');
+
 var Spacer = require('./Spacer.jsx');
-var CalendarMonth = require('./CalendarMonth.jsx');
+var TableMonth = require('./TableMonth.jsx');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
@@ -17,25 +17,34 @@ var AppointmentStore = require('../stores/AppointmentStore.js');
 var DateTime= React.createClass({
 
   
-  bookIt:function(){
+  bookIt:function(event){
     console.log(' got to the BOOK IT function');
     AppointmentActionCreators.addAppointment(event);
+    AppointmentActionCreators.clearIsDateChosen();
+    AppointmentActionCreators.dashboard();
   },
-
-  getAppointmentsForOneDay: function(allAppointments) {
-    return allAppointments.map(function (appointment) {
-       
-   });
+  
+  agreedToPolicy:function(event){
+    console.log('got to agreedToPolicy and event is',event);
+    AppointmentActionCreators.agreedToPolicy();
+  },
+  
+  addReminder:function(event){
+    console.log('got to addReminder and event is',event);
+    if (document.getElementById("reminder").checked == true){
+        AppointmentActionCreators.addReminder();
+    }
+    else if (document.getElementById("reminder").checked == false){
+        AppointmentActionCreators.removeReminder();
+    }
   },
 
   render: function(){
-    AppointmentActionCreators.getAllAppointmentsForOneDayFromBackEnd();
-    var allAppointments = AppointmentStore.getCurrentUserAppointments();
-    var dateChosen = this.props.dateChosen;
-    var isDateChosen = this.props.isDateChosen;
-    var timeChosen = this.props.timeChosen;
+      var dateChosen = AppointmentStore.getValueOfDateSelected();
+      var isDateChosen = AppointmentStore.getIsDateChosen();
+      var timeChosen = AppointmentStore.getValueOfTimeSelected();
 
-    console.log('isDateChosen and Date chosen are::  ',isDateChosen,dateChosen);
+    console.debug('in DateTime and IsDateChosen & DateChosen is ',isDateChosen, dateChosen);
 
     return (<div className="page-background1">           
              
@@ -57,7 +66,7 @@ var DateTime= React.createClass({
                  <div className="columns medium-6 medium-offset-1">
                       <Paragraph value="Choose a date for your appointment:"/>
                       <br />
-                      <CalendarMonth />
+                      <TableMonth />
                  </div>
                  <div className="columns medium-5">
                       
@@ -71,7 +80,7 @@ var DateTime= React.createClass({
                       <p>Do you want a text/SMS reminder?</p>
                   </div>
                   <div className="columns medium-5">
-                      <MyCheckbox />
+                      <input type="checkbox" id="reminder" onClick={this.addReminder}></input>
                   </div>
               </div>
               <div className="row">
@@ -80,7 +89,7 @@ var DateTime= React.createClass({
                   </div>
                   
                   <div className="columns medium-1">
-                      <MyCheckbox />
+                      <input type="checkbox" id="policy" onClick={this.agreedToPolicy}></input>
                   </div>
                   <div className="columns medium-4">
                       <p>Read Policy</p>

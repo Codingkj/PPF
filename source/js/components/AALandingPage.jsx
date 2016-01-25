@@ -11,7 +11,7 @@ var ProfileImage = require('./ProfileImage.jsx');
 var Panel = require('./Panel.jsx');
 var Map = require('./Map.jsx');
 var MenuBar = require('./MenuBar.jsx');
-var Table = require('./Table.jsx');
+
 var ContactForm = require('./ContactForm.jsx');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
@@ -20,27 +20,6 @@ var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js
 
 var LandingPage = React.createClass({
 
-   getInitialState: function () {
-    return {};
-  },
-
-
-  handleChange: function () {
-      console.log("IN LANDING PAGE CHANGING FRONT PAGE");
-    this.setState({
-      component: AppointmentStore.getCurrentComponent()
-    });
-  },
-
-  componentDidMount: function () {
-      ClientStore.addChangeListener(this.handleChange);
-      AppointmentStore.addChangeListener(this.handleChange);
-  },
-
-  componentWillUnmount: function () {
-      ClientStore.removeChangeListener(this.handleChange);
-      AppointmentStore.removeChangeListener(this.handleChange);
-  },
 
   titleClicked:function(){
      console.log('In titleClicked function');

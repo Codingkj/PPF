@@ -14,12 +14,6 @@ var Utilities = require('../Utilities.js');
 
 var CreateAccount = React.createClass({
 
-  createAccountClicked: function(event){
-    event.preventDefault();
-    // Utilities.createUser();
-    AppointmentActionCreators.createAccount();
-},
-
 	handleFormSubmit: function (submitEvent) {
     submitEvent.preventDefault();
 
@@ -40,7 +34,7 @@ var CreateAccount = React.createClass({
     if (password !== passwordCheck){
 
     }
-    console.log('in handleFormSubmit on Createaccount page');
+    console.log('in handleFormSubmit on Createaccount page',username,password, firstName,lastName);
     this.props.handleCreateAccountFormSubmit(username, password,firstName,lastName);
   
   },
@@ -104,7 +98,7 @@ var CreateAccount = React.createClass({
 				</div>
 				<div className="row">
 					<div className="column medium-4 medium-offset-8">
-						      <MyButton clicked={this.handleFormSubmit} className="med-button" type="submit" value="Create Account" />
+						      <button onClick={this.handleFormSubmit} className="med-button" type="submit">Create Account</button>
 					</div>
 				</div>
 			    <br /><br />

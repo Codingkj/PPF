@@ -10,7 +10,7 @@ var ProfileImage = require('./ProfileImage.jsx');
 var Panel = require('./Panel.jsx');
 var Map = require('./Map.jsx');
 var MenuBar = require('./MenuBar.jsx');
-var Table = require('./Table.jsx');
+
 var ContactForm = require('./ContactForm.jsx');
 var AppointmentStore = require('.')
 

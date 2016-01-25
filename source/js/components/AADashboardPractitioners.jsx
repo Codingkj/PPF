@@ -11,56 +11,12 @@ var Spacer = require('./Spacer.jsx');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js');
-var clientSearchClicked = false;
 
 
 var DashboardPractitioners = React.createClass({
 
   clientSearch:function(){
-    console.log('made it to clientsearch');
-    clientSearchClicked = true;
-    this.setState.clientList
-  },
-
-  // getInitialState: function () {
-  //   return {
-  //     day: AppointmentStore.getCurrentDay(),
-  //     month: AppointmentStore.getCurrentMonthName(),
-  //     year:AppointmentStore.getCurrentYear(),
-  //     lock:AppointmentStore.getLockDayStatus(),
-  //     clientList:false,
-  //   };
-  // },
-
-  // handleChange: function () {
-  //     console.log("CHANGING dashboardPractitioner");
-  //   this.setState({
-  //     day: AppointmentStore.getCurrentDay(),
-  //     month: AppointmentStore.getCurrentMonthName(),
-  //     year:AppointmentStore.getCurrentYear(),
-  //     lock:AppointmentStore.getLockDayStatus(),
-  //     clientList:this.getClientListing(),
-  //   });
-    
-  // },
-
-  // componentDidMount: function () {
-  //     ClientStore.addChangeListener(this.handleChange);
-  //     AppointmentStore.addChangeListener(this.handleChange);
-  // },
-
-  // componentWillUnmount: function () {
-  //     ClientStore.removeChangeListener(this.handleChange);
-  //     AppointmentStore.removeChangeListener(this.handleChange);
-  // },
-
-  getClientListing: function(){
-      if (clientSearchClicked === false) {
-         return false;
-      }   else if (clientSearchClicked === true){
-            return true;
-      }
-
+    console.log('made it to clientsearch');   
   },
 
   weeklyView: function(){
@@ -73,6 +29,9 @@ var DashboardPractitioners = React.createClass({
   },
 
   render: function(){
+
+
+
     return (<div className="page-background1">
               <MenuBar />
      
@@ -111,13 +70,13 @@ var DashboardPractitioners = React.createClass({
                       <div className="row">
                         <div className="columns medium-12" id="client-search">
                           <br />
-                          <Paragraph value="Client Search" />
-                          <TextInput placeholder="<client's name>" className="field30"/>
+                          <h4>Client Search</h4>
+                          <input type="text" placeholder="<client's name>" className="field30" ref="clientSearchBarValue"></input>
                         </div>
                       </div>
                       <div className="row">
                         <div className="columns medium-4 medium-offset-8">
-                          <MyButton clicked={this.clientSearch} className="small-button" type="button" value="Go" />
+                          <button onClick={this.clientSearch} className="small-button" type="button" >Go! </button>
                         </div>
                       </div>
                   </div>
@@ -126,11 +85,11 @@ var DashboardPractitioners = React.createClass({
 
               <div className="row">
                   <div className="columns medium-8">
-                      <p>Search Results</p>
+                      <h4>Search Results</h4>
                   </div>
               </div>
               
-              {this.state.clientList ? <ClientList />:''}
+              
               
     </div>);
   }

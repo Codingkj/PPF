@@ -12,13 +12,12 @@ var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js
 
 var Treatments1 = React.createClass({
   
-  bookTreatment: function(){
+  bookTreatment: function(event){
     event.preventDefault();
     
      var treatmentChosen = event.target.textContent;
      console.log('Treatment has been chosen as ',event, treatmentChosen);
      AppointmentActionCreators.treatmentUpdate(treatmentChosen);
-     AppointmentActionCreators.dateAndTime();
   },
 
   render: function(){
@@ -55,26 +54,20 @@ var Treatments1 = React.createClass({
               <div className="row">
                 <div className="column medium-7 medium-offset-5"> 
                     <div className="treatment-button">  
-                        <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[0]}/>
+                        <button onClick={this.bookTreatment} className="med-button" type="button" >{types[0]}</button>
                     </div>
                     <div className="treatment-button">
-                        <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[1]}/>
+                        <button onClick={this.bookTreatment} className="med-button" type="button" >{types[1]}</button>
                     </div>
                     <div className="treatment-button">
-                        <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[2]}/>
+                        <button onClick={this.bookTreatment} className="med-button" type="button" >{types[2]}</button>
                     </div>
                     <div className="treatment-button">
-                        <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[3]}/>
+                        <button onClick={this.bookTreatment} className="med-button" type="button" >{types[3]}</button>
                     </div>
                   </div>
               </div>
-              <div className=" separator">
-                      <div className="row">
-                          <div className="large-12 columns">
-                             
-                          </div>
-                      </div>
-                  </div>
+             
           </div>);
   }
 });

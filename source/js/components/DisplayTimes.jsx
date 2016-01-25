@@ -12,106 +12,113 @@ var DisplayTimes= React.createClass({
 	
   freeTimes: function (dateChosen){
 	var freeTimes = [];
+	for (var x = 0; x < 11; x++){
+			freeTimes[x] = 'free';
+			}
 	var counter = 0;
 
-	
 	var appointmentsOnTheDay = AppointmentStore.getCurrentUserAppointments();
-
-	console.log('Have the USED time been passed down correctly',this.props.usedTimes);
+	
+	console.log('inside Freetimes appointmentsOnTheDay ARE: ',appointmentsOnTheDay);
 	console.log('inside FREETIMES and DateChosen is....',dateChosen);
+	console.log('LENGTH of appointmentsOnTheDay is...',appointmentsOnTheDay.length);
 
-    while (counter < 11){
-    	 //if apppointment time = 9 and then email is used - so there is an appointment.
-		if (appointmentsOnTheDay[counter].time == 9){
-			if (appointmentsOnTheDay[counter].email !== ""){
-					freeTimes[counter] = 'busy';
-					}
-				else {
-					freeTimes[counter] = 'free';
+    for (var counter=0; counter<appointmentsOnTheDay.length -1;counter++){
+
+    	if (appointmentsOnTheDay[counter].date == dateChosen) {
+ 
+    			console.debug('CHECKING DAILY SLOTS',appointmentsOnTheDay[0].time);
+
+				if (appointmentsOnTheDay[counter].time == '9'){
+					if (appointmentsOnTheDay[counter].clientEmail === ""){
+						freeTimes[counter] = 'free';
+						}
+					else {
+						freeTimes[counter] = 'busy';
+				}
 			}
-		}
-		if (appointmentsOnTheDay[counter].time == 10){
-			if (appointmentsOnTheDay[counter].email !== ""){
-					freeTimes[counter] = 'busy';
+				if (appointmentsOnTheDay[counter].time == '10'){
+					if (appointmentsOnTheDay[counter].clientEmail !== ""){
+							freeTimes[counter] = 'busy';
+							}
+						else {
+							freeTimes[counter] = 'free';
 					}
-				else {
-					freeTimes[counter] = 'free';
-			}
-		}
-		if (appointmentsOnTheDay[counter].time == 11){
-			if (appointmentsOnTheDay[counter].email !== ""){
-					freeTimes[counter] = 'busy';
+				}
+				if (appointmentsOnTheDay[counter].time == '11'){
+					if (appointmentsOnTheDay[counter].clientEmail !== ""){
+							freeTimes[counter] = 'busy';
+							}
+						else {
+							freeTimes[counter] = 'free';
 					}
-				else {
-					freeTimes[counter] = 'free';
-			}
-		}
-		if (appointmentsOnTheDay[counter].time == 12){
-			if (appointmentsOnTheDay[counter].email !== ""){
-					freeTimes[counter] = 'busy';
+				}
+				if (appointmentsOnTheDay[counter].time == '12'){
+					if (appointmentsOnTheDay[counter].clientEmail !== ""){
+							freeTimes[counter] = 'busy';
+							}
+						else {
+							freeTimes[counter] = 'free';
 					}
-				else {
-					freeTimes[counter] = 'free';
-			}
-		}
-		if (appointmentsOnTheDay[counter].time == 13){
-			if (appointmentsOnTheDay[counter].email !== ""){
-					freeTimes[counter] = 'busy';
+				}
+				if (appointmentsOnTheDay[counter].time == '13'){
+					if (appointmentsOnTheDay[counter].clientEmail !== ""){
+							freeTimes[counter] = 'busy';
+							}
+						else {
+							freeTimes[counter] = 'free';
 					}
-				else {
-					freeTimes[counter] = 'free';
-			}
-		}
-		if (appointmentsOnTheDay[counter].time == 14){
-			if (appointmentsOnTheDay[counter].email !== ""){
-					freeTimes[counter] = 'busy';
+				}
+				if (appointmentsOnTheDay[counter].time == '14'){
+					if (appointmentsOnTheDay[counter].clientEmail !== ""){
+							freeTimes[counter] = 'busy';
+							}
+						else {
+							freeTimes[counter] = 'free';
 					}
-				else {
-					freeTimes[counter] = 'free';
-			}
-		}
-		if (appointmentsOnTheDay[counter].time == 15){
-			if (appointmentsOnTheDay[counter].email !== ""){
-					freeTimes[counter] = 'busy';
+				}
+				if (appointmentsOnTheDay[counter].time == '15'){
+					if (appointmentsOnTheDay[counter].clientEmail !== ""){
+							freeTimes[counter] = 'busy';
+							}
+						else {
+							freeTimes[counter] = 'free';
 					}
-				else {
-					freeTimes[counter] = 'free';
-			}
-		}
-		if (appointmentsOnTheDay[counter].time == 16){
-			if (appointmentsOnTheDay[counter].email !== ""){
-					freeTimes[counter] = 'busy';
+				}
+				if (appointmentsOnTheDay[counter].time == '16'){
+					if (appointmentsOnTheDay[counter].clientEmail !== ""){
+							freeTimes[counter] = 'busy';
+							}
+						else {
+							freeTimes[counter] = 'free';
 					}
-				else {
-					freeTimes[counter] = 'free';
-			}
-		}
-		if (appointmentsOnTheDay[counter].time == 17){
-			if (appointmentsOnTheDay[counter].email !== ""){
-					freeTimes[counter] = 'busy';
+				}
+				if (appointmentsOnTheDay[counter].time == '17'){
+					if (appointmentsOnTheDay[counter].clientEmail !== ""){
+							freeTimes[counter] = 'busy';
+							}
+						else {
+							freeTimes[counter] = 'free';
 					}
-				else {
-					freeTimes[counter] = 'free';
-			}
-		}
-		if (appointmentsOnTheDay[counter].time == 18){
-			if (appointmentsOnTheDay[counter].email !== ""){
-					freeTimes[counter] = 'busy';
+				}
+				if (appointmentsOnTheDay[counter].time == '18'){
+					if (appointmentsOnTheDay[counter].clientEmail !== ""){
+							freeTimes[counter] = 'busy';
+							}
+						else {
+							freeTimes[counter] = 'free';
 					}
-				else {
-					freeTimes[counter] = 'free';
-			}
-		}
-		if (appointmentsOnTheDay[counter].time == 19){
-			if (appointmentsOnTheDay[counter].email !== ""){
-					freeTimes[counter] = 'busy';
+				}
+				if (appointmentsOnTheDay[counter].time == '19'){
+					if (appointmentsOnTheDay[counter].clientEmail !== ""){
+							freeTimes[counter] = 'busy';
+							}
+						else {
+							freeTimes[counter] = 'free';
+						}
 					}
-				else {
-					freeTimes[counter] = 'free';
-			}
+				}	
 		}
-		counter = counter + 1;
-	}
 	return freeTimes;
   },
 
@@ -137,7 +144,7 @@ var DisplayTimes= React.createClass({
 			 <br />
 			 	<div className="row">
 					<div className="columns medium-12">
-			 				<p>You have chosen this date: </p>
+			 				<p>You have chosen this date:</p>
                       
                       		<br />
                       		<p>Times that are available on that date are below. Please choose a time:</p>
@@ -158,7 +165,7 @@ var DisplayTimes= React.createClass({
 				</div>
 				<div className="row">
 					<div className="time-div columns medium-3">	
-						{freeTimes[3] === 'free' ?<button id="12" onClick={this.timeClicked} className="time-button" type="button">12:00pm</button>:null}
+						{freeTimes[3] === 'free' ?<button id="12" onClick={this.timeClicked} className="time-button" type="button">12:00</button>:null}
 						
 					</div>
 					<div className="time-div columns medium-3">	
@@ -194,7 +201,7 @@ var DisplayTimes= React.createClass({
 						
 					</div>
 					<div className="time-div columns medium-6">
-					{this.timeChosenHere !== null ? <p>"Time selected was" {this.timeChosenHere}</p>:null}
+					
 					</div>
 				</div>
 				

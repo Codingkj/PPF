@@ -25,55 +25,17 @@ var DailyView = React.createClass({
   	AppointmentActionCreators.getNextDay();
   },
 
-  getFirstDates:function(){
-  	return{
-      day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonthName(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus()
-  	};
-  },
-
-  getInitialState: function () {
-    return {
-    	date:AppointmentStore.getCurrentWholeDate(),
-      day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonthName(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus()
-  	};
-  },
-
-
-  handleChange: function () {
-      console.log(" IN VIEW DAY CHANGING",this.state.date);
-    this.setState({
-    	date:AppointmentStore.getCurrentWholeDate(),
-      day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonthName(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus(),
-    });
- 
-  },
-
-  componentDidMount: function () {
-      ClientStore.addChangeListener(this.handleChange);
-      AppointmentStore.addChangeListener(this.handleChange);
-  },
-
-  componentWillUnmount: function () {
-      ClientStore.removeChangeListener(this.handleChange);
-      AppointmentStore.removeChangeListener(this.handleChange);
-  },
-
   weeklyView: function(){ 
      AppointmentActionCreators.changeToWeekView();
   },
 
   render: function() {
-  
-	 var displayDate = '  '+ this.state.day + ' '+ this.state.month+ ' '+ this.state.year;
+   
+   var currentDate = AppointmentStore.getCurrentDate();
+   var currentDay = AppointmentStore.getCurrentDay();
+   var currentMonth = AppointmentStore.getCurrentMonthName();
+   var currentYear = AppointmentStore.getCurrentYear();
+	 var displayDate = '  '+ currentDay + ' '+ currentMonth+ ' '+ currentYear;
 	
      return (<div className="page-background1">
                   <MenuBar />
@@ -101,7 +63,7 @@ var DailyView = React.createClass({
     			     </div>
     			     <div className="row">
     			     	<div className="columns medium-offset-1 medium-6" id="dashboard-dayview">
-    				      	<TableDay day={this.state.day} month={this.state.month} year={this.state.year}/> 
+    				      	<TableDay day={currentDay} month={currentMonth} year={currentYear}/> 
     				    </div>
     				    <div className="columns medium-4 medium-offset-1">
     				    	<h5>Manage Appointments</h5>

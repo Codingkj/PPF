@@ -20,7 +20,8 @@
   "dependencies": {
     "flux": "^2.1.1",
     "gulp-uglify": "^1.1.0",
-    "node-uuid": "^1.4.2",
+    "jquery": "^2.2.0",
+    "node-uuid": "^1.4.7",
     "object-assign": "^4.0.1",
     "rc-calendar": "^5.2.0",
     "react": "^0.14",

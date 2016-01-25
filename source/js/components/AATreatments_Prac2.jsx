@@ -12,18 +12,23 @@ var AppointmentStore = require('../stores/AppointmentStore.js');
 
 var Treatments2 = React.createClass({
   
-  bookTreatment: function(){
+  bookTreatment: function(event){
     event.preventDefault();
-     AppointmentActionCreators.dateTime();
+    
+     var treatmentChosen = event.target.textContent;
+     console.log('Treatment has been chosen as ',event, treatmentChosen);
+     AppointmentActionCreators.treatmentUpdate(treatmentChosen);
   },
 
+
   render: function(){
-    var types = ClientStore.getTreatments;
-    var practitioners = ClientStore.getPractice;
+
+    var types = ClientStore.getTreatments();
+    var practitioners = ClientStore.getPractice();
   
     var standardText = "What kind of treatment do you require from ";
-    var firstText = standardText + practitioners.practitioner1 + ' ?';
     var secondText = standardText + practitioners.practitioner2 + ' ?';
+
 
     return (<div className="page-background1">
               
@@ -51,23 +56,17 @@ var Treatments2 = React.createClass({
               <div className="row">
                 <div className="column medium-7 medium-offset-5">  
                     <div className="treatment-button">     
-                    <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[4]}/>
+                    <button onClick={this.bookTreatment} className="med-button" type="button" >{types[4]}</button>
                     </div>
                     <div className="treatment-button">
-                    <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[5]}/>
+                    <button onClick={this.bookTreatment} className="med-button" type="button" >{types[5]}</button>
                     </div>
                     <div className="treatment-button">
-                    <MyButton clicked={this.bookTreatment} className="med-button" type="button" value={types[6]}/>
+                    <button onClick={this.bookTreatment} className="med-button" type="button" >{types[6]}</button>
                     </div>
                 </div>
               </div>
-              <div className=" separator">
-                      <div className="row">
-                          <div className="large-12 columns">
-                             
-                          </div>
-                      </div>
-                  </div>
+             
         </div>);
   }
 });

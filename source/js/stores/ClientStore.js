@@ -29,6 +29,8 @@ var client ={
 	currentClientEmail:'sc@calstate.com',
 }
 
+var returnedClients = [];
+
 function addClient(client) {
   Customers[client.id] = client;
   AppointmentStore.emit('change');
@@ -52,8 +54,8 @@ var ClientStore = objectAssign({}, EventEmitter.prototype, {
     this.removeListener('change', changeEventHandler);
   },
 
-  getAllClients:function() {
-    return client;
+  getAllUsers:function() {
+    return returnedClients;
 	},
   getPractice: function(){
 	return practice;
@@ -75,6 +77,9 @@ function handleAction(action) {
     addClient(action.item);
   } else if (action.type === 'remove_client') {
     removeAppointment(action.itemId);
+  } else if (action.type === 'returned_clients') {
+    returnedClients = action.data;
+    console.log('IN CLIENT STORE ',action.data);
   } else if (action.type === 'set_clientEmail') {
     client.currentClientEmail = (action.email);
     ClientStore.emit('change');

@@ -2,6 +2,8 @@ var Dispatcher = require('../dispatcher/Dispatcher');
 var ClientStore = require('../stores/ClientStore.js');
 var AppointmentStore = require('../stores/AppointmentStore.js');
 var Utilities2 = require('../services/apptsaves.js');
+var uuid = require('node-uuid');
+
 
 function addAppointment(event) {
     var action = {
@@ -41,22 +43,45 @@ function bookAnAppointment(practitionerString){
  Dispatcher.dispatch(action);
 }
 
-function bookPractitioner(){
+function bookPractitioner(name){
+
+  if (name === 'Angelo') {
+    nextPage = 'Treatment1';
+  } 
+  else
+  { 
+    nextPage ='Treatment2';
+  }
     var action = {
-      type:'treatment1',
-      practitionerNumber:'1',
+      type:'book_practitioner',
+      practitioner:name,
+      nextPage:nextPage
     };
   console.log('ACTION type has just been set as',action.type);
  Dispatcher.dispatch(action);
 }
 
 function cancelAppointment() {
-    var action = {
-      type: 'remove_appointment',
-      appointmentId: '8',
-    };   
-    Dispatcher.dispatch(action);
-}
+
+    Utilities2.removeUserAppointment(userToken, userEmail, function handleResponse(error, response) {
+        console.log('BEEN to remove appointments');
+          if (error) {
+            AppointmentActionCreators.failMessage('Could not GET appointment.');
+            console.log('Your GET Failed');
+          return;
+          }
+      console.log('the response was',response);
+       
+      successMessage('GOT Appointments!');
+
+      var action = {
+        type:'dashboard',
+        data: response,
+      };
+      console.log('ACTION type dispatched from remove AllAppointments',action.type);
+      Dispatcher.dispatch(action);
+    });
+  }
 
 function changeToPreviousWeek(){
   console.log('in action creator');
@@ -85,6 +110,14 @@ function changeToDailyView(){
  console.log('ACTION type has just been set as',action.type);
 }
 
+function clearIsDateChosen(){
+    var action = {
+      type:'clear_date',
+    };
+ Dispatcher.dispatch(action);
+ console.log('ACTION type has just been set as',action.type);
+}
+
 function changeToWeekView(){
     var action = {
       type:'changeToWeekView'
@@ -100,11 +133,10 @@ function createClient(){
  Dispatcher.dispatch(action);
 }
 
-
-
 function dashboardPractitioner(){
+  console.log('got to AC dashboardPractitioner');
     var action = {
-      type:'dashboard_practitioner'
+      type:'show_dashboard_practitioner'
     };
  Dispatcher.dispatch(action);
 }
@@ -118,21 +150,18 @@ function dateAndTime(){
 }
 
 function dateChosen(date){
+   console.log('dateChosen in ACTIONCREATOR is',date);
+    var usedTimes = getAllAppointmentsForOneDayFromBackEnd(date);
     var action = {
       type:'date_chosen',
-      date:date,
+      date: date,
+      usedTimes:usedTimes,
     };
+    console.log('action contents for dateChosen are',action);
  Dispatcher.dispatch(action);
 }
 
-function failMessage(message){
-    var action = {
-      type:'fail_message',
-      text: message,
-    };
- Dispatcher.dispatch(action);
- console.log('action type has just been set as',action.type);
-  }
+
 
 function dashboard () {
     //go to backend and get appointments
@@ -150,71 +179,146 @@ function dashboard () {
           }
       console.log('the response was',response);
        
-        
-      var ReturnedAppointments = response.appointment;  
-      console.log('returned appointments are:',ReturnedAppointments);
       successMessage('GOT Appointments!');
+
       var action = {
         type:'returned_appointments',
-        data: ReturnedAppointments
+        data: response,
       };
       console.log('ACTION type dispatched from getAllAppointments',action.type);
       Dispatcher.dispatch(action);
+
       var action = {
-          type:'dashboard'
+          type:'dashboard',
       };
       Dispatcher.dispatch(action);
-      }.bind(this));
-        
+      }.bind(this));      
 }
 
+function failMessage(message){
+    var action = {
+      type:'fail_message',
+      text: message,
+    };
+ Dispatcher.dispatch(action);
+ console.log('action type has just been set as',action.type);
+  }
+
 function getAllAppointmentsForOneDayFromBackEnd(dateChosen){
+   console.log('DATE CHOSEN IS: ',dateChosen);
    var userToken = AppointmentStore.getToken();
    console.log('Token we have in getAllAppointments is',userToken);
    var userEmail = ClientStore.getCurrentClientEmail();
    console.log('the Email RETRIEVED is...', userEmail);
-     Utilities2.getAllUserAppointmentsOnOneDay(userToken, dateChosen, function handleResponse(error, response) {
+   Utilities2.getAllUserAppointmentsOnOneDay(userToken, dateChosen, function handleResponse(error, response) {
           console.log('BEEN to GET appointments');
             if (error) {
               AppointmentActionCreators.failMessage('Could not GET appointment.');
               console.log('Your GET Failed');
             return;
             }
-        console.log('the response was',response);
-        console.log('The GET APPOINTMENT response was',response.appointment);      
-          
-        var ReturnedAppointments = response.appointment;  
-        console.log('returned appointments FOR ONE DAY are:',ReturnedAppointments);
+        console.log('the response from get appointment was',response);
+            
         successMessage('GOT Appointments!');
         var action = {
           type:'returned_appointments_on_one_day',
-          data: ReturnedAppointments
+          data: response,
         };
         console.log('ACTION type dispatched from getAllAppointments',action.type);
         Dispatcher.dispatch(action);
     });
 }
 
+function getAllUsers(){
+   
+   var userToken = AppointmentStore.getToken();
+   console.log('Token we have in getAllClients is',userToken);
+  
+   Utilities2.getAllUsers(userToken, function handleResponse(error, response) {
+        console.log('BEEN to GET Clients');
+            if (error) {
+              AppointmentActionCreators.failMessage('Could not GET client.');
+              console.log('Your GET Failed');
+            return;
+            }
+        console.log('the response from get clients',response);  
+          
+        successMessage('GOT Clients!');
+        var action = {
+          type:'returned_clients',
+          data: response,
+        };
+        console.log('ACTION dispatched from getAllClients',action.data);
+        Dispatcher.dispatch(action);
+    });
+}
+
+function getAllClients(){
+   
+   var userToken = AppointmentStore.getToken();
+   console.log('Token we have in getAllClients is',userToken);
+  
+   Utilities2.getAllUsers(userToken, function handleResponse(error, response) {
+        console.log('BEEN to GET Clients');
+            if (error) {
+              AppointmentActionCreators.failMessage('Could not GET client.');
+              console.log('Your GET Failed');
+            return;
+            }
+        console.log('the response from get clients',response);  
+          
+        successMessage('GOT Clients!');
+        var action = {
+          type:'returned_clients',
+          data: response,
+        };
+        console.log('ACTION dispatched from getAllClients',action.data);
+        Dispatcher.dispatch(action);
+    });
+}
+
+function getAllAppointments(){
+   
+   var userToken = AppointmentStore.getToken();
+  
+   Utilities2.getAllAppointments(userToken, function handleResponse(error, response) {
+        console.log('BEEN to GET Appointments');
+            if (error) {
+              AppointmentActionCreators.failMessage('Could not GET client.');
+              console.log('Your GET Failed');
+            return;
+            }
+        console.log('the response from get clients',response);  
+      
+        successMessage('GOT Appointments');
+         var action = {
+          type:'returned_appointments',
+          data: response,
+        };
+        console.log('ACTION type dispatched from getAllappointments',action.type);
+        Dispatcher.dispatch(action);
+    });
+   
+}
 
 
 function getPreviousDay(){
     var action = {
-      type:'get_PreviousDay',
+      type:'get_previousDay',
      
     };
- Dispatcher.dispatch(action);
+ 
  console.log('action type has just been set as',action.type);
+ Dispatcher.dispatch(action);
   }
 
 function getNextDay(){
     var action = {
-      type:'get_NextDay',
-      date:day,
-      month:month,
-      year:year,
+      type:'get_nextDay',
     };
- Dispatcher.dispatch(action);
+
  console.log('action type has just been set as',action.type);
+  Dispatcher.dispatch(action);
   }
 
 
@@ -388,7 +492,7 @@ function treatmentUpdate(treatmentChosen){
       };
       
       Dispatcher.dispatch(action);
-    }
+  }
 
 function unlockAppointment(date, time){
     var action = {
@@ -431,6 +535,7 @@ module.exports = {
   changeToNextWeek:changeToNextWeek,
   changeToDailyView:changeToDailyView,
   changeToWeekView:changeToWeekView,
+  clearIsDateChosen:clearIsDateChosen,
   afterCreateAccount:afterCreateAccount,
   createClient:createClient,
   dashboard:dashboard,
@@ -438,6 +543,8 @@ module.exports = {
   dateAndTime:dateAndTime,
   dateChosen:dateChosen,
   failMessage:failMessage,
+  getAllUsers:getAllUsers,
+  getAllAppointments:getAllAppointments,
   getAllAppointmentsForOneDayFromBackEnd:getAllAppointmentsForOneDayFromBackEnd,
   getPreviousDay:getPreviousDay,
   getNextDay:getNextDay,

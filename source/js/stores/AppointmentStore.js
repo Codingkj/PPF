@@ -15,12 +15,13 @@ var MONTH = ['January','February','March','April','May','June','July','August','
 
 var DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']; 
 
-var CurrentUserAppointments = [];
 
 var currentDate = new Date();
 console.debug('immediately after setting initial value:',currentDate);
 var currentMonth = currentDate.getMonth();
 var currentMonthName = MONTH[currentMonth];
+
+
 
 var displayAppointments = '';
 
@@ -37,8 +38,8 @@ var currentState = {
 		failMessage:'',
 		token:null,
 		pageToShowAfterLogin:'dashboard',
-		isDateSelected:false,
-		isTimeSelected:false,
+		isDateChosen:false,
+		isTimeChosen:false,
 		dateChosen:'',
 		daySelected:'',
 		monthSelected:'',
@@ -46,8 +47,9 @@ var currentState = {
 		timeChosen:'',
 		selectedPractitioner:'',
 		selectedTreatment:'',
-		reminderFlag:'',
-		manualFlag:'',
+		reminderFlag:false,
+		manualFlag:false,
+		currentUserAppointments:{},
 		};
 
 
@@ -71,10 +73,9 @@ var appointment = {
 function addAppointment(action) {
 	 // var id = HashID.generate();
 	 var saveToken = currentState.token;
-	 console.log('Token we have in addAppointment is',saveToken);
 	 var saveDate = currentState.dateChosen;
 	 var saveDay = currentState.daySelected;
-	 var saveMonth = saveDate.monthSelected;
+	 var saveMonth = currentState.monthSelected;
 	 var saveYear = currentState.yearSelected;
 	 var saveTime = currentState.timeChosen;
 	 console.log('time chosen was',saveTime);
@@ -87,72 +88,74 @@ function addAppointment(action) {
 
 	 Utilities2.saveAppointment(saveToken, saveDate, saveDay, saveMonth, saveYear, saveTime, false, saveEmail, savePractitioner,saveTreatment,saveReminderFlag, saveManualFlag,function handleResponse(error, response) {
      console.log('BEEN to save appointment and returned');
+     console.log('SAVE-DATA was:',saveDate,saveDay,saveMonth,savePractitioner,saveTreatment,saveReminderFlag);
 	      if (error) {
-	        AppointmentActionCreators.failMessage('Could not store appointment.');
 	        console.log('that bit failed and we dont know why');
 	        return;
 	      }
       console.log('The response was',response);
-      AppointmentActionCreators.successMessage('Saved Appointment!');
-	  AppointmentActionCreators.dashboard();
-	  
-	}.bind(this));
+      }.bind(this));
 }
     
 
-function addReminder(Appointment) {
-	  appointment[Appointment.id] = Appointment;
-	  currentState.reminderFlag='ON';
+function addReminder(action) {
+	  currentState.reminderFlag = action.flag;
 	  AppointmentStore.emit('change');
 }
+function afterCreateAccount(action){
+	//need to save users details here.
+	currentState.currentPage = 'Dashboard';
+    AppointmentStore.emit('change');
+}
 function bookAnAppointment(action){
-	//needs if not currently logged in section
+	//if token present then currentPage=Dashboardneeds if not currently logged in section
 	currentState.currentPage = 'Login';
 	AppointmentStore.emit('change');
 }
 function bookPractitioner(action){
+	console.log('ACTION IN bookPractitioner is ',action);
 	currentState.selectedPractitioner = action.practitioner;
-	currentState.currentPage = 'DateTime';
+	currentState.currentPage = action.nextPage;
 	console.log('CURRENT PRACTITIONER has just been stored as',action.practitioner);
-	AppointmentStore.emit('change');  //is this needed?
-}
-function changeDateToNextDay(action){
-
-	currentDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
-	day = currentDate.getDate();
-	month = currentDate.getMonth();
-	year = currentDate.getFullYear();
-
-	currentState = {
-		wholeDate:currentDate,
-		date: day,
-		day: day.toString(),
-		monthName: MONTH[month],
-		month: month.toString(),
-		year:year.toString(),
-		currentPage:'ViewDay',
-
-		};
 	AppointmentStore.emit('change');
 }
+
+function changeDateToNextDay(action){
+
+	currentDate = new Date(currentState.wholeDate.getTime() + 24 * 60 * 60 * 1000);
+ 	console.log('IN NEXT DAY CurrentDate is now',currentDate);
+
+	currentState.wholeDate = currentDate;
+	currentState.date = currentDate.getDate();
+		
+	var tempday =  currentDate.getDate();
+	currentState.day = tempday.toString();
+	var month = currentDate.getMonth();
+	currentState.month = month.toString();
+	currentState.monthName = MONTH[month];
+	var tempyear = currentDate.getFullYear();
+	currentState.year = tempyear.toString();
+	currentState.currentPage = 'DailyView';
+	AppointmentStore.emit('change');
+}
+
+
 function changeDateToPreviousDay(action){ 
 	
- 	currentDate = new Date(currentDate.getTime() - 24 * 60 * 60 * 1000);
+ 	currentDate = new Date(currentState.wholeDate.getTime() - 24 * 60 * 60 * 1000);
  	console.log('IN PREVIOUS DAY CurrentDate is now',currentDate);
-	day = currentDate.getDate();
-	month = currentDate.getMonth();
-	year = currentDate.getFullYear();
 
-	currentState = {
-		wholeDate:currentDate,
-		date: day,
-		day: day.toString(),
-		monthName: MONTH[month],
-		month: month.toString(),
-		year:year.toString(),
-		currentPage:'ViewDay',
-		dateChosen:null,
-	};
+	currentState.wholeDate = currentDate;
+	currentState.date = currentDate.getDate();
+		
+	var tempday =  currentDate.getDate();
+	currentState.day = tempday.toString();
+	var month = currentDate.getMonth();
+	currentState.month = month.toString();
+	currentState.monthName = MONTH[month];
+	var tempyear = currentDate.getFullYear();
+	currentState.year = tempyear.toString();
+	currentState.currentPage = 'DailyView';
 	AppointmentStore.emit('change');
 }
 
@@ -169,45 +172,47 @@ function changeToWeekView(action){
 
 function changeToPreviousWeek(action){
 	console.log('in CHANGE TO PREVIOUS WEEK currentdate that is...',currentDate);
-   	currentDate = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
-	day =currentDate.getDate();
-	month =currentDate.getMonth();
-	year =currentDate.getFullYear();
+	currentDateUsed = currentState.wholeDate;
+   	currentDate = new Date(currentDateUsed.getTime() - 7 * 24 * 60 * 60 * 1000);
+	
+	
+	year = currentDate.getFullYear();
 
-	currentState = {
-		wholeDate:currentDate,
-		date: day,
-		day: day.toString(),
-		monthName: MONTH[month],
-		month: month.toString(),
-		year:year.toString(),
-		currentPage:'WeekView',
-		};
+	currentState.wholeDate = currentDate;
+	currentState.date = currentDate.getDate();
+		
+	var tempday =  currentDate.getDate();
+	currentState.day = tempday.toString();
+	var month = currentDate.getMonth();
+	currentState.month = month.toString();
+	currentState.monthName = MONTH[month];
+	var tempyear = currentDate.getFullYear();
+	currentState.year = tempyear.toString();
 
 	AppointmentStore.emit('change');
 }
 
 function changeToNextWeek(action){
-   
-   currentDate = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000);
-   
-	day = currentDate.getDate();
-	month = currentDate.getMonth();
-	year = currentDate.getFullYear();
+ 	console.log('in CHANGE TO NEXT WEEK currentdate that is...',currentDate);
+	currentDateUsed = currentState.wholeDate;
+   	currentDate = new Date(currentDateUsed.getTime() + 7 * 24 * 60 * 60 * 1000);
 	
+	
+	year = currentDate.getFullYear();
 
-	currentState = {
-		wholeDate:currentDate,
-		date: day,
-		day: day.toString(),
-		monthName: MONTH[month],
-		month: month.toString(),
-		year:year.toString(),
-		currentPage:'WeekView',
+	currentState.wholeDate = currentDate;
+	currentState.date = currentDate.getDate();
 		
-		};
-		
-    AppointmentStore.emit('change');
+	var tempday =  currentDate.getDate();
+	currentState.day = tempday.toString();
+	var month = currentDate.getMonth();
+	currentState.month = month.toString();
+	currentState.monthName = MONTH[month];
+	var tempyear = currentDate.getFullYear();
+	currentState.year = tempyear.toString();
+
+	AppointmentStore.emit('change');
+
 }
 function changeToNextMonth(action){
   var currentDate = currentState.wholeDate;
@@ -229,15 +234,8 @@ function changeToPreviousMonth(action){
   AppointmentStore.emit('change');
 }
 
-function afterCreateAccount(action){
-	//need to save users details here.
-	currentState.currentPage = 'Dashboard';
-    AppointmentStore.emit('change');
-}
-function goCreateAccount(action){
-	currentState.currentPage = 'GoToCreatePage';
-    AppointmentStore.emit('change');
-}
+
+
 function dashboard(action){
 	currentState.currentPage = 'Dashboard';
     AppointmentStore.emit('change');
@@ -251,17 +249,26 @@ function dateAndTime(action){
     AppointmentStore.emit('change');
 }
 function dateChosen(action){
-	currentState.isDateSelected = true;
+	currentState.isDateChosen = true;
 	var tempDate = action.date;
 	currentState.dateChosen = action.date;
-	currentState.daySelected= tempDate.getDay();
-	currentState.monthSelected= tempDate.getMonth();
-	currentState.yearSelected= tempDate.getFullYear();
+	console.log('dateCHOSEN just updated in STORE to',action.date);
+	currentState.daySelected = tempDate.getDate();
+	var tempMonth = tempDate.getMonth();
+	currentState.monthSelected = MONTH[tempMonth];
+	console.log('in date Month is',tempMonth,MONTH[tempMonth],currentState.monthSelected);
+	currentState.yearSelected = tempDate.getFullYear();
+	currentUserAppointments = action.usedTimes;
+	console.log('used TIMEs received by store are',action.usedTimes); 
 	AppointmentStore.emit('change');
 }
 function failMessageChange(action){
 	currentState.failMessage = action.text;
 	AppointmentStore.emit('change');
+}
+function goCreateAccount(action){
+	currentState.currentPage = 'GoToCreatePage';
+    AppointmentStore.emit('change');
 }
 function highlightTime(action){
 	currentState.currentPage = 'DateTime';
@@ -291,21 +298,19 @@ function removeAppointment(AppointmentId) {
 	 currentState.currentPage('Dashboard');
 	 AppointmentStore.emit('change');
 }
-function removeReminder(AppointmentId) {
-	 //find matching appointmentId
-	 // delete diary[AppointmentId];
-	currentState.currentPage('Dashboard');
+function removeReminder(action) {
+	currentState.reminderFlag = action.flag;
   	AppointmentStore.emit('change');
 }
 
 function returnedAppointments(action){
-	console.debug('action.data is...',action.data);
-	CurrentUserAppointments = action.data;
-	AppointmentStore.emit('change');
+	console.debug('ACTION....',action.data);
+	currentState.currentUserAppointments = action.data;
+	console.debug('currentUserAppointments has justbeen set in returned appointments as:',currentState.currentUserAppointments);
 }
 function returnedAppointmentsOnOneDay(action){
 	console.debug('action.data IN APPOINTMENTS FOR ONE DAY are...',action.data);
-	CurrentUserAppointments = action.data;
+	currentState.currentUserAppointments = action.data;
 	AppointmentStore.emit('change');
 }
 
@@ -343,16 +348,18 @@ function timeEntered(action){
 function treatment1(action){
 	//need to assign the current treatment.
 	currentState.currentPage = 'Treatment1';
+	currentState.practitioner= action.practitioner;
     AppointmentStore.emit('change');
 }
 function treatment2(action){
 	//need to assign the current treatment.
 	currentState.currentPage = 'Treatment2';
+	currentState.practitioner= action.practitioner;
     AppointmentStore.emit('change');
 }
 function treatmentUpdate(action){
 	currentState.selectedTreatment = action.treatment;
-	currentState.currentPage = action.page;
+	currentState.currentPage = 'DateTime';
 	AppointmentStore.emit('change');
 }
 function weekView(action){
@@ -370,12 +377,11 @@ var AppointmentStore = objectAssign({}, EventEmitter.prototype, {
 	    this.removeListener('change', changeEventHandler);
 	  },
 
-	getAllAppointments2: function(){
-		return appointment;
-	},
+	
 
 	getCurrentUserAppointments:function(){
-		return CurrentUserAppointments;
+		console.debug('in STORE - currentUserAppointments are:',currentState.currentUserAppointments);
+		return currentState.currentUserAppointments;
 	},
 	    
 
@@ -412,11 +418,11 @@ var AppointmentStore = objectAssign({}, EventEmitter.prototype, {
 		var monthName = MONTH[monthNumber];
 		return monthName; 
 	},
-	getDateSelected: function(){
-		return currentState.isDateSelected;
+	getIsDateChosen: function(){
+		return currentState.isDateChosen;
 	},
-	getTimeSelected: function(){
-		return currentState.isTimeSelected;
+	getIsTimeChosen: function(){
+		return currentState.isTimeChosen;
 	},
 	getSelectedPractitioner:function(){
 		return currentState.selectedPractitioner;
@@ -460,21 +466,18 @@ var AppointmentStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 function handleAction(action) {
-	console.log('INSIDE handleaction in Appt Store',action.type);
-
+	
   if (action.type === 'add_appointment') {
     addAppointment(action)
   } else if (action.type === 'add_reminder') {
     addReminder(action);
+  } else if (action.type === 'after_create_account'){
+  	afterCreateAccount(action);
   } else if (action.type === 'book_AnAppointment'){
   	bookAnAppointment(action);
   } else if (action.type === 'book_practitioner'){
   	bookPractitioner(action);
-  } else if (action.type === 'get_PreviousDay'){
-  	changeDateToPreviousDay(action);
-
-  } else if (action.type === 'get_NextDay'){
-  	changeDateToNextDay(action);
+ 
   } else if (action.type === 'changeToDailyView'){
   	changeToDailyView(action);
   } else if (action.type === 'changeToWeekView'){
@@ -483,12 +486,12 @@ function handleAction(action) {
   	changeToNextWeek(action);
   } else if (action.type === 'changeToPreviousWeek'){
   	changeToPreviousWeek(action);
+   } else if (action.type === 'clear_date'){
+  	currentState.isDateChosen = false;
   
-  } else if (action.type === 'after_create_account'){
-  	afterCreateAccount(action);
   }	else if (action.type === 'dashboard'){
   	dashboard(action);
-  }	else if (action.type === 'dashboard_practitioner'){
+  }	else if (action.type === 'show_dashboard_practitioner'){
   	dashboardPractitioner(action);
   }	else if (action.type === 'date_time'){
   	dateAndTime(action);
@@ -496,6 +499,13 @@ function handleAction(action) {
   	dateChosen(action);
   } else if (action.type === 'fail_message'){
   	failMessageChange(action);
+  } else if (action.type === 'get_previousDay'){
+  	console.log('got to app store');
+  	changeDateToPreviousDay(action);
+
+  } else if (action.type === 'get_nextDay'){
+  	console.log('got to app store');
+  	changeDateToNextDay(action);
   } else if (action.type === 'go_create_account'){
   	goCreateAccount(action);
   } else if (action.type === 'highlight_time'){

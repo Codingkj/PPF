@@ -4,7 +4,7 @@ var Header = require('./Header.jsx');
 var Paragraph = require('./Paragraph.jsx');
 var TextInput = require('./TextInput.jsx');
 var LockButton = require('./LockButtons.jsx');
-var Table = require('./Table.jsx');
+var TableWeek = require('./TableWeek.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var MyButton = require('./Buttons.jsx');
 var ClientStore = require('../stores/ClientStore.js');
@@ -13,36 +13,7 @@ var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js
 
 var WeekView = React.createClass({
  
-  getInitialState: function () {
-    return {
-      date:AppointmentStore.getCurrentWholeDate(),
-      day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonthName(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus()
-    };
-  },
-
-  handleChange: function () {
-      console.log("IN AAVIEWWEEK this.state.date and Store.getDate to ",this.state.date, AppointmentStore.getCurrentWholeDate());
-    this.setState({
-      date:AppointmentStore.getCurrentWholeDate(),
-      day: AppointmentStore.getCurrentDay(),
-      month: AppointmentStore.getCurrentMonthName(),
-      year:AppointmentStore.getCurrentYear(),
-      lock:AppointmentStore.getLockDayStatus(),
-    });
-  },
-
-  componentDidMount: function () {
-      ClientStore.addChangeListener(this.handleChange);
-      AppointmentStore.addChangeListener(this.handleChange);
-  },
-
-  componentWillUnmount: function () {
-      ClientStore.removeChangeListener(this.handleChange);
-      AppointmentStore.removeChangeListener(this.handleChange);
-  },
+  
   dailyView: function(){
      AppointmentActionCreators.changeToDailyView();
   },
@@ -61,7 +32,8 @@ var WeekView = React.createClass({
   },
 
   render: function(){
-    console.log('in render statement',this.state.date);
+    console.log('in AAViewWeek');
+ 
     return (<div className="page-background1">
               <MenuBar />
               <br />
@@ -73,13 +45,13 @@ var WeekView = React.createClass({
 
               <div className="row">
                 <div className="columns medium-1 medium-offset-1">
-                    <MyButton clicked={this.previousWeek} type="button" value="Previous Week" className="tiny-button" />
+                    <button onClick={this.previousWeek} type="button" className="tiny-button">Previous Week</button>
                   </div>
                   <div className="columns medium-8">
-                      <Table />  
+                      <TableWeek />  
                   </div>
                   <div className="columns medium-2">
-                      <MyButton clicked={this.nextWeek} type="button" value="Next Week" className="tiny-button" />
+                      <button onClick={this.nextWeek} type="button" className="tiny-button" >Next Week</button>
                   </div>
               </div>
                   

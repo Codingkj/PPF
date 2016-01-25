@@ -12,38 +12,6 @@ var ClientStore = require('../stores/ClientStore.js');
 
 
 var Login = React.createClass({
-
-  // getInitialState: function () {
-  //   return {
-  //     day: AppointmentStore.getCurrentDay(),
-  //     month: AppointmentStore.getCurrentMonthName(),
-  //     year:AppointmentStore.getCurrentYear(),
-  //     lock:AppointmentStore.getLockDayStatus(),
-  // 	};
-  // },
-
-
-  // handleChange: function () {
-  //     console.log("CHANGING LOGIN");
-  //   this.setState({
-  //     day: AppointmentStore.getCurrentDay(),
-  //     month: AppointmentStore.getCurrentMonthName(),
-  //     year:AppointmentStore.getCurrentYear(),
-  //     lock:AppointmentStore.getLockDayStatus(),
-  //   });
-  
-  // },
-
-  // componentDidMount: function () {
-  //     ClientStore.addChangeListener(this.handleChange);
-  //     AppointmentStore.addChangeListener(this.handleChange);
-  // },
-
-  // componentWillUnmount: function () {
-  //     ClientStore.removeChangeListener(this.handleChange);
-  //     AppointmentStore.removeChangeListener(this.handleChange);
-  // },
-
   
 
   handleLoginFormSubmit: function (submitEvent) {
@@ -77,8 +45,8 @@ var Login = React.createClass({
 					        <label>Password
 					          <input type="password" placeholder="Password" ref="password"></input>
 					        </label>
-					        <input id="show-password" type="checkbox" placeholder="Show password" ref="passwordCheckbox"></input>
-					        <MyButton clicked={this.handleLoginFormSubmit} className="button expanded" value="Log In" type="submit" />
+					        
+					        <MyButton clicked={this.handleLoginFormSubmit} className="button expanded black" value="LOG IN" type="submit" />
 					          
 				      </div>
 				    </form>

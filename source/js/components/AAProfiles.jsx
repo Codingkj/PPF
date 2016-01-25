@@ -16,13 +16,14 @@ var Practitioners = React.createClass({
   bookPractitioner: function(event){
     event.preventDefault();
      //now did they click on practitioner one or two.
-     console.log('event when Book it clicked on?',event);
+     console.log('Event that was clicked on in Profiles',event);
      AppointmentActionCreators.login();
   },
 
   render: function(){
     return (<div className="page-background1">
             <MenuBar />
+            <Spacer />
             <br />
               <div className="row profiles-div">
                    <br />
@@ -34,7 +35,7 @@ var Practitioners = React.createClass({
                   <Paragraph value="Some text goes here about how the practitioner came to join the practice" />
                 </div>
                 <div className="columns medium-3"> 
-                  <button clicked={this.bookPractitioner} ref="practitioner2" className="med-button" type="button" >BOOK NOW! </button>
+                  <button onClick={this.bookPractitioner} ref="practitioner1" className="med-button" type="button" >BOOK NOW! </button>
                 </div>
               </div>
               <div className="row">
