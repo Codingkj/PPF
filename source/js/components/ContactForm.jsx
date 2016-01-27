@@ -11,29 +11,28 @@ var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js
 var ContactForm = React.createClass({
 
  
-  contactFormSent: function(){ 
+  enquiryReceived: function(){ 
     var contactFormQuery = this.refs.cfQuery.value;
     var contactFormEmail = this.refs.csEmail;
     var contactFormName = this.refs.cfName;
+    var panelStatus = 'ON';
+    AppointmentActionCreators.contactFormReceived(contactFormName,'ON');
    
-    //how do I put something in here to show a panelbox to show the information entered.
   },
 
 
   render: function () {
-    var panelStatus = 'OFF';
 
     return (
       <div className="contact-form-style">
       	<div className="row">
           <div className="columns medium-12">
-             <Header defaultValue = "Contact Form" className="center"/>
-	           <br />
+             <h3 className="center">Contact Form</h3>
           </div>
         </div>
         <form data-abide onSubmit={this.contactFormSent}>
         <div className="row">
-          <div className="column medium-6">
+          <div className="column medium-5 medium-offset-1">
             
               <label>First name:
               <input type="text" placeholder="<Enter your name>" required className="field20" ref="cfName"></input>
@@ -48,17 +47,20 @@ var ContactForm = React.createClass({
               </label>
             
           </div>
-          <div className="column medium-6 ">
+          <div className="column medium-5 ">
               <label>Please enter a comment or question:
-              <textarea rows="4" cols="50" placeholder="<Your Question?>" required className="commentQuestion" ref="cfQuery"></textarea>
+              <textarea rows="4" cols="45" placeholder="<Your Question?>" required className="commentQuestion" ref="cfQuery"></textarea>
               </label>
-              <button className="med-button align-right" type="submit" ref="sendbutton">SEND</button>
+              <button onClick={this.enquiryReceived} className="med-button align-right" type="submit" ref="sendbutton">SEND</button>
+
+          </div>
+          <div className="column medium-1 ">
           </div>
         </div>
         </form>
         <div>
 
-        {panelStatus==='ON' ? <PanelBox text="Thank you for your enquiry. We will respond as soon as we can." />:null}
+        {this.props.cfPanel==='ON' ? <PanelBox text="Thank you for your enquiry. We will respond as soon as we can." />:null}
             
   
         </div>

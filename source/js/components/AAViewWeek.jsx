@@ -18,43 +18,45 @@ var WeekView = React.createClass({
      AppointmentActionCreators.changeToDailyView();
   },
   previousWeek: function(){
-    console.log('in previousWeek function in AAViewWeek');
      AppointmentActionCreators.changeToPreviousWeek();
   },
   nextWeek: function(){
      AppointmentActionCreators.changeToNextWeek();
   },
   lockWeek: function(){
-     AppointmentActionCreators.lockWeek();
+     AppointmentActionCreators.turnLockWeekOn();
   },
   unlockWeek: function(){
-     AppointmentActionCreators.unlockWeek();
+     AppointmentActionCreators.turnLockWeekOff();
   },
 
   render: function(){
     console.log('in AAViewWeek');
- 
-    return (<div className="page-background1">
+
+    return (<div>
               <MenuBar />
-              <br />
+              <br /><br />
               <div className="row">
                 <div className="columns medium-12">
-                  <Header defaultValue="Weekly View of Appointments" className="center"/><br />
+                  <h3 className="center" >Weekly View of Appointments</h3>
                 </div>
               </div>
 
               <div className="row">
-                <div className="columns medium-1 medium-offset-1">
-                    <button onClick={this.previousWeek} type="button" className="tiny-button">Previous Week</button>
+                  <div className="columns medium-2 medium-offset-1">
+                      <button onClick={this.previousWeek} type="button" id="back-button">PREVIOUS WEEK</button>
                   </div>
-                  <div className="columns medium-8">
-                      <TableWeek />  
-                  </div>
-                  <div className="columns medium-2">
-                      <button onClick={this.nextWeek} type="button" className="tiny-button" >Next Week</button>
-                  </div>
-              </div>
                   
+                  <div className="columns medium-8">
+                      <button onClick={this.nextWeek} type="button" id="forward-button">NEXT WEEK</button>
+                  </div>
+                  <br />
+              </div>
+              <div className="row">
+                <div className="columns medium-10 medium-offset-1 center">
+                        <TableWeek />  
+                </div>
+              </div> 
               <div className="row">
                 <div className="columns medium-2 medium-offset-2">
                  <MyButton clicked={this.lockWeek} className="med-button" type="button" value="LOCK WEEK" />
@@ -63,7 +65,7 @@ var WeekView = React.createClass({
                  <MyButton clicked={this.unlockWeek} className="med-button" type="button" value="UNLOCK WEEK" />    
                 </div>
                 <div className="columns medium-4 medium-offset-2">
-                 <MyButton clicked={this.dailyView} className="med-button" type="button" value="Go to Daily View" />    
+                 <MyButton clicked={this.dailyView} className="med-button" type="button" value="Go to DAILY VIEW" />    
                 </div>
               </div>
               <br /><br />

@@ -13,10 +13,12 @@ function addAppointment(event) {
     Dispatcher.dispatch(action);
 }
 
-function addReminder(){
+function addReminder(id){
+
     var action = {
       type:'add_reminder'
     };
+    console.log('now going to dispatch ADD REMINDER ACTION FROM AC');
  Dispatcher.dispatch(action);
 }
 
@@ -61,28 +63,6 @@ function bookPractitioner(name){
  Dispatcher.dispatch(action);
 }
 
-function cancelAppointment() {
-
-    Utilities2.removeUserAppointment(userToken, userEmail, function handleResponse(error, response) {
-        console.log('BEEN to remove appointments');
-          if (error) {
-            AppointmentActionCreators.failMessage('Could not GET appointment.');
-            console.log('Your GET Failed');
-          return;
-          }
-      console.log('the response was',response);
-       
-      successMessage('GOT Appointments!');
-
-      var action = {
-        type:'dashboard',
-        data: response,
-      };
-      console.log('ACTION type dispatched from remove AllAppointments',action.type);
-      Dispatcher.dispatch(action);
-    });
-  }
-
 function changeToPreviousWeek(){
   console.log('in action creator');
    var action = {
@@ -124,6 +104,29 @@ function changeToWeekView(){
     };
  Dispatcher.dispatch(action);
  console.log('ACTION type has just been set as',action.type);
+}
+function changeToPreviousMonth(newCurrentDate){
+   var action = {
+      type:'previous_month',
+      currentDate:newCurrentDate
+    };
+ Dispatcher.dispatch(action);
+}
+function changeToNextMonth(newCurrentDate){
+   var action = {
+      type:'next_month',
+      currentDate:newCurrentDate
+    };
+ Dispatcher.dispatch(action);
+}
+
+function contactFormReceived(name){
+
+  var action = {
+      type:'contact_form_sent',
+      sender: name,
+    };
+ Dispatcher.dispatch(action);
 }
 
 function createClient(){
@@ -350,7 +353,7 @@ function lockAppointment(date, time,month,year){
       Dispatcher.dispatch(action);
     }
 
-function lockWeek(){
+function turnLockWeekOn(startDateOfWeek){
     // for (var count=startDateOfWeek;count<startDateOfWeek+8;count++){
     //   lockday(count)
     // }
@@ -388,12 +391,7 @@ function login(){
  Dispatcher.dispatch(action);
 }
 
-function nextMonth(){
-   var action = {
-      type:'next_month'
-    };
- Dispatcher.dispatch(action);
-}
+
 
 function profiles(){
     var action = {
@@ -402,11 +400,30 @@ function profiles(){
  Dispatcher.dispatch(action);
 }
 
-function previousMonth(){
-   var action = {
-      type:'previous_month'
-    };
- Dispatcher.dispatch(action);
+function removeAppointment(appointmentToRemove){
+ console.log('GOT to ReMOVE an Appointment',appointmentToRemove);
+ 
+ var userToken = AppointmentStore.getToken();
+ console.log('passing this value as the TOKEN: to removeAppointments',userToken);
+  
+ Utilities2.removeAppointment(userToken, appointmentToRemove, function handleResponse(error, response) {
+        console.log('BEEN to ReMOVE an Appointment');
+            if (error) {
+              AppointmentActionCreators.failMessage('Could not remove client.');
+              console.log('Your GET Failed');
+            return;
+            }
+        console.log('the response from REMOVE appointments',response);  
+         
+         
+    });
+ console.log('In remove appointment - about to dispatch action to refresh page');
+ var action = {
+          type:'dashboard',
+        };
+console.log('ACTION type dispatched from removeAppointments',action.type);
+Dispatcher.dispatch(action);
+ 
 }
 
 function removeAllAppointments() {
@@ -417,10 +434,21 @@ function removeAllAppointments() {
     Dispatcher.dispatch(action);
   }
 
-function removeReminder(){
+function removeReminder(id){
+Utilities2.removeReminder(userToken, id, function handleResponse(error, response) {
+        console.log('BEEN to ReMOVE A Reminder');
+            if (error) {
+              AppointmentActionCreators.failMessage('Could not remove reminder.');
+              console.log('Your remove Failed');
+            return;
+            }
+        console.log('the response from REMOVE reminder',response);    
+    });
+
     var action = {
-      type:'remove_reminder'
+      type:'dashboard'
     };
+    console.log('In ActionCreator - about to dispatch REMOVE REMINDER');
  Dispatcher.dispatch(action);
 }
 
@@ -442,6 +470,14 @@ function setCurrentClientEmail(username){
   };
   console.log('inside actioncreator ',action.email);
   Dispatcher.dispatch(action);
+}
+function showContactDetails(){
+  var action = {
+    type: 'landingPage',
+    gotoPlace: 'contacts',
+  };
+  console.log('action type has just been set as',action.type);
+Dispatcher.dispatch(action);
 }
 
 function storeToken(token){
@@ -509,7 +545,7 @@ function unlockDay(Date){
       Dispatcher.dispatch(action);
     }
    
-function unlockWeek(startDateOfWeek){
+function turnLockWeekOff(startDateOfWeek){
    var action = {
       type: 'unlock_week',
     };
@@ -525,19 +561,23 @@ function weekView(){
 }
 
 module.exports = {
+  afterCreateAccount:afterCreateAccount,
   addAppointment: addAppointment,
   addReminder:addReminder,
   appDetails:appDetails,
   bookAnAppointment:bookAnAppointment,
   bookPractitioner:bookPractitioner,
-  cancelAppointment: cancelAppointment,
+  
   changeToPreviousWeek:changeToPreviousWeek,
   changeToNextWeek:changeToNextWeek,
   changeToDailyView:changeToDailyView,
   changeToWeekView:changeToWeekView,
+  changeToPreviousMonth:changeToPreviousMonth,
+  changeToNextMonth:changeToNextMonth,
   clearIsDateChosen:clearIsDateChosen,
-  afterCreateAccount:afterCreateAccount,
+ 
   createClient:createClient,
+  contactFormReceived:contactFormReceived,
   dashboard:dashboard,
   dashboardPractitioner:dashboardPractitioner,
   dateAndTime:dateAndTime,
@@ -553,23 +593,24 @@ module.exports = {
   login:login,
   logout:logout,
   lockDay:lockDay,
-  lockWeek:lockWeek,
+  
   lockAppointment:lockAppointment,
-  nextMonth:nextMonth,
-  previousMonth:previousMonth,
   profiles:profiles,
   removeReminder:removeReminder,
+  removeAppointment:removeAppointment,
   removeAllAppointments:removeAllAppointments,
   setCurrentClientEmail:setCurrentClientEmail,
   showFreeTimes:showFreeTimes,
+  showContactDetails:showContactDetails,
   storeToken:storeToken,
   successMessage:successMessage,
   timeEntered:timeEntered,
   treatment1:treatment1,
   treatment2:treatment2,
   treatmentUpdate:treatmentUpdate,
+  turnLockWeekOn:turnLockWeekOn,
+  turnLockWeekOff:turnLockWeekOff,
   unlockAppointment:unlockAppointment,
   unlockDay:unlockDay,
-  unlockWeek:unlockWeek,
   weekView:weekView,
 };

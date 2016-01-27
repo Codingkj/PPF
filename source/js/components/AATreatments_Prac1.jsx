@@ -29,7 +29,7 @@ var Treatments1 = React.createClass({
     var firstText = standardText + practitioners.practitioner1 + ' ?';
     
 
-    return (<div className="page-background1">
+    return (<div>
               
               <ClientMenuBar />
               <div className="separator">
@@ -42,16 +42,16 @@ var Treatments1 = React.createClass({
                 <div className="columns medium-12">
                     <div id="treatment-header">
                         <MyBreadcrumbs />
-                        <Header defaultValue="Treatments" className="center"/>
+                        <h3 className="center">Treatments</h3>
                     </div>
                 </div>
               </div>
-              <div className="row">
+              <div className="row ">
                 <div className="column medium-10 medium-offset-2">  
                     <Paragraph value={firstText} />
                 </div>
               </div>
-              <div className="row">
+              <div className="row ">
                 <div className="column medium-7 medium-offset-5"> 
                     <div className="treatment-button">  
                         <button onClick={this.bookTreatment} className="med-button" type="button" >{types[0]}</button>

@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Header = require('./Header.jsx');
 var Paragraph = require('./Paragraph.jsx');
-var DatePanel = require('./DatePanel.jsx');
+
 var MyButton = require('./Buttons.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var TableDay = require('./TableDay.jsx');
@@ -32,7 +32,7 @@ var DashboardPractitioners = React.createClass({
 
 
 
-    return (<div className="page-background1">
+    return (<div >
               <MenuBar />
      
               <div className="row">

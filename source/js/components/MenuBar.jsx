@@ -45,13 +45,15 @@ var MenuComponent = React.createClass({
     console.log('chose Practitioner on Menu');
     AppointmentActionCreators.dashboardPractitioner();
   },
-  
-  
+  goContactDetails:function(){
+    console.log('chose Contact Details on menu');
+    AppointmentActionCreators.showContactDetails();
+  },
 
   render: function() {
 
      return (<div data-sticky-container className="menuDiv">
-     			<div className="sticky" id="navbar" data-sticky data-margin-top="0" data-margin-bottom="10">
+     			<div className="sticky" id="navbar" data-sticky data-margin-top="0" data-margin-bottom="0">
 			      <nav data-topbar role="navigation" className="top-bar" data-options="is_hover: false">
 					    <ul className="horizontal menu expanded center-buttons">
 					      <li className="divider"><button onClick={this.goHome} className="menu-text">HOME</button></li>

@@ -150,6 +150,7 @@ var ApplicationStart = React.createClass({
   },
 
   setUserAuthenticationToken: function (token) {
+    console.log('Creating an action to Store the Token',token);
     AppointmentActionCreators.storeToken(token);
     },
 
@@ -260,7 +261,7 @@ var ApplicationStart = React.createClass({
 
   render: function(){
 
-    return (<div >
+    return (<div>
            
       
       {this.getComponent(this.state.currentPage)}

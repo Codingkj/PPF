@@ -30,13 +30,8 @@ var DateTime= React.createClass({
   },
   
   addReminder:function(event){
-    console.log('got to addReminder and event is',event);
-    if (document.getElementById("reminder").checked == true){
+    console.debug('got to ADDReminder');
         AppointmentActionCreators.addReminder();
-    }
-    else if (document.getElementById("reminder").checked == false){
-        AppointmentActionCreators.removeReminder();
-    }
   },
 
   render: function(){
@@ -46,7 +41,7 @@ var DateTime= React.createClass({
 
     console.debug('in DateTime and IsDateChosen & DateChosen is ',isDateChosen, dateChosen);
 
-    return (<div className="page-background1">           
+    return (<div>           
              
               <ClientMenuBar />
                    
@@ -80,7 +75,9 @@ var DateTime= React.createClass({
                       <p>Do you want a text/SMS reminder?</p>
                   </div>
                   <div className="columns medium-5">
-                      <input type="checkbox" id="reminder" onClick={this.addReminder}></input>
+
+                      <button className="tiny-button" type="button" id="reminder" onClick={this.addReminder}>YES</button>
+                 
                   </div>
               </div>
               <div className="row">

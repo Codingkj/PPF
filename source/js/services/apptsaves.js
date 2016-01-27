@@ -19,6 +19,7 @@ function saveAppointment(token, date, day, month, year, time, lock, clientEmail,
 
   var appId = getID();
 
+  console.log('IN SAVE APPOINTMENT - reminderFlag IS', reminderFlag);
   var data = {
     id: appId,
     token: token,
@@ -149,14 +150,96 @@ function getAllUsers(token, handleResponse) {
 
   request.done(function (data) {
     handleResponse(null, data);
-    console.log('in request.done',data);
+    console.log('in get all Users  request.done',data);
+  });
+}
+
+
+
+function removeAppointment(token, apptId, handleResponse) {
+  console.log('IN Utilities2 and inSIDE REMOVEAppointments and ID is',apptId);
+  var data = {
+    token: token, 
+    id: apptId
+  };
+//get and then remove
+  var request = jQuery.ajax({
+    method: 'delete',
+    url: HOST_NAME + API_ENDPOINTS.APPOINTMENTS + '/' + apptId + '?token='+token,
+    dataType: 'json'
+
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+     console.log('in request.fail');
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+    console.log('in remove Appointment and request.done',data);
+  });
+}
+
+function removeReminder(token, apptId, handleResponse) {
+  console.log('IN Utilities2 and inSIDE REMOVEReminder and ID is',apptId);
+  var data = {
+    token: token, 
+    id: apptId,
+    reminderFlag:'false'
+  };
+//get and then remove
+  var request = jQuery.ajax({
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.APPOINTMENTS + '/' + apptId + '?token='+token,
+    dataType: 'json'
+
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+     console.log('in request.fail');
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+    console.log('in remove Appointment and request.done',data);
+  });
+}
+
+function addReminder(token, apptId, handleResponse) {
+  console.log('IN Utilities2 and inSIDE REMOVEReminder and ID is',apptId);
+  var data = {
+    token: token, 
+    id: apptId,
+    reminderFlag:'true'
+  };
+//get and then remove
+  var request = jQuery.ajax({
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.APPOINTMENTS + '/' + apptId + '?token='+token,
+    dataType: 'json'
+
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+     console.log('in request.fail');
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+    console.log('in remove Appointment and request.done',data);
   });
 }
 
 module.exports = {
+  addReminder:addReminder,
   saveAppointment: saveAppointment,
   getAllUsers:getAllUsers,
   getAllAppointments:getAllAppointments,
   getUserAppointments: getUserAppointments,
   getAllUserAppointmentsOnOneDay:getAllUserAppointmentsOnOneDay,
+  removeAppointment:removeAppointment,
+  removeReminder:removeReminder
 };

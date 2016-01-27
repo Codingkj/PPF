@@ -8,7 +8,7 @@ var MyBreadcrumbs= React.createClass({
 
   render: function(){
     return (<div>
-    	 <div className=" row">
+    	 <div className="row" id="breacrumbs-div">
     	 	<div className="columns-12 center">
     			<ul className="pagination" role="navigation" aria-label="Your Path to Success">
 				      <li className="disabled">« <span className="show-for-sr">Previous page</span></li>

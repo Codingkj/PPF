@@ -46,7 +46,7 @@ var ClientMenu = React.createClass({
   render: function() {
   
      return (<div data-sticky-container className="clientMenu">
-     			<div className="sticky" id="navbar" data-sticky data-margin-top="0" data-margin-bottom="10">
+     			<div className="sticky" id="navbar" data-sticky data-margin-top="0" data-margin-bottom="0">
 			      <nav data-topbar role="navigation" className="top-bar" data-options="is_hover: false">
 					    <ul className="horizontal menu expanded center-buttons">
 					      <li className="divider"><button className="menu-text" onClick={this.goHome}>HOME</button></li>

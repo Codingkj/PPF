@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 var Header = require('./Header.jsx');
 var Paragraph = require('./Paragraph.jsx');
 var MyButton = require('./Buttons.jsx');
-
+var Spacer = require('./Spacer.jsx');
 var MenuBar = require('./MenuBar.jsx');
 var ProfileImage = require('./ProfileImage.jsx');
 var AppointmentStore = require('../stores/AppointmentStore.js');
@@ -21,12 +21,12 @@ var Practitioners = React.createClass({
   },
 
   render: function(){
-    return (<div className="page-background1">
+    return (<div >
             <MenuBar />
-            <Spacer />
             <br />
               <div className="row profiles-div">
                    <br />
+                   <h3>Our People</h3>
                 <div className="columns medium-2 medium-offset-1">
                   <ProfileImage />
                   <br /><br />

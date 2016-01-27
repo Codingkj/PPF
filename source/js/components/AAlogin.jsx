@@ -29,16 +29,16 @@ var Login = React.createClass({
   },
 
   render: function(){
-    return (<div className="page-background1">
+    return (<div >
               	<MenuBar />
           		
 
-      			<div className="row">
+      			<div className="row ">
 				  <div className="medium-6 medium-centered large-4 large-centered columns">
 
 				    <form onSubmit={this.handleLoginFormSubmit}>
 				      <div className="row column log-in-form">
-					        <h4 className="text-center">Please Log In</h4>
+					        <h3 className="text-center">Please Log In</h3>
 					        <label>Email
 					          <input type="email" placeholder="somebody@example.com" ref="username"></input>
 					        </label>

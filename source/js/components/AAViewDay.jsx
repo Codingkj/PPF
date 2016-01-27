@@ -30,32 +30,33 @@ var DailyView = React.createClass({
   },
 
   render: function() {
-   
+
    var currentDate = AppointmentStore.getCurrentDate();
    var currentDay = AppointmentStore.getCurrentDay();
    var currentMonth = AppointmentStore.getCurrentMonthName();
    var currentYear = AppointmentStore.getCurrentYear();
 	 var displayDate = '  '+ currentDay + ' '+ currentMonth+ ' '+ currentYear;
 	
-     return (<div className="page-background1">
+     return (<div>
                   <MenuBar />
-    		     	<br />
+    		     	    <br />
     		     	<div className="row">
     		     		<div className="columns medium-10 center">
-    		     			<Header defaultValue="Daily View" />
+                  <br />
+    		     			<h3> Daily View</h3>
     		     			<br />
     		     		</div>
     		     	</div>
     		     	<div className="row">
     			     	<div className="columns medium-1 medium-offset-1">
-    			     		<MyButton clicked={this.previousDayClicked} className="tiny-button" type="button" value="Previous Day" />  
+    			     		<button onClick={this.previousDayClicked} className="tiny-button" type="button">PREVIOUS DAY</button> 
     			     	</div>
     			     	<div className="columns medium-3">
     			     		<Paragraph value={displayDate} className="date-dayview" shade=""/> 
     			     	</div>
     					<div className="columns medium-1">
 
-    			     		<MyButton clicked={this.nextDayClicked} className="tiny-button" type="button" value="Next Day" />  
+    			     		<button onClick={this.nextDayClicked} className="tiny-button" type="button" >NEXT DAY</button>  
     			     	</div>
     			     	<div className="columns medium-6">
     			     	</div>
@@ -67,7 +68,7 @@ var DailyView = React.createClass({
     				    </div>
     				    <div className="columns medium-4 medium-offset-1">
     				    	<h5>Manage Appointments</h5>
-    				    	<MyButton clicked={this.weeklyView} className="med-button" type="button" value="Go to Weekly View" /> 
+    				    	<MyButton clicked={this.weeklyView} className="med-button" type="button" value="Go to WEEKLY VIEW" /> 
     				    		
     					</div>
     				</div>

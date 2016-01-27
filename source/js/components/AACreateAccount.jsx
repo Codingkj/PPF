@@ -40,7 +40,7 @@ var CreateAccount = React.createClass({
   },
 
   render: function(){
-    return (<div className="page-background1">
+    return (<div className="backdrop">
               <MenuBar />
                  
 	    	 	 <form data-abide onSubmit={this.handleFormSubmit}>
@@ -55,32 +55,32 @@ var CreateAccount = React.createClass({
 				 <div className="row">
 				 		<div className="column medium-4 medium-offset-1">
 						      <label>Your First Name:
-						      <input type="text" className="field20" placeholder="<first name>" id="fname" ref="fname"></input>
+						      <input type="text" tabIndex="1" className="field20" placeholder="<first name>" id="fname" ref="fname"></input>
 						      </label>
 	
 						      <label>Your Email:
-						      <input type="text" className="field30" placeholder="<e.g. home@practice.com" id="emailaddy1" ref="username"></input>
+						      <input type="text" tabIndex="3" className="field30" placeholder="<e.g. home@practice.com" id="emailaddy1" ref="username"></input>
 						      </label>
 						      <label>Your Email (again, to prevent typos):
-						      <input type="text" className="field30" placeholder="<e.g. home@practice.com" id="emailaddy2" ref="email2"></input>
+						      <input type="text" tabIndex="4" className="field30" placeholder="<e.g. home@practice.com" id="emailaddy2" ref="email2"></input>
 						      </label>
 						      <label>Password
-						      <input type="password" className="field20" placeholder="<at least 6 characters>" id="pwd1" ref="password1"></input>
+						      <input type="password" tabIndex="5" className="field20" placeholder="<at least 6 characters>" id="pwd1" ref="password1"></input>
 						      </label>
-						      <p className="help-text" id="pwd1HelpText">Your password must be at least 6 characters long </p>
+						      <p className="help-text" tabIndex="6" id="pwd1HelpText">Your password must be at least 6 characters long </p>
 						      <label>Password: (again, to prevent typos)
 						      <input type="password" className="field20" placeholder="<at least 6 characters>" id="pwd2" ref="password2"></input>
 						      </label>
 						      <label>Your mobile phone number:
-						      <input className="field20" placeholder=" " id="mobile-phone" ref="mobile"></input>
+						      <input className="field20" tabIndex="7" placeholder=" " id="mobile-phone" ref="mobile"></input>
 						      </label>
 						      <label>An alternative phone number:
-						      <input id="alt-phone" className="field20" placeholder=" " ref="altPhone"></input>
+						      <input id="alt-phone" tabIndex="8" className="field20" placeholder=" " ref="altPhone"></input>
 						      </label>
 				      	 </div>
 				      	 <div className="columns medium-7">
 				      	 		<label>Your Last Name:
-						      	<input type="text" className="field20" placeholder="<last name>" id="lname" ref="lname"></input>
+						      	<input type="text" tabIndex="2" className="field20" placeholder="<last name>" id="lname" ref="lname"></input>
 						      	</label>
 				      	 </div>
 				 </div>
@@ -89,16 +89,16 @@ var CreateAccount = React.createClass({
 				<div className="row">
 					<div className="columns medium-1 medium-offset-1"> 
 							<label>Please tick:     
-						     <MyCheckbox />
+						     <MyCheckbox tabIndex="9" />
 						     </label>
 					</div>
 					<div className="columns medium-10">
-						      <Paragraph value="By creating an account, you agree that we may store details collected from this form for the purposes of operating this website. We will not share your details with anyone else." /><br />
+						      <p>By creating an account, you agree that we may store details collected from this form for the purposes of operating this website. We will not share your details with anyone else.</p><br />
 					</div>
 				</div>
 				<div className="row">
 					<div className="column medium-4 medium-offset-8">
-						      <button onClick={this.handleFormSubmit} className="med-button" type="submit">Create Account</button>
+						      <button tabIndex="10" onClick={this.handleFormSubmit} className="med-button" type="submit">Create Account</button>
 					</div>
 				</div>
 			    <br /><br />

@@ -26,13 +26,15 @@ var LandingPage = React.createClass({
      AppointmentActionCreators.login();
   },
 
-
-
   render: function(){
-    return (<div className="page-background1">
+
+    cfStatus = ClientStore.getContactFormStatus();
+
+    return (<div >
+              
               <MenuBar />
               
-              <div className="backdrop">
+              <div >
                   <div className="row">
                       <div className="columns medium-12 center">
                           <br />
@@ -40,7 +42,13 @@ var LandingPage = React.createClass({
                           <p className="title-text">Rejuvenation Private Practice </p>
                           <br /><br />
                           <p className="tagline">We specialise in MASSAGE, REIKI and ACUPUNCTURE</p>
-                    
+                      </div>
+                    </div>
+              </div>
+              <div >
+                  <div className="row">
+                      <div className="columns medium-12 center">
+
                           <PpButton clicked={this.titleClicked} value="Book An Appointment" className="x-large-button center" />
                       </div>
                   </div>  
@@ -50,7 +58,7 @@ var LandingPage = React.createClass({
                   
                   <div className="row">
                           <div className="medium-12 columns">
-                              <Header className="redbrown" defaultValue="Our Practitioners" />
+                              <Header className="redbrown center" defaultValue="Our Practitioners" />
                               <br /><br />
                           </div>
                   </div>
@@ -71,7 +79,7 @@ var LandingPage = React.createClass({
                           <ProfileImage src="http://placehold.it/130x130"/> <br />
                       </div>
                       <div className="column medium-6">
-                          <Paragraph className="profile-text" value="Dr Micheals has worked at Rejuvenation now for 7 year and has a wealth of experience in the Acupuncture field. He works Monday to Thursday at the clinic." />
+                          <Paragraph className="profile-text" value="Dr Micheals has worked at Rejuvenation now for 7 years and has a wealth of experience in the Acupuncture field. He works Monday to Thursday at the clinic." />
                       </div>
                       <div className="column medium-2">
                       </div>
@@ -81,8 +89,7 @@ var LandingPage = React.createClass({
         
                   <div className="row">
                       <div className="column medium-11 medium-offset-1">
-                          <br />
-                          <ContactForm />
+                          <ContactForm cfPanel={cfStatus} />
                       </div>
                   </div>      
        
@@ -104,11 +111,11 @@ var LandingPage = React.createClass({
                 </div>
               
                 <div className="row">
-                    <div className="column medium-12 center location-div"> 
+                    <div className="column medium-10 medium-offset-1 center location-div"> 
                     <a id="location"> 
-                          <Paragraph className="location-text" value="Street Address: 1122 Goodie Avenue, London, SE1 4U2"/>
-                          <Paragraph className="location-text" value="Office Phone: 555-2434"/>
-                          <Paragraph className="location-text" value="Email address: service@practice.com"/>
+                          <p className="location-text" >Street Address: 1122 Goodie Avenue, London, SE1 4U2 </p>
+                          <p className="location-text" >Office Phone: 555-2434</p>
+                          <p className="location-text" >Email address: service@practice.com</p>
                     </a>
                     </div>
                 </div>

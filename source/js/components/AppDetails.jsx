@@ -17,7 +17,7 @@ var AppDetails = React.createClass({
 
      return (
      	
-     		<div className="alert callout sml-panel-size" data-closable>
+     		<div id="app-details-panel" className="alert callout sml-panel-size" data-closable close-button>
 
      			<div className="row">
      				<div className="columns medium-12">

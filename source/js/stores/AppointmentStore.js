@@ -99,7 +99,8 @@ function addAppointment(action) {
     
 
 function addReminder(action) {
-	  currentState.reminderFlag = action.flag;
+	  currentState.reminderFlag = true;
+	  console.log('just set the reminder status to ',currentState.reminderFlag);
 	  AppointmentStore.emit('change');
 }
 function afterCreateAccount(action){
@@ -121,6 +122,7 @@ function bookPractitioner(action){
 }
 
 function changeDateToNextDay(action){
+
 
 	currentDate = new Date(currentState.wholeDate.getTime() + 24 * 60 * 60 * 1000);
  	console.log('IN NEXT DAY CurrentDate is now',currentDate);
@@ -175,8 +177,6 @@ function changeToPreviousWeek(action){
 	currentDateUsed = currentState.wholeDate;
    	currentDate = new Date(currentDateUsed.getTime() - 7 * 24 * 60 * 60 * 1000);
 	
-	
-	year = currentDate.getFullYear();
 
 	currentState.wholeDate = currentDate;
 	currentState.date = currentDate.getDate();
@@ -186,9 +186,11 @@ function changeToPreviousWeek(action){
 	var month = currentDate.getMonth();
 	currentState.month = month.toString();
 	currentState.monthName = MONTH[month];
+
 	var tempyear = currentDate.getFullYear();
 	currentState.year = tempyear.toString();
 
+    currentState.currentPage = 'WeekView';
 	AppointmentStore.emit('change');
 }
 
@@ -197,8 +199,7 @@ function changeToNextWeek(action){
 	currentDateUsed = currentState.wholeDate;
    	currentDate = new Date(currentDateUsed.getTime() + 7 * 24 * 60 * 60 * 1000);
 	
-	
-	year = currentDate.getFullYear();
+	console.debug('IN CHANGE TO NEXT WEEK',currentDate);
 
 	currentState.wholeDate = currentDate;
 	currentState.date = currentDate.getDate();
@@ -208,30 +209,56 @@ function changeToNextWeek(action){
 	var month = currentDate.getMonth();
 	currentState.month = month.toString();
 	currentState.monthName = MONTH[month];
+	console.debug('IN CHANGE TO NEXT WEEK',currentDate);
+	
 	var tempyear = currentDate.getFullYear();
 	currentState.year = tempyear.toString();
 
+	currentState.currentPage = 'WeekView';
 	AppointmentStore.emit('change');
 
 }
 function changeToNextMonth(action){
-  var currentDate = currentState.wholeDate;
-  currentDate = new Date(currentDate.getTime());
+  
+    var currentDate = action.currentDate;
+    console.log('IN STORE and currentdate just changed in Previous Month to',currentDate)
+    currentDate = new Date(currentDate.getTime());
 
-	month = currentDate.getMonth();
-	currentState.month = MONTH[month+1];
+    currentState.dateChosen = '';
+	currentState.wholeDate = currentDate;
 
- AppointmentStore.emit('change');
+	var tempMonth = currentDate.getMonth();
+	currentState.monthSelected = MONTH[tempMonth];
+	currentState.monthName = MONTH[tempMonth];
+	console.log('Just set the month NAME to ',currentState.monthSelected);
+	console.log('in date Month is',MONTH[tempMonth],currentState.monthSelected);
+	currentState.yearSelected = currentDate.getFullYear();
+
+	currentState.currentDate = action.currentDate;
+	currentState.currentPage = 'DateTime';
+    AppointmentStore.emit('change');
+
 }
 
 function changeToPreviousMonth(action){
-  var currentDate = currentState.wholeDate;
-  currentDate = new Date(currentDate.getTime());
+  
+    var currentDate = action.currentDate;
+    console.log('IN STORE and currentdate just changed in Previous Month to',currentDate)
+    currentDate = new Date(currentDate.getTime());
 
-	month = currentDate.getMonth();
-	currentState.month = MONTH[month-1];
+    currentState.dateChosen = '';
+	currentState.wholeDate = currentDate;
+	currentState.daySelected = currentDate.getDate();
 
-  AppointmentStore.emit('change');
+	var tempMonth = currentDate.getMonth();
+	currentState.monthSelected = MONTH[tempMonth];
+	currentState.monthName = MONTH[tempMonth];
+
+	currentState.yearSelected = currentDate.getFullYear();
+
+	currentState.currentDate = action.currentDate;
+	currentState.currentPage = 'DateTime';
+    AppointmentStore.emit('change');
 }
 
 
@@ -279,6 +306,8 @@ function highlightTime(action){
 
 function landingPage(action){
 	currentState.currentPage = 'LandingPage';
+	if (action.gotoPlace =='contacts')
+		{};
     AppointmentStore.emit('change');
 }
 function login(action){
@@ -299,7 +328,7 @@ function removeAppointment(AppointmentId) {
 	 AppointmentStore.emit('change');
 }
 function removeReminder(action) {
-	currentState.reminderFlag = action.flag;
+	currentState.reminderFlag = false;
   	AppointmentStore.emit('change');
 }
 
@@ -446,6 +475,7 @@ var AppointmentStore = objectAssign({}, EventEmitter.prototype, {
 		return currentState.daySelected;
 	},
 	getToken: function(){
+		console.log('returning this Token from STORE:',currentState.token);
 		return currentState.token;
 	},
 	getReminderFlag: function(){
@@ -488,7 +518,6 @@ function handleAction(action) {
   	changeToPreviousWeek(action);
    } else if (action.type === 'clear_date'){
   	currentState.isDateChosen = false;
-  
   }	else if (action.type === 'dashboard'){
   	dashboard(action);
   }	else if (action.type === 'show_dashboard_practitioner'){
@@ -538,6 +567,8 @@ function handleAction(action) {
   	returnedAppointmentsOnOneDay(action);
   } else if (action.type === 'app_details'){
   	showApptDetails(action);
+  }	else if (action.type === 'store_token'){
+  	storeMyToken(action);
   }	else if (action.type === 'show_free_times'){
   	showFreeTimes(action);
   }	else if (action.type === 'success_message'){
@@ -562,8 +593,7 @@ function handleAction(action) {
   	unlockAppointment(action);
   } else if (action.type === 'week_view'){
   	weekView(action);
-  }	else if (action.type === 'store_token'){
-  	storeMyToken(action);
+ 
   }
 }
 

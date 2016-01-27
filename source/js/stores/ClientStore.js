@@ -30,6 +30,7 @@ var client ={
 }
 
 var returnedClients = [];
+var contactFormStatus = 'OFF';
 
 function addClient(client) {
   Customers[client.id] = client;
@@ -69,6 +70,9 @@ var ClientStore = objectAssign({}, EventEmitter.prototype, {
   getCurrentClientEmail: function (email) {
     return client.currentClientEmail;
 	},
+  getContactFormStatus: function(){
+    return contactFormStatus;
+  },
 
 });
 
@@ -81,9 +85,12 @@ function handleAction(action) {
     returnedClients = action.data;
     console.log('IN CLIENT STORE ',action.data);
   } else if (action.type === 'set_clientEmail') {
-    client.currentClientEmail = (action.email);
+    client.currentClientEmail = action.email;
     ClientStore.emit('change');
-  } 
+  } else if (action.type === 'contact_form_sent'){
+    getContactFormStatus = 'ON';
+    ClientStore.emit('change');
+  }
 }
 
 ClientStore.dispatchToken = Dispatcher.register(handleAction);

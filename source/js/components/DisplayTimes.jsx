@@ -10,115 +10,91 @@ var AppointmentActionCreators = require('../actions/AppointmentActionCreators.js
 
 var DisplayTimes= React.createClass({
 	
+
   freeTimes: function (dateChosen){
-	var freeTimes = [];
-	for (var x = 0; x < 11; x++){
-			freeTimes[x] = 'free';
-			}
+	var freeTimes = ['free','free','free','free','free','free','free','free','free','free','free'];
+	var MONTH = ['January','February','March','April','May','June','July','August','September','October','November','December'];	
 	var counter = 0;
 
-	var appointmentsOnTheDay = AppointmentStore.getCurrentUserAppointments();
+	var allAppointments = AppointmentStore.getCurrentUserAppointments();
 	
-	console.log('inside Freetimes appointmentsOnTheDay ARE: ',appointmentsOnTheDay);
-	console.log('inside FREETIMES and DateChosen is....',dateChosen);
-	console.log('LENGTH of appointmentsOnTheDay is...',appointmentsOnTheDay.length);
+	console.log('LENGTH of appointmentsOnTheDay is...',allAppointments.length);
 
-    for (var counter=0; counter<appointmentsOnTheDay.length -1;counter++){
 
-    	if (appointmentsOnTheDay[counter].date == dateChosen) {
- 
-    			console.debug('CHECKING DAILY SLOTS',appointmentsOnTheDay[0].time);
+	allAppointments.forEach(function (appointment){
+		console.log('appointment is',appointment);
+	});
+    
+    for (var counter=0; counter<allAppointments.length -1;counter++){
 
-				if (appointmentsOnTheDay[counter].time == '9'){
-					if (appointmentsOnTheDay[counter].clientEmail === ""){
-						freeTimes[counter] = 'free';
+    	var targetDate=dateChosen.getTime();
+ 		console.log('YEARS:',allAppointments[counter].year, dateChosen.getFullYear());
+ 		console.log('MONTHS:',allAppointments[counter].month, MONTH[dateChosen.getMonth()]);
+ 		console.log('DAYS:',allAppointments[counter].day, dateChosen.getDate());
+        
+        if (allAppointments[counter].year == dateChosen.getFullYear()){
+
+        	if (allAppointments[counter].month == MONTH[dateChosen.getMonth()]){
+
+        		if (allAppointments[counter].day == dateChosen.getDate()){
+
+    			console.debug('INSIDE FOR LOOOP ON DISPLAYtimeS', allAppointments[counter].time);
+    			
+				
+				if (allAppointments[counter].time == '9'){
+						freeTimes[0] = 'busy';
 						}
-					else {
-						freeTimes[counter] = 'busy';
-				}
-			}
-				if (appointmentsOnTheDay[counter].time == '10'){
-					if (appointmentsOnTheDay[counter].clientEmail !== ""){
-							freeTimes[counter] = 'busy';
+			
+				else if (allAppointments[counter].time == '10'){
+							freeTimes[1] = 'busy';
 							}
-						else {
-							freeTimes[counter] = 'free';
-					}
-				}
-				if (appointmentsOnTheDay[counter].time == '11'){
-					if (appointmentsOnTheDay[counter].clientEmail !== ""){
-							freeTimes[counter] = 'busy';
+		
+				
+				else if (allAppointments[counter].time == '11'){			
+							freeTimes[2] = 'busy';
 							}
-						else {
-							freeTimes[counter] = 'free';
-					}
-				}
-				if (appointmentsOnTheDay[counter].time == '12'){
-					if (appointmentsOnTheDay[counter].clientEmail !== ""){
-							freeTimes[counter] = 'busy';
+						
+				
+				else if (allAppointments[counter].time == '12'){
+							freeTimes[3] = 'busy';
 							}
-						else {
-							freeTimes[counter] = 'free';
-					}
-				}
-				if (appointmentsOnTheDay[counter].time == '13'){
-					if (appointmentsOnTheDay[counter].clientEmail !== ""){
-							freeTimes[counter] = 'busy';
+				
+				else if (allAppointments[counter].time == '13'){
+							freeTimes[4] = 'busy';
 							}
-						else {
-							freeTimes[counter] = 'free';
-					}
-				}
-				if (appointmentsOnTheDay[counter].time == '14'){
-					if (appointmentsOnTheDay[counter].clientEmail !== ""){
-							freeTimes[counter] = 'busy';
+			
+				else if (allAppointments[counter].time == '14'){				
+							freeTimes[5] = 'busy';
 							}
-						else {
-							freeTimes[counter] = 'free';
-					}
-				}
-				if (appointmentsOnTheDay[counter].time == '15'){
-					if (appointmentsOnTheDay[counter].clientEmail !== ""){
-							freeTimes[counter] = 'busy';
+			
+				else if (allAppointments[counter].time == '15'){
+							console.debug('ITS A MATCH');
+							freeTimes[6] = 'busy';
+							console.log('freetimes[counter]',counter, freeTimes[counter]);
 							}
-						else {
-							freeTimes[counter] = 'free';
-					}
-				}
-				if (appointmentsOnTheDay[counter].time == '16'){
-					if (appointmentsOnTheDay[counter].clientEmail !== ""){
-							freeTimes[counter] = 'busy';
+				
+				else if (allAppointments[counter].time == '16'){
+							freeTimes[7] = 'busy';
 							}
-						else {
-							freeTimes[counter] = 'free';
-					}
-				}
-				if (appointmentsOnTheDay[counter].time == '17'){
-					if (appointmentsOnTheDay[counter].clientEmail !== ""){
-							freeTimes[counter] = 'busy';
+				
+				else if (allAppointments[counter].time == '17'){	
+							freeTimes[8] = 'busy';
 							}
-						else {
-							freeTimes[counter] = 'free';
-					}
-				}
-				if (appointmentsOnTheDay[counter].time == '18'){
-					if (appointmentsOnTheDay[counter].clientEmail !== ""){
-							freeTimes[counter] = 'busy';
+					
+				
+				else if (allAppointments[counter].time == '18'){
+							freeTimes[9] = 'busy';
 							}
-						else {
-							freeTimes[counter] = 'free';
-					}
-				}
-				if (appointmentsOnTheDay[counter].time == '19'){
-					if (appointmentsOnTheDay[counter].clientEmail !== ""){
-							freeTimes[counter] = 'busy';
+				
+				else if (allAppointments[counter].time == '19'){
+							freeTimes[10] = 'busy';
 							}
-						else {
-							freeTimes[counter] = 'free';
+				console.log('FREETIMES at Step 1 are',freeTimes);		
 						}
-					}
-				}	
-		}
+				}
+			}	
+		}  //end of for loop
+
 	return freeTimes;
   },
 

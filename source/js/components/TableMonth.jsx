@@ -78,28 +78,48 @@ var TableMonth = React.createClass({
 
   previousMonth: function(){
       var currentDate = AppointmentStore.getCurrentWholeDate();
-      var currentMonth = currentDate.getMonth();
-      currentMonth = currentMonth - 1;
-      var newMonth = currentDate.setMonth(currentDate.getMonth() - 1);
-      var newFullDate = new Date()
-      return newFullDate;
+
+      currentMonth = currentDate.getMonth();
+      console.log('currentMonth =',currentMonth);
+      if (currentMonth == 0)
+          {
+          currentMonth = 11;
+        } else {
+        currentMonth = currentMonth - 1;
+        currentYear = currentDate.getFullYear() - 1;
+        }
+      console.log('currentMonth =',currentMonth);
+      
+      var newFullDate = new Date();
+      console.log('fulldate =',newFullDate);
+      newFullDate.setMonth(currentMonth,1);
+      
+      console.debug('having added in previous month',newFullDate);
+      AppointmentActionCreators.changeToPreviousMonth(newFullDate);
   },
 
   nextMonth: function(){
-      var currentDate = AppointmentStore.getCurrentWholeDate();
+       var currentDate = AppointmentStore.getCurrentWholeDate();
 
-      newFullDate = new Date(currentDate.getMonth()+1)%12+1;
-      console.log('having added in next month',newFullDate);
+      currentMonth = currentDate.getMonth();
+      console.log('currentMonth =',currentMonth);
+      if (currentMonth == '11')
+          {
+          currentMonth = 0;
+          currentYear = currentDate.getFullYear() + 1;
+        } else {
+       currentMonth = currentMonth + 1;
+        }
+      console.log('currentMonth =',currentMonth);
       
+      var newFullDate = new Date();
+      console.log('fulldate =',newFullDate);
+      newFullDate.setMonth(currentMonth,1);
+     
+      console.debug('having added in next month',newFullDate);
+      AppointmentActionCreators.changeToNextMonth(newFullDate);
   },
 
-  nextMonthDateClicked:function(event){
-    AppointmentActionCreators.nextMonth();
-  },
-
-  previousMonthDateClicked:function(event){
-    AppointmentActionCreators.previousMonth();
-  },
 
   render: function() {
        
@@ -120,9 +140,9 @@ var TableMonth = React.createClass({
       <table>
       	<thead>
             <tr>
-                <th onClick={this.previousMonth}>PREV</th>
+                <th><button onClick={this.previousMonth}>PREV</button></th>
                 <th className="center calendar-month" colSpan="5">{displayMonth}</th>
-                <th onClick={this.nextMonth}>NEXT</th>
+                <th><button onClick={this.nextMonth}>NEXT</button></th>
             </tr>
       		  <tr >
       			

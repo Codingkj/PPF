@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Header = require('./Header.jsx');
 var MyButton = require('./Buttons.jsx');
-var DatePanel = require('./DatePanel.jsx');
+
 var DateBox = require('./DateBox.jsx');
 var LargeDatePanel = require('./LargeDatePanel.jsx');
 var MenuBar = require('./MenuBar.jsx');
@@ -30,24 +30,9 @@ var Dashboard = React.createClass({
 
   cancelApptClicked: function(event){
     event.preventDefault();
-     AppointmentActionCreators.cancelAppointment();
+     AppointmentActionCreators.removeAppointment(event.target.id);
   },
 
-  changeReminder: function(event){
-    event.preventDefault();
-     if (reminderStatus == 'ON'){
-     AppointmentActionCreators.addReminder();
-   }
-  },
-
-
-  changeReminder:function(){
-      if (reminderStatus === 'ON') {
-        AppointmentStore.setReminderOff();
-      } else {
-        AppointmentStore.setReminderOn();
-      }
-  },
 
   setReminderValues: function(appointmentReminder){
     var reminderStatus = {};
@@ -67,16 +52,15 @@ var Dashboard = React.createClass({
 
   appointmentsToShow: function(Appointments){
     var orderedAppointments = [];
+
     console.log('values of appointments as in appointmentstoshow:',Appointments[1]);
   },
 
   getDateBoxElements: function (appointments) {
     return appointments.map(function (appointment) {
       var currentClientEmail = ClientStore.getCurrentClientEmail();
-      console.log('currentClientEmail is',currentClientEmail);
-      console.log('appointment.practitioner is',appointment.practitioner);
       if (currentClientEmail === appointment.clientEmail){
-      return (<DateBox key={appointment._id} month={appointment.month} day={appointment.day} time={appointment.time} treatment={appointment.treatment} practitioner={appointment.practitioner} buttonStatus={appointment.reminderFlag} />);
+      return (<DateBox key={appointment._id} id={appointment.id} month={appointment.month} day={appointment.day} time={appointment.time} treatment={appointment.treatment} practitioner={appointment.practitioner} reminder={appointment.reminderFlag} />);
     }
    });
   },
@@ -89,7 +73,7 @@ var Dashboard = React.createClass({
     var newList = this.appointmentsToShow(allAppointments);
     
 
-    return (<div className="page-background1">
+    return (<div >
 
           <ClientMenuBar />
 
